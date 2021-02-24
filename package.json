@@ -1,7 +1,7 @@
 {
   "name": "lernflix",
   "version": "0.0.1",
-  "description": "lernflix webapp",
+  "description": "Ein kollaboratives Lerntool für das gemeinsame Betrachten und Diskutieren von Lernvideos",
   "engines": {
     "node": "14.x"
   },
