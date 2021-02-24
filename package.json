@@ -1,21 +1,31 @@
 {
-  "name": "laslesvpn",
-  "version": "1.0.0",
-  "description": "Landing & Corporate Template",
-  "main": "gulpfile.js",
-  "scripts": {
-    "start": "npm server.js"
+  "name": "lernflix",
+  "version": "0.0.1",
+  "description": "lernflix webapp",
+  "engines": {
+    "node": "14.x"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "devDependencies": {
-  
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "node test.js"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.14.0",
-    "@popperjs/core": "^2.6.0",
-    "bootstrap": "5.0.0-beta1",
-    "express": "^4.17.1"
-  }
+    "ejs": "^3.1.5",
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "got": "^11.3.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.hs-ruhrwest.de/lernflix"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
 }
