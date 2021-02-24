@@ -24,6 +24,10 @@ Ist dies der Fall, könnt Ihr via 'git checkout -b heroku' in die Remote-Heroku-
 Überprüft das nochmal via 'git branch'.
 Dann müsste der Kopf auf dem Origin von heroku sitzen und Ihr könnt ganz normal 'git push -u origin heroku' durchführen.
 
+# Datenbank
+Es gibt keine kostenfreien MongoDBs mehr für Heroku (wäre sinnvoll gewesen für das npm ltijs-Paket). Daher wird nun eine kostenfreie PostgreSQL-Datenbank gehostet (postgresql-infinite-15588).
+Doku zur PostgreSQL gibt es im CLI via 'heroku addons:docs heroku-postgresql'
+
 # node-js-getting-started
 
 A barebones Node.js app using [Express 4](http://expressjs.com/).
