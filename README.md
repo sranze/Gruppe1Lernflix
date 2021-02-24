@@ -1,3 +1,29 @@
+# Server information
+
+Es ist ein Heroku Server (glacial-anchorage-18932). Seite erreichbar unter: https://glacial-anchorage-18932.herokuapp.com/
+
+Derweil solltet Ihr Heroku CLI installieren und lokal testen.
+
+Wichtig: Lokal vorhandene Dateien, Module, Pakete usw. m ü s s e n serverseitig bereitgestellt werden.
+
+# Logs
+
+Hiermit könnt Ihr Logs ansehen, um ggfs. nicht gleichzeitig zu pushen:
+heroku logs --source app --tail
+
+# Vorgehensweise Pull, Commit, Push usw.
+
+Ladet euch wie bisher diese Branch lokal in euer Repo. Legt diese Branch ggfs. lokal an.
+
+Ganz normal 'git add .' danach einen Commit mit message via 'git commit -m "Commit Nachricht"'. 
+Wenn Ihr nun ins Gitlab Repo pushen wollt, könnt Ihr das wie gewohnt tun. 
+
+Wenn Ihr auf dem Server deployen wollt, dann müsst Ihr ggfs. die Remote Branch hinzufügen. 
+Schaut also zuerst, ob die Heroku Branch bereits via 'git remove -v' da ist. 
+Ist dies der Fall, könnt Ihr via 'git checkout -b heroku' in die Remote-Heroku-Branch wechseln. 
+Überprüft das nochmal via 'git branch'.
+Dann müsste der Kopf auf dem Origin von heroku sitzen und Ihr könnt ganz normal 'git push -u origin heroku' durchführen.
+
 # node-js-getting-started
 
 A barebones Node.js app using [Express 4](http://expressjs.com/).
