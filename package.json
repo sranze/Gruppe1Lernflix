@@ -4,14 +4,7 @@
   "description": "Landing & Corporate Template",
   "main": "gulpfile.js",
   "scripts": {
-    "start": "npm server.js",
-    "build": "cross-env MODE=PROD gulp build",
-    "build:test": "cross-env MODE=PROD gulp build:test",
-    "live": "gulp compile:all && cross-env MODE=PROD gulp live",
-    "publish": "git subtree push --prefix live origin gh-pages",
-    "localhost": "ssh -R 80:localhost:3000 ssh.localhost.run",
-    "deploy": "gh-pages -d live",
-    "deploy:debug": "NODE_DEBUG=gh-pages npm run deploy"
+    "start": "npm server.js"
   },
   "keywords": [],
   "author": "",
