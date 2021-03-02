@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require('path')
-const PORT = process.env.PORT || 2000
+const PORT = process.env.PORT || 3000
 
 const Database = require('ltijs-sequelize')
 const lti = require('ltijs').Provider
@@ -37,7 +37,7 @@ lti.setup('LTIKEY', // Key used to sign cookies and tokens
 // Set lti launch callback
 lti.onConnect((token, req, res) => {
   console.log(token)
-  return res.send('It\'s alive!')
+  //return res.send('It\'s alive!')
 })
 
 const setup = async () => {
