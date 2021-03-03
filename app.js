@@ -69,9 +69,23 @@ app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname + "/public/html/error_404.html"));
 });
 
-var appEnv = cfenv.getAppEnv(); // Get app env
+var appEnv = process.env.PORT || 8080 // Get app env
 
 // start server on the specified port and binding host
 server.listen(appEnv.port, '0.0.0.0', function() {
     console.log("server starting on " + appEnv.url); // print a message when the server starts listening
 });
+
+
+/*
+const express = require('express')
+const http = require('http')
+const WebSocket = require('ws')
+
+const port = process.env.PORT || 8080
+const app = express()
+const httpServer = http.createServer(app)
+const wss = new WebSocket.Server({
+    'server': httpServer
+})
+httpServer.listen(port)*/
