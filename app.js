@@ -78,7 +78,7 @@ server.listen(appEnv.port, '0.0.0.0', function() {
 */
 var express = require('express');
 var app = express();
-var server = app.listen(3001);
+var server = app.listen(80);
 var io = require('socket.io').listen(server);
 
 
