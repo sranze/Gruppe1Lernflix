@@ -18,6 +18,11 @@ var sessions = {}; // array contains info about different sessions
 
 app.use(express.static(__dirname + '/public')); // serve the files out of ./public as our main files (css, js, html)
 
+// When client connects, open new Websocket connection
+io.on('connection', socket => {
+    console.log("Client successfully via LTI authenticated. New Websocket connection established.\n");
+});
+
 app.post("*", require("body-parser").urlencoded({ extended: true }));
 
 // OAuth Post
@@ -29,10 +34,6 @@ app.post("/auth", (req, res) => {
             res.sendFile(path.join(__dirname + "/public/html/not_authenticated.html"));
             return;
         } else {
-            // When client connects, open new Websocket connection
-            io.on('connection', socket => {
-                console.log("Client successfully via LTI authenticated. New Websocket connection established.\n");
-            });
             var sessionID = uuid();
             sessions[sessionID] = moodleData;
 
