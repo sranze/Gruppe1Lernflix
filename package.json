@@ -14,8 +14,7 @@
         "ims-lti": "*",
         "moment": "^2.29.1",
         "utf-8-validate": "^5.0.4",
-        "uuid4": "*",
-        "ws": "^7.4.3"
+        "uuid4": "*"
     },
     "repository": {},
     "engines": {

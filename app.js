@@ -1,29 +1,4 @@
-'use strict';
-
-const express = require('express');
-const { Server } = require('ws');
-
-const PORT = process.env.PORT || 3000;
-const INDEX = 'public/html/index.html';
-
-const server = express()
-    .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-    .listen(PORT, () => console.log(`Listening on ${PORT}`));
-
-const wss = new Server({ server });
-
-wss.on('connection', (ws) => {
-    console.log('Client connected');
-    ws.on('close', () => console.log('Client disconnected'));
-});
-
-setInterval(() => {
-    wss.clients.forEach((client) => {
-        client.send(new Date().toTimeString());
-    });
-}, 1000);
-
-/*const express = require('express'); // Express as webserver
+const express = require('express'); // Express as webserver
 const PORT = process.env.PORT || 3000;
 
 const path = require('path');
@@ -94,4 +69,4 @@ app.get('*', function(req, res) {
 // start server on the specified port and binding host
 server.listen(PORT, '0.0.0.0', function() {
     console.log("server starting on " + PORT); // print a message when the server starts listening
-});*/
+});
