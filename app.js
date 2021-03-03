@@ -18,11 +18,6 @@ var sessions = {}; // array contains info about different sessions
 
 app.use(express.static(__dirname + '/public')); // serve the files out of ./public as our main files (css, js, html)
 
-// When client connects, open new Websocket connection
-io.on('connection', socket => {
-    console.log("Client successfully via LTI authenticated. New Websocket connection established.\n");
-});
-
 app.post("*", require("body-parser").urlencoded({ extended: true }));
 
 // OAuth Post
@@ -70,6 +65,11 @@ app.get('*', function(req, res) {
 });
 
 var appEnv = cfenv.getAppEnv(); // Get app env
+
+// When client connects, open new Websocket connection
+io.on('connection', socket => {
+    console.log("Client successfully via LTI authenticated. New Websocket connection established.\n");
+});
 
 // start server on the specified port and binding host
 server.listen(appEnv.port, '0.0.0.0', function() {
