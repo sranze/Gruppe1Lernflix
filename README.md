@@ -28,6 +28,11 @@ Dann müsste der Kopf auf dem Origin von heroku sitzen und Ihr könnt ganz norma
 Es gibt keine kostenfreien MongoDBs mehr für Heroku (wäre sinnvoll gewesen für das npm ltijs-Paket). Daher wird nun eine kostenfreie PostgreSQL-Datenbank gehostet (postgresql-infinite-15588).
 Doku zur PostgreSQL gibt es im CLI via 'heroku addons:docs heroku-postgresql'
 
+# LTI-Protokoll
+Das npm Paket ims-lti wurde implementiert, um die Authentifizierung aus Moodle nach Lernflix zu ermöglichen.
+Man kann im externen Tool in Moodle custom-Variablen zur Übertragung mit bereitstellen.
+In app.js können in der Variable sessions alle übertragenen (auch custom-) Parameter eingesehen werden. Diese werden auch serverseitig geloggt. 
+
 # node-js-getting-started
 
 A barebones Node.js app using [Express 4](http://expressjs.com/).

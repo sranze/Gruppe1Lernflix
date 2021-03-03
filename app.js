@@ -20,7 +20,7 @@ app.post("*", require("body-parser").urlencoded({extended: true}));
 
 // OAuth
 app.post("/auth", (req, res) => {	
-	var moodleData = new lti.Provider("top", "secret"); // 
+	var moodleData = new lti.Provider("3=((gMW7aqH[ZzKr", "3:7Uz2z\hZwh+m=Y"); // First is "Anwenderschlüssel" in Moodle. Second is "Öffentliches Kennwort"
 	moodleData.valid_request(req, (err, isValid) => {
 		if (!isValid) {
 			res.send("Invalid request: " + err);
