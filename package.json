@@ -3,7 +3,8 @@
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
-		"start": "node app.js"
+		"start": "node app.js",
+		"dev": "nodemon server"
 	},
 	"dependencies": {
 		"body-parser": "*",
@@ -17,5 +18,8 @@
 	"repository": {},
 	"engines": {
 		"node": "6.x"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.7"
 	}
 }
