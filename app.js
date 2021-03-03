@@ -76,10 +76,10 @@ server.listen(appEnv.port, '0.0.0.0', function() {
     console.log("server starting on " + appEnv.url); // print a message when the server starts listening
 });
 */
+const express = require('express'); // Express as webserver
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
-const express = require('express'); // Express as webserver
 const path = require('path');
 
 io.on('connection', (socket) => {
