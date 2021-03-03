@@ -1,5 +1,5 @@
 const express = require('express'); // Express as webserver
-const socketIO = require(socket.io);
+const socketIO = require("socket.io");
 const PORT = process.env.PORT || 3000;
 
 const path = require('path');
