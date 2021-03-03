@@ -76,16 +76,17 @@ server.listen(appEnv.port, '0.0.0.0', function() {
     console.log("server starting on " + appEnv.url); // print a message when the server starts listening
 });
 */
-const express = require('express'); // Express as webserver
-const app = require('express')();
-const http = require('http').Server(app);
-const io = require('socket.io')(http);
-const path = require('path');
+var express = require('express');
+var app = express();
+var server = app.listen(3001);
+var io = require('socket.io').listen(server);
+
 
 io.on('connection', (socket) => {
     console.log('a user connected');
 });
 
+/*
 app.use(express.static(__dirname + '/public')); // serve the files out of ./public as our main files (css, js, html)
 
 app.post("*", require("body-parser").urlencoded({ extended: true }));
@@ -137,3 +138,4 @@ app.get('/auth', function(req, res) {
 app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname + "/public/html/error_404.html"));
 });
+*/
