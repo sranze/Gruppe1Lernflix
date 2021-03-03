@@ -1,3 +1,4 @@
+/*
 const express = require('express'); // Express as webserver
 const path = require('path');
 const cfenv = require('cfenv'); // cfenv provides access to your Cloud Foundry environment, e.g.: port, http binding host name/ip address, URL of the application
@@ -75,9 +76,9 @@ var appEnv = process.env.PORT || 8080 // Get app env
 server.listen(appEnv.port, '0.0.0.0', function() {
     console.log("server starting on " + appEnv.url); // print a message when the server starts listening
 });
+*/
 
 
-/*
 const express = require('express')
 const http = require('http')
 const WebSocket = require('ws')
@@ -88,4 +89,4 @@ const httpServer = http.createServer(app)
 const wss = new WebSocket.Server({
     'server': httpServer
 })
-httpServer.listen(port)*/
+httpServer.listen(port)
