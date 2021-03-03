@@ -13,7 +13,6 @@
         "express": "^4.17.1",
         "ims-lti": "*",
         "moment": "^2.29.1",
-        "socket.io": "^2.4.1",
         "uuid4": "*"
     },
     "repository": {},

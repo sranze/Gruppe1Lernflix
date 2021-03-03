@@ -1,5 +1,4 @@
 const express = require('express'); // Express as webserver
-const socketIO = require("socket.io");
 const PORT = process.env.PORT || 3000;
 
 const path = require('path');
@@ -70,11 +69,4 @@ app.get('*', function(req, res) {
 // start server on the specified port and binding host
 server.listen(PORT, '0.0.0.0', function() {
     console.log("server starting on " + PORT); // print a message when the server starts listening
-});
-
-const io = socketIO(server);
-
-io.on('connection', (socket) => {
-    console.log("Client connected");
-    socket.on('disconnect', () => console.log('Client disconnected'));
 });
