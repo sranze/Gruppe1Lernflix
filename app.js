@@ -69,7 +69,7 @@ app.get('*', function(req, res) {
 
 // start server on the specified port and binding host
 server.listen(PORT, '0.0.0.0', function() {
-    console.log("server starting on " + appEnv.url); // print a message when the server starts listening
+    console.log("server starting on " + PORT); // print a message when the server starts listening
 });
 
 const io = socketIO(server);
