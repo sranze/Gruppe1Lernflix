@@ -8,12 +8,14 @@
     },
     "dependencies": {
         "body-parser": "*",
+        "bufferutil": "^4.0.3",
         "cfenv": "^1.2.3",
         "express": "^4.17.1",
         "ims-lti": "*",
         "moment": "^2.29.1",
-        "socket.io": "*",
-        "uuid4": "*"
+        "utf-8-validate": "^5.0.4",
+        "uuid4": "*",
+        "ws": "^7.4.3"
     },
     "repository": {},
     "engines": {
