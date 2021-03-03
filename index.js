@@ -1,96 +1,55 @@
-const express = require('express')
-const path = require('path')
-const PORT = process.env.PORT || 3000
+var express = require('express'); // Express as webserver
 
-const Database = require('ltijs-sequelize')
-const lti = require('ltijs').Provider
-const { Sequelize } = require('sequelize');
+var cfenv = require('cfenv'); // cfenv provides access to your Cloud Foundry environment, e.g.: port, http binding host name/ip address, URL of the application
 
+var uuid = require("uuid4"); // is used for session IDs
+var lti = require("ims-lti"); // is used to implement the actual LTI-protocol
 
+var fs = require('fs'); // filesystem
+var index = fs.readFileSync("index.html", "utf8");
 
-const db = new Database("dqaaogcnf104s", "hqeqpijokilgsq", "f02927df9cdeb15c6314dc34dacefff33ab082175f94f81c6be5fde3858ee5a0", {
-    host: "ec2-52-70-67-123.compute-1.amazonaws.com",
-    dialect: 'postgres',
-    "dialectOptions": {
-      "ssl": {
-            require: true,
-            rejectUnauthorized: false
-            }
-    }
-    });
+var app = express(); // create a new express server
 
-// Setup provider
-lti.setup('LTIKEY', // Key used to sign cookies and tokens
-  {
-    plugin: db // Passing db object to plugin field
-  },
-  { // Options
-    appRoute: '/', loginRoute: '/login', // Optionally, specify some of the reserved routes
-    cookies: {
-      secure: false, // Set secure to true if the testing platform is in a different domain and https is being used
-      sameSite: '' // Set sameSite to 'None' if the testing platform is in a different domain and https is being used
-    },
-    devMode: false // Set DevMode to true if the testing platform is in a different domain and https is not being used
-  }
-)
+app.enable('trust proxy'); // Propably not necessary. Heroku App most likely doesnt run behind proxy??
 
-// Set lti launch callback
-lti.onConnect((token, req, res) => {
-  console.log(token)
-  //return res.send('It\'s alive!')
-})
+var sessions = {}; // array contains info about different sessions
 
-const setup = async () => {
-  // Deploy server and open connection to the database
-  await lti.deploy({ port: 3000 }) // Specifying port. Defaults to 3000
+app.use(express.static(__dirname + '/public')); // serve the files out of ./public as our main files
 
-  // Register platform
-  await lti.registerPlatform({
-    url: 'https://platform.url',
-    name: 'Platform Name',
-    clientId: 'TOOLCLIENTID',
-    authenticationEndpoint: 'https://platform.url/auth',
-    accesstokenEndpoint: 'https://platform.url/token',
-    authConfig: { method: 'JWK_SET', key: 'https://platform.url/keyset' }
-  })
-}
+app.post("*", require("body-parser").urlencoded({extended: true}));
 
-setup()
+// OAuth
+app.post("/auth", (req, res) => {	
+	var moodleData = new lti.Provider("top", "secret"); // 
+	moodleData.valid_request(req, (err, isValid) => {
+		if (!isValid) {
+			res.send("Invalid request: " + err);
+			return ;
+		}
+		
+		var sessionID = uuid();
+		sessions[sessionID] = moodleData;
 
+        // Shows all available session data from Moodle in Server logs
+        console.log("\n\n\nAvailable Data:\n" + JSON.stringify(sessions));
+	
+		var sendMe = index.toString().replace("//PARAMS**GO**HERE",
+				`
+					const params = {
+						sessionID: "${sessionID}",
+						user: "${moodleData.body.ext_user_username}"
+					};
+				`);
 
-// First Try: Old Connection to database
+		res.setHeader("Content-Type", "text/html");
+		res.send(sendMe);
+	});   
+	
+});       
 
-/*const sequelize = new Sequelize("dqaaogcnf104s", "hqeqpijokilgsq", "f02927df9cdeb15c6314dc34dacefff33ab082175f94f81c6be5fde3858ee5a0", {
-    host: "ec2-52-70-67-123.compute-1.amazonaws.com",
-    dialect: 'postgres',
-    "dialectOptions": {
-      "ssl": {
-            require: true,
-            rejectUnauthorized: false
-            }
-    }
-    });
+var appEnv = cfenv.getAppEnv(); // Get app env
 
-//Sequelize will keep the connection open by default, and use the same connection for all queries. If you need to close the connection, call sequelize.close() (which is asynchronous and returns a Promise).
-//For saving stuff on DB: https://stackoverflow.com/questions/63611772/sequelize-does-not-creating-a-table-shows-this-result-executing-default-se
-
-*/
-express()
-  .use(express.static(path.join(__dirname, 'public')))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .get('/', (req, res) => res.render('pages/index'))
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
-
-
-
-
-/*
-try {
-   db.authenticate();
-  console.log('Connection has been established successfully.');
-} catch (error) {
-  console.error('Unable to connect to the database:', error);
-}
-
-*/
+// start server on the specified port and binding host
+app.listen(appEnv.port, '0.0.0.0', function() {
+  console.log("server starting on " + appEnv.url); // print a message when the server starts listening
+});
