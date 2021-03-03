@@ -1,14 +1,16 @@
-var express = require('express'); // Express as webserver
-var path = require('path');
-var cfenv = require('cfenv'); // cfenv provides access to your Cloud Foundry environment, e.g.: port, http binding host name/ip address, URL of the application
-
+const express = require('express'); // Express as webserver
+const path = require('path');
+const cfenv = require('cfenv'); // cfenv provides access to your Cloud Foundry environment, e.g.: port, http binding host name/ip address, URL of the application
+const socketio = require('socket.io'); // Websockets
 var uuid = require("uuid4"); // is used for session IDs
 var lti = require("ims-lti"); // is used to implement the actual LTI-protocol
-
 var fs = require('fs'); // filesystem
+const http = require('http');
 var index = fs.readFileSync("public/html/index.html", "utf8");
 
 var app = express(); // create a new express server
+const server = http.createServer(app); // Create new server object for io (socketio)
+const io = socketio(server);
 
 app.enable('trust proxy'); // Propably not necessary. Heroku App most likely doesnt run behind proxy??
 
@@ -27,6 +29,10 @@ app.post("/auth", (req, res) => {
             res.sendFile(path.join(__dirname + "/public/html/not_authenticated.html"));
             return;
         } else {
+            // When client connects, open new Websocket connection
+            io.on('connection', socket => {
+                console.log("Client successfully via LTI authenticated. New Websocket connection established.\n");
+            });
             var sessionID = uuid();
             sessions[sessionID] = moodleData;
 
@@ -51,7 +57,7 @@ app.post("/auth", (req, res) => {
 // Sends user to not authenticated site, if get request is sent
 app.get('/', function(req, res) {
     //res.sendFile(path.join(__dirname + "/public/html/not_authenticated.html"));
-    res.sendFile(path.join(__dirname + "/public/html/not_authenticated.html"));
+    res.sendFile(path.join(__dirname + "/public/html/index.html"));
 });
 // Sends user to not authenticated site, if get request to /auth is sent
 app.get('/auth', function(req, res) {
@@ -65,6 +71,6 @@ app.get('*', function(req, res) {
 var appEnv = cfenv.getAppEnv(); // Get app env
 
 // start server on the specified port and binding host
-app.listen(appEnv.port, '0.0.0.0', function() {
+server.listen(appEnv.port, '0.0.0.0', function() {
     console.log("server starting on " + appEnv.url); // print a message when the server starts listening
 });
