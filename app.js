@@ -67,9 +67,9 @@ app.get('*', function(req, res) {
 var appEnv = cfenv.getAppEnv(); // Get app env
 
 // When client connects, open new Websocket connection
-io.on('connection', socket => {
+/*io.on('connection', socket => {
     console.log("Client successfully via LTI authenticated. New Websocket connection established.\n");
-});
+});*/
 
 // start server on the specified port and binding host
 server.listen(appEnv.port, '0.0.0.0', function() {
