@@ -5,14 +5,14 @@ const socketio = require('socket.io'); // Websockets
 var uuid = require("uuid4"); // is used for session IDs
 var lti = require("ims-lti"); // is used to implement the actual LTI-protocol
 var fs = require('fs'); // filesystem
-const https = require('https');
+const http = require('http').Server(app);
 var index = fs.readFileSync("public/html/index.html", "utf8");
 
 var app = express(); // create a new express server
-const server = https.createServer(app); // Create new server object for io (socketio)
-const io = socketio(server);
+//const server = http.createServer(app); // Create new server object for io (socketio)
+const io = require('socket.io')(http);
 
-//app.enable('trust proxy'); // Propably not necessary. Heroku App most likely doesnt run behind proxy??
+app.enable('trust proxy'); // Propably not necessary. Heroku App most likely doesnt run behind proxy??
 
 var sessions = {}; // array contains info about different sessions
 
@@ -67,11 +67,11 @@ app.get('*', function(req, res) {
 var appEnv = cfenv.getAppEnv(); // Get app env
 
 // When client connects, open new Websocket connection
-io.on('connection', socket => {
+io.on('connection', (socket) => {
     console.log("Client successfully via LTI authenticated. New Websocket connection established.\n");
 });
 
 // start server on the specified port and binding host
-server.listen(appEnv.port, '0.0.0.0', function() {
+http.listen(appEnv.port, '0.0.0.0', function() {
     console.log("server starting on " + appEnv.url); // print a message when the server starts listening
 });
