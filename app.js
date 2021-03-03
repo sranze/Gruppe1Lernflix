@@ -1,4 +1,7 @@
 const express = require('express'); // Express as webserver
+const socketIO = require(socket.io);
+const PORT = process.env.PORT || 3000;
+
 const path = require('path');
 const cfenv = require('cfenv'); // cfenv provides access to your Cloud Foundry environment, e.g.: port, http binding host name/ip address, URL of the application
 var uuid = require("uuid4"); // is used for session IDs
@@ -62,9 +65,16 @@ app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname + "/public/html/error_404.html"));
 });
 
-var appEnv = cfenv.getAppEnv(); // Get app env
+//var appEnv = cfenv.getAppEnv(); // Get app env
 
 // start server on the specified port and binding host
-server.listen(appEnv.port, '0.0.0.0', function() {
+server.listen(PORT, '0.0.0.0', function() {
     console.log("server starting on " + appEnv.url); // print a message when the server starts listening
+});
+
+const io = socketIO(server);
+
+io.on('connection', (socket) => {
+    console.log("Client connected");
+    socket.on('disconnect', () => console.log('Client disconnected'));
 });
