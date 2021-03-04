@@ -1,0 +1,11 @@
+.error{
+height: 50%;
+text-align: center;
+position: relative;
+top: 0;
+left: 0;
+transform: translate(0,50%);
+}
+.error-text{
+  color: #FF6363;
+}
