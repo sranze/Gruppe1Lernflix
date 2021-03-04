@@ -1,8 +1,11 @@
-/*const express = require('express'); // Express as webserver
+const express = require('express'); // Express as webserver
 const PORT = process.env.PORT || 3000;
-
+const socketIO = require('socket.io');
+const INDEX = '/public/html/index.html';
 const path = require('path');
 const cfenv = require('cfenv'); // cfenv provides access to your Cloud Foundry environment, e.g.: port, http binding host name/ip address, URL of the application
+
+
 var uuid = require("uuid4"); // is used for session IDs
 var lti = require("ims-lti"); // is used to implement the actual LTI-protocol
 var fs = require('fs'); // filesystem
@@ -69,19 +72,17 @@ app.get('*', function(req, res) {
 // start server on the specified port and binding host
 server.listen(PORT, '0.0.0.0', function() {
     console.log("server starting on " + PORT); // print a message when the server starts listening
-});*/
+});
 
 'use strict';
 
-const express = require('express');
-const socketIO = require('socket.io');
-const PORT = process.env.PORT || 3000;
-const INDEX = '/public/html/index.html';
-
-const server = express()
+//const express = require('express');
+//const PORT = process.env.PORT || 3000;
+/*
+ const server = express()
     .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
     .listen(PORT, () => console.log(`Listening on ${PORT}`));
-
+*/
 const io = socketIO(server);
 
 io.on('connection', (socket) => {
