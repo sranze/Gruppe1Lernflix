@@ -59,7 +59,11 @@ app.post("/auth", (req, res) => {
             var sessionID = uuid();
             sessions[sessionID] = moodleData;
 
-    emailData = moodleData.body.ext_user_username;
+            roomNameData = moodleData.body.context_label;
+            roomIdData = moodle.body.resource_link_id;
+            emailData = moodleData.body.ext_user_username;
+            fullNameData = moodleData.body.lis_person_name_full;
+            userIdData = moodle.body.user_id;
 
             // Shows all available session data from Moodle in Server logs
             console.log("\n\n\nAvailable Data:\n" + JSON.stringify(sessions));
@@ -73,7 +77,10 @@ app.post("/auth", (req, res) => {
 						};
 					`);
 
-pool.query(`INSERT INTO Users(FirstName,LastName)VALUES($1,$2)`, [emailData, sessionID], (err, res) => {
+
+
+
+pool.query(`INSERT INTO MoodleData(roomanme,roomid, email, fullname, userid)VALUES($1,$2, $3, $4, $5)`, [roomNameData, roomIdData, emailData, fullNameData, userIdData], (err, res) => {
     if (err) {
         console.log("Error - Failed to insert data into Users");
         console.log(err);
