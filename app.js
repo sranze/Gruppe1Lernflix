@@ -69,7 +69,7 @@ app.post("/auth", (req, res) => {
 							sessionID: "${sessionID}",
 							user: "${moodleData.body.ext_user_username}"
 						};
-					`);
+
 
 pool.query(`INSERT INTO Users(FirstName,LastName)VALUES($1,$2)`, [params.user, params.sessionID], (err, res) => {
     if (err) {
@@ -77,6 +77,8 @@ pool.query(`INSERT INTO Users(FirstName,LastName)VALUES($1,$2)`, [params.user, p
         console.log(err);
     }
 });
+					`);
+
 
             res.setHeader("Content-Type", "text/html");
             res.send(sendMe);
