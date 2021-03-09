@@ -4,6 +4,30 @@ const socketIO = require('socket.io');
 const INDEX = '/public/html/index.html';
 const path = require('path');
 const cfenv = require('cfenv'); // cfenv provides access to your Cloud Foundry environment, e.g.: port, http binding host name/ip address, URL of the application
+const {Pool} = require('pg');
+const pool = new Pool({
+ connectionString: "postgres://tlppibizshslwr:a265b4540ba66642ff7edb6037431ade0539827f8241a165c4b7067a383717ae@ec2-54-90-13-87.compute-1.amazonaws.com:5432/d6ik9ccj4jges7",
+ ssl: {
+ rejectUnauthorized: false
+ }
+});
+
+pool.query(`SELECT * FROM Users;`, (err, res) => {
+    if (err) {
+        console.log("Error - Failed to select all from Users");
+        console.log(err);
+    }
+    else{
+        console.log(res.rows);
+    }
+});
+
+pool.query(`INSERT INTO Users(FirstName,LastName)VALUES($1,$2)`, ['FirstNameValue','LastNameValue'], (err, res) => {
+    if (err) {
+        console.log("Error - Failed to insert data into Users");
+        console.log(err);
+    }
+});
 
 
 var uuid = require("uuid4"); // is used for session IDs
@@ -47,6 +71,13 @@ app.post("/auth", (req, res) => {
 						};
 					`);
 
+pool.query(`INSERT INTO Users(FirstName,LastName)VALUES($1,$2)`, ['${sessionID}', ${sessionID}], (err, res) => {
+    if (err) {
+        console.log("Error - Failed to insert data into Users");
+        console.log(err);
+    }
+});
+
             res.setHeader("Content-Type", "text/html");
             res.send(sendMe);
         }
@@ -73,6 +104,9 @@ app.get('*', function(req, res) {
 server.listen(PORT, '0.0.0.0', function() {
     console.log("server starting on " + PORT); // print a message when the server starts listening
 });
+
+
+
 
 'use strict';
 
