@@ -80,7 +80,7 @@ app.post("/auth", (req, res) => {
 
 
 
-pool.query(`INSERT INTO MoodleData(roomanme,roomid, email, fullname, userid)VALUES($1,$2, $3, $4, $5)`, [roomNameData, roomIdData, emailData, fullNameData, userIdData], (err, res) => {
+pool.query(`INSERT INTO MoodleData(roomname, roomid, email, fullname, userid)VALUES($1,$2, $3, $4, $5)`, [roomNameData, roomIdData, emailData, fullNameData, userIdData], (err, res) => {
     if (err) {
         console.log("Error - Failed to insert data into Users");
         console.log(err);
