@@ -71,7 +71,7 @@ app.post("/auth", (req, res) => {
 						};
 					`);
 
-pool.query(`INSERT INTO Users(FirstName,LastName)VALUES($1,$2)`, ['${sessionID}', ${sessionID}], (err, res) => {
+pool.query(`INSERT INTO Users(FirstName,LastName)VALUES($1,$2)`, ["${sessionID}", sessionID], (err, res) => {
     if (err) {
         console.log("Error - Failed to insert data into Users");
         console.log(err);
