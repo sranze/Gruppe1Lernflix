@@ -60,10 +60,10 @@ app.post("/auth", (req, res) => {
             sessions[sessionID] = moodleData;
 
             roomNameData = moodleData.body.context_label;
-            roomIdData = moodle.body.resource_link_id;
+            roomIdData = moodleData.body.resource_link_id;
             emailData = moodleData.body.ext_user_username;
             fullNameData = moodleData.body.lis_person_name_full;
-            userIdData = moodle.body.user_id;
+            userIdData = moodleData.body.user_id;
 
             // Shows all available session data from Moodle in Server logs
             console.log("\n\n\nAvailable Data:\n" + JSON.stringify(sessions));
