@@ -1,22 +1,36 @@
-// TODO: Use PostgreSQL DB instead of array in memory...
-const users = []; // TODO Use PostgreSQL DB for this
+const users = [];
 
 // Join user to chat
-function userJoin(id, username, room) {
-    const user = { id, username, room };
+function userJoin(socketid, userid, username, room) {
+    const user = { socketid, userid, username, room };
 
-    users.push(user); // TODO use PostgreSQL DB for this
+    users.push(user);
 
     return user;
 }
 
 // Get current user
-function getCurrentUser(id) {
-    return users.find(user => user.id === id); // TODO get user by PostgreSQL DB for this
+function getCurrentUser(socketid) {
+    return users.find(user => user.socketid === socketid);
 }
 
-// Export modules for app.js
+// User leaves chat
+function userLeave(socketid) {
+    const index = users.findIndex(user => user.socketid === socketid);
+    if (index !== -1) {
+        return users.splice(index, 1)[0];
+    }
+}
+
+// Get room users
+function getRoomUsers(room) {
+    return users.filter(user => user.room === room);
+}
+
+// Export modules 
 module.exports = {
     userJoin,
-    getCurrentUser
+    getCurrentUser,
+    userLeave,
+    getRoomUsers
 }

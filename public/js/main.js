@@ -2,24 +2,30 @@ const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
 
 const socket = io(); // New socket object
+var didJoin = false;
 
-/*
-// ROOM FRONTEND STUFF
-// Join specific room
-// TODO: Get username from server (via LTI)
+// Join and switch between rooms
 // TODO: Get Room Name(s) from server  (via PostgreSQL)
-// Server will then connect user to room
-const connectionObject = { username, roomName };
-connectionObject.username = "Testname"; // TODO Change to real username
-connectionObject.roomName = "Test-Room 1"; // TODO Change to real room
+function joinRoom(room) {
+    if (!didJoin) {
+        // Join new room
+        var userid = params.userid;
+        var username = params.username;
+        var roomName = room;
 
-socket.emit('joinRoom', connectionObject);
+        socket.emit('joinRoom', { userid, username, roomName });
 
-*/
+        didJoin = true;
+    } else {
+        // "Switch" rooms
+        socket.emit('leaveRoom'); // Remove user from users array 
+        didJoin = false;
+        joinRoom(room);
+    }
+}
 
-// Message thats from server
+// Message from server
 socket.on('message', message => {
-    console.log(message);
     showMessage(message);
 
     chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll down in chat
@@ -34,7 +40,7 @@ chatForm.addEventListener('submit', (e) => {
     socket.emit('chatMessage', message); // Emit message to backend
 
     document.getElementById('msg').value = ''; // Clear input textfield
-    e.target.elements.message.focus();
+    document.getElementById('msg').focus(); // Focus on latest message
 });
 
 // Show message in DOM (chat window)
