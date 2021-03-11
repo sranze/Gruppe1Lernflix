@@ -4,8 +4,7 @@
     "private": true,
     "scripts": {
         "start": "node app.js",
-        "dev": "nodemon server",
-        "conn": "node connection.js"
+        "dev": "nodemon server"
     },
     "dependencies": {
         "body-parser": "*",
@@ -14,17 +13,11 @@
         "cfenv": "^1.2.3",
         "express": "^4.17.1",
         "ims-lti": "*",
-        "ltijs-sequelize": "^2.3.3",
         "moment": "^2.29.1",
         "node": "^15.10.0",
-        "og": "0.0.2",
-        "pg": "^8.5.1",
-        "pg-hstore": "^2.3.3",
-        "psql": "0.0.1",
-        "sequelize": "^6.5.0",
-        "sequelize-cli": "^6.2.0",
         "socket.io": "^3.1.2",
-        "uuid4": "*"
+        "uuid4": "*",
+        "pg": "^8.5.1"
     },
     "repository": {},
     "engines": {
