@@ -11,7 +11,7 @@ function saveUser(firstname, lastname, fullname, email, userid, profilepicture, 
     });
 
     //Insert SQL for MoodleData
-    client.query(`INSERT INTO moodledatauser(firstname, lastname, fullname, email, userid, profilepicture, moodleRoom) SELECT $1, $2, $3, $4, $5, $6, $7 WHERE NOT EXISTS (SELECT * FROM moodledatauser WHERE userid = $5)`, [firstname, lastname, fullname, email, userid, profilepicture, moodleRoom], (err, res) => {
+    client.query(`INSERT INTO moodledatauser(firstname, lastname, fullname, email, userid, profilepicture, moodleRoom) SELECT $1, $2, $3, $4, $5, $6, $7 WHERE NOT EXISTS (SELECT * FROM moodledatauser WHERE userid = $5)`, [firstname, lastname, fullname, email, '344543', profilepicture, moodleRoom], (err, res) => {
         if (err) {
             console.log("Error - Failed to insert data into DB");
             console.log(err);
