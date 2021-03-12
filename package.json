@@ -10,7 +10,6 @@
         "body-parser": "*",
         "bootstrap": "^4.6.0",
         "bufferutil": "^4.0.3",
-        "cfenv": "^1.2.3",
         "express": "^4.17.1",
         "ims-lti": "*",
         "moment": "^2.29.1",
