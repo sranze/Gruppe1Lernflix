@@ -41,7 +41,7 @@ function loadRooms(moodleroomid) {
 
 
 
-client.query(`SELECT moodleroomid, json_agg(json_build_object('RaumID', moodleroomid
+const results = client.query(`SELECT moodleroomid, json_agg(json_build_object('RaumID', moodleroomid
                                                          , 'MoodleRaumName' , moodleroomname, 'LernflixRoomName', lernflixroomname, 'LernflixRaumID', lernflixroomid)) AS moodleroomname
               FROM   rooms
               WHERE moodleroomid =  $1
@@ -52,6 +52,9 @@ client.query(`SELECT moodleroomid, json_agg(json_build_object('RaumID', moodlero
     }
     else{
         console.log("Oha!  - Konnte Räume mit Moodle Raum ID " + moodleroomid + "  ziehen");
+        console.log("Results:" + results);
+        const parse = JSON.parse(results);
+        console.log("Results mit JSON parse:" + parse.MoodleRaumName);
         console.log(res.rows);
     }
 });
