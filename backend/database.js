@@ -27,7 +27,18 @@ function loadUser(userid) {
 }
 
 // Load all rooms related to moodleRooom
-function loadRooms(moodleRoom) {
+function loadRooms(moodleroomid) {
+
+pool.query(`SELECT * FROM rooms WHERE moodleroomid = '1970';`, (err, res) => {
+    if (err) {
+        console.log("Error - Konnte nicht Moodle Raum ID 1970 ziehen!");
+        console.log(err);
+    }
+    else{
+        console.log("Oha! - Konnte Moodle Raum ID 1970 ziehen");
+        console.log(res.rows);
+    }
+});
 
 }
 
