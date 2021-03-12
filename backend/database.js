@@ -39,7 +39,13 @@ function loadRooms(moodleroomid) {
         }
     });
 
-client.query(`SELECT *, json_agg(json_build_object('id', id, 'lernflixroomid', lernflixroomid, 'lernflixroomname', lernflixroomname, 'moodleroomid', moodleroomid, 'moodleroomname', moodleroomname, 'timestamp', timestamp)) AS lernflixroomname FROM rooms WHERE moodleroomid = $1`, [moodleroomid], (err, res) => {
+
+
+client.query(`SELECT moodleroomid, json_agg(json_build_object('RaumID', moodleroomid
+                                                         , 'MoodleRaumName' , moodleroomname, 'LernflixRoomName', lernflixroomname, 'LernflixRaumID', lernflixroomid)) AS moodleroomname
+              FROM   tbl
+              WHERE moodleroomid =  $1
+              GROUP  BY moodleroomid`, [moodleroomid], (err, res) => {
     if (err) {
         console.log("Error - Konnte Räume Moodle Raum ID" + moodleroomid + " NICHT ziehen! Leider noch keine Räume in diesem Kurs vorhanden!");
         console.log(err);
