@@ -3,6 +3,7 @@ const { Pool } = require('pg');
 // Saves an authenticated user to database, if not exists
 function saveUser(firstname, lastname, fullname, email, userid, profilepicture, moodleRoom) {
     //Datenbank Heroku Postgres Connection
+    //Anmerkung Andre: Kann man diesen Prozess auslagern und bei jedem Query aufrufen? (ich weiß es nicht)
     var timestamp = new Date();
     const client = new Pool({
         connectionString: "postgres://tlppibizshslwr:a265b4540ba66642ff7edb6037431ade0539827f8241a165c4b7067a383717ae@ec2-54-90-13-87.compute-1.amazonaws.com:5432/d6ik9ccj4jges7",
@@ -28,6 +29,15 @@ function loadUser(userid) {
 
 // Load all rooms related to moodleRooom
 function loadRooms(moodleroomid) {
+
+    //Datenbank Heroku Postgres Connection
+    var timestamp = new Date();
+    const client = new Pool({
+        connectionString: "postgres://tlppibizshslwr:a265b4540ba66642ff7edb6037431ade0539827f8241a165c4b7067a383717ae@ec2-54-90-13-87.compute-1.amazonaws.com:5432/d6ik9ccj4jges7",
+        ssl: {
+            rejectUnauthorized: false
+        }
+    });
 
 pool.query(`SELECT * FROM rooms WHERE moodleroomid = '1970';`, (err, res) => {
     if (err) {
