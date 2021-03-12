@@ -40,23 +40,29 @@ function loadRooms(moodleroomid) {
     });
 
 
+    //Select all Columns from Table rooms where moodleroomid = id which you enter.
+    //json_agg for the json object generation
+    //Variablennamen nach Belieben ändern! Z.B. RaumID oder MoodleRaumName,.....
 
-const results = client.query(`SELECT moodleroomid, json_agg(json_build_object('RaumID', moodleroomid
-                                                         , 'MoodleRaumName' , moodleroomname, 'LernflixRoomName', lernflixroomname, 'LernflixRaumID', lernflixroomid)) AS moodleroomname
-              FROM   rooms
-              WHERE moodleroomid =  $1
-              GROUP  BY moodleroomid`, [moodleroomid], (err, res) => {
-    if (err) {
-        console.log("Error - Konnte Räume Moodle Raum ID" + moodleroomid + " NICHT ziehen! Leider noch keine Räume in diesem Kurs vorhanden!");
-        console.log(err);
-    }
-    else{
-        console.log("Oha!  - Konnte Räume mit Moodle Raum ID " + moodleroomid + "  ziehen");
-        var roomLoadData = JSON.stringify(res.rows);
-        console.log(JSON.stringify(res.rows));
-        console.log(roomLoadData);
-    }
-});
+    //TODO: GROUP BY muss im Query enthalten sein, hier werden die Daten unter dem Namen moodleroomid gespeichert, was natürlich semantisch nicht stimmt (Funktioniert alles, nur Namensgebung halt falsch)
+    const results = client.query(`SELECT moodleroomid, json_agg(json_build_object('RaumID', moodleroomid
+                                                             , 'MoodleRaumName' , moodleroomname, 'LernflixRoomName', lernflixroomname, 'LernflixRaumID', lernflixroomid)) AS moodleroomname
+                  FROM   rooms
+                  WHERE moodleroomid =  $1
+                  GROUP  BY moodleroomid`, [moodleroomid], (err, res) => {
+        if (err) {
+            console.log("Error - Konnte Räume Moodle Raum ID" + moodleroomid + " NICHT laden! Leider noch keine Räume in diesem Kurs vorhanden!");
+            console.log(err);
+        }
+        else{
+            console.log("Oha!  - Konnte Räume mit Moodle Raum ID " + moodleroomid + "  laden");
+
+            //Variable, welche das JSON enthält, fertig zum weiterbearbeiten und Abgreifen der Daten in herkömmlicher Art und Weise
+            var roomLoadData = JSON.stringify(res.rows);
+            console.log("Ouput des JSONs mit JSON.stringify" + JSON.stringify(res.rows));
+            console.log("Output der Variable mit dem JSON" + roomLoadData);
+        }
+    });
 
 
 
