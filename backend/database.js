@@ -53,8 +53,7 @@ const results = client.query(`SELECT moodleroomid, json_agg(json_build_object('R
     else{
         console.log("Oha!  - Konnte Räume mit Moodle Raum ID " + moodleroomid + "  ziehen");
         console.log("Results:" + results);
-        const parse = JSON.parse(results);
-        console.log("Results mit JSON parse:" + parse.MoodleRaumName);
+        console.log("Results mit JSON parse:" + JSON.parse(results));
         console.log(res.rows);
     }
 });
