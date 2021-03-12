@@ -52,7 +52,7 @@ const results = client.query(`SELECT moodleroomid, json_agg(json_build_object('R
     }
     else{
         console.log("Oha!  - Konnte Räume mit Moodle Raum ID " + moodleroomid + "  ziehen");
-        var roomLoadData = JSON.stringify(results.rows);
+        var roomLoadData = JSON.stringify(res.rows);
         console.log(JSON.stringify(res.rows));
         console.log(roomLoadData);
     }
