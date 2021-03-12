@@ -14,7 +14,7 @@ function saveUser(firstname, lastname, fullname, email, userid, profilepicture, 
 
     client.query(`INSERT INTO moodledatauser(firstname, lastname, fullname, email, userid, profilepicture, moodleRoom, timestamp) SELECT $1, $2, $3, $4, $5, $6, $7, $8 WHERE NOT EXISTS (SELECT * FROM moodledatauser WHERE userid = $5)`, [firstname, lastname, fullname, email, userid, profilepicture, moodleRoom, timestamp], (err, res) => {
         if (err) {
-            console.log("Error - Failed to insert userdata into moodledatauser");
+            console.log("USER SCHON VORHANDEN!");
             console.log(err);
         }
     });
@@ -39,7 +39,7 @@ function loadRooms(moodleroomid) {
         }
     });
 
-pool.query(`SELECT * FROM rooms WHERE moodleroomid = '1970';`, (err, res) => {
+client.query(`SELECT * FROM rooms WHERE moodleroomid = '1970';`, (err, res) => {
     if (err) {
         console.log("Error - Konnte nicht Moodle Raum ID 1970 ziehen!");
         console.log(err);
