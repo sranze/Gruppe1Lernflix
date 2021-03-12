@@ -35,7 +35,7 @@ pool.query(`SELECT * FROM rooms WHERE moodleroomid = '1970';`, (err, res) => {
         console.log(err);
     }
     else{
-        console.log("Oha! - Konnte Moodle Raum ID 1970 ziehen");
+        console.log("Oha!  - Konnte Moodle Raum ID 1970 ziehen");
         console.log(res.rows);
     }
 });
