@@ -41,11 +41,11 @@ function loadRooms(moodleroomid) {
 
 client.query(`SELECT * FROM rooms WHERE moodleroomid = $1`, [moodleroomid], (err, res) => {
     if (err) {
-        console.log("Error - Konnte nicht Moodle Raum ID 1970 ziehen!");
+        console.log("Error - Konnte Räume Moodle Raum ID" + moodleroomid + " NICHT ziehen! Leider noch keine Räume in diesem Kurs vorhanden!");
         console.log(err);
     }
     else{
-        console.log("Oha!  - Konnte Moodle Raum ID 1970 ziehen");
+        console.log("Oha!  - Konnte Räume mit Moodle Raum ID " + moodleroomid + "  ziehen");
         console.log(res.rows);
     }
 });
