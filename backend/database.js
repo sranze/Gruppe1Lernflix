@@ -43,7 +43,7 @@ function loadRooms(moodleroomid) {
 
 client.query(`SELECT moodleroomid, json_agg(json_build_object('RaumID', moodleroomid
                                                          , 'MoodleRaumName' , moodleroomname, 'LernflixRoomName', lernflixroomname, 'LernflixRaumID', lernflixroomid)) AS moodleroomname
-              FROM   tbl
+              FROM   rooms
               WHERE moodleroomid =  $1
               GROUP  BY moodleroomid`, [moodleroomid], (err, res) => {
     if (err) {
