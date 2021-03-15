@@ -11,8 +11,13 @@
     <meta name="generator" content="Hugo 0.80.0">
     <title>Lernflix</title>
 
-    <!-- Bootstrap core CSS -->
+    <!-- Jquery.js -->
+    <script src="../assets/jquery/jquery.js"></script>
+    
+    <!-- Bootstrap core CSS / JS -->
     <link rel="stylesheet" href="../css/bootstrap.css">
+  <script src="../assets/bootstrap/bootstrap.js"></script>
+    
     <!-- Chat core css-->
     <link rel="stylesheet" href="../css/chat.css">
     <!-- Video core css-->
@@ -23,81 +28,112 @@
     <link  rel="stylesheet" href="../css/style.css">
 
     <script src="/socket.io/socket.io.js"></script>
-    <!-- Jquery.js -->
-    <script src="../js/jquery.js"></script>
+    
 
 
 
     <!-- Video Functions-->
     <script>
-        var flagID = 0;
+    var flagID = 0;
 
-        $(document).ready(function() {
-            //get popup_content // Input und Button
-            var popup_content = $("#pop_cont")
+    $(document).ready(function() {
+      //get popup_content // Input und Button
+      var popup_content = $("#pop_cont")
+      
+      tippy('#setFlag', {
+        content: popup_content.html(),
+        trigger: 'click',
+        hideOnClick: true,
+        allowHTML: true,
+        interactive: true,
 
-            popup_content.attr('id', flagID)
+      });
+      
+      //Zeit wird bei Klick auf Flag genommen und an FlagVideo als Parameter weitergegeben. Grund: Kommentare zu schreiben benötigt Zeit
+      //während man Kommentar schreibt läuft Video weiter --> Flag wäre nicht mehr Zeitgenau. 
+      $("#setFlag").click(function() {
+        var curTime = Math.floor(video1.currentTime);
+        $(".tippy-content > button").attr("onclick", "flagVideo(" + curTime + ")")
+        $(".tippy-content > input").select();
 
-            console.log(popup_content)
-
-            tippy('#setFlag', {
-                content: popup_content.html(),
-                trigger: 'click',
-                hideOnClick: true,
-                allowHTML: true,
-                interactive: true,
-
-            });
-
-
-        });
-
-        //startet Video
-        function startVideo() {
-            $("#video1").trigger("play");
-        }
-        //pausiert Video
-        function stopVideo() {
-            $("#video1").trigger("pause");
-        }
-        //lädt das Video neu
-        function resetVideo() {
-            $("#video1").trigger("load");
-        }
-
-        //setzt eine "Flagge" bzw. Makiert 
-        function flagVideo() {
-
-            flagID++
-            //gets Video from Dom
-            var vid = document.getElementById("video1");
-            //gets current Time of selected Video
-            var curTime = Math.floor(video1.currentTime);
-
-            //gets input.value
-            var popup_input = $(".tippy-content > input")
-            var input_text = popup_input.val();
-
-            //formats Seconds into HH:MM:SS
-            var date = new Date(0);
-            date.setSeconds(curTime); // specify value for SECONDS here
-            var timeString = date.toISOString().substr(11, 8);
-
-
-            //erstellt ein Element mit unique ID und setzt parameter zu JumpVideo direkt ein.
-            $("#flag").append("<p onclick='jumpVideo(" + curTime + ")'id=flagID_" + flagID + ">Time: " + timeString + "<br/>Message:  " + input_text)
-
-            //ausblenden 
-            $("#tippy-1").css("visibility", "hidden")
-
+      })
+      
+      $(document).on("click",".videoElement",function(){
+        var NewVideoUrl = $(this).attr("data-url");
+        changeVideo(NewVideoUrl)
+      })
+        
+      //Lädt alle Videos in das Modal
+      $.ajax({
+        url: '../assets/opencastAPI.json',
+        type: "GET",
+        dataType: 'JSON',
+        success: function(data) {
+          $.each(data["search-results"].result, function(i, item) {
+            var video_thumbnail = item['mediapackage']['attachments']['attachment'][2]['url']
+            var video_title = item['mediapackage']['title']
+            var video_res480p = item['mediapackage']['media']['track'][0]['url']
+            //            var video_res720p = data['search-results']['result'][0]['mediapackage']['media']['track'][2]['url']
+            //            var video_res1080p = data['search-results']['result'][0]['mediapackage']['media']['track'][1]['url']
+            $(".videolist").append("<div tabindex ='-1' id='videoElement"+i+"' class='videoElement py-3 fadein' data-url="+video_res480p+"><img class='videoThumbnail col-6' src=" + video_thumbnail + "/><h1 class='videoTitle col-6 px-3'>" + video_title + "</h1></div>");
+            
+          })
         }
 
-        //springt zu bestimmter Sekunde im Video
-        function jumpVideo(seconds) {
-            var vid = document.getElementById("video1");
-            vid.currentTime = seconds;
-        }
-    </script>
+      });
+    });
+
+    //startet Video
+    function startVideo() {
+      $("#video1").trigger("play");
+    }
+    //pausiert Video
+    function stopVideo() {
+      $("#video1").trigger("pause");
+    }
+    //lädt das Video neu
+    function resetVideo() {
+      $("#video1").trigger("load");
+    }
+
+
+
+    //setzt eine "Flagge" bzw. Makiert 
+    function flagVideo(curTime) {
+
+      flagID++
+      //gets Video from Dom
+      var vid = document.getElementById("video1");
+      //gets current Time of selected Video
+
+      //gets input.value
+      var popup_input = $(".tippy-content > input")
+      var input_text = popup_input.val();
+
+      //formats Seconds into HH:MM:SS
+      var date = new Date(0);
+      date.setSeconds(curTime); // specify value for SECONDS here
+      var timeString = date.toISOString().substr(11, 8);
+
+      //erstellt ein Element mit unique ID und setzt parameter zu JumpVideo direkt ein.
+      $("#flag").append("<p onclick='jumpVideo(" + curTime + ")'id=flagID_" + flagID + ">Time: " + timeString + "<br/>Message:  " + input_text);
+      popup_input.val('');
+
+
+    }
+
+    //springt zu bestimmter Sekunde im Video
+    function jumpVideo(seconds) {
+      var vid = document.getElementById("video1");
+      vid.currentTime = seconds;
+    }
+
+    function changeVideo(url){
+      var currentVideo = $("#video1")
+      currentVideo.attr("src",url)
+     
+    }
+  </script>
 
 
 
@@ -136,9 +172,9 @@
             <div id="myDropdown" class="dropdown-content">
                 <button onclick="toogleDropdown1()" class="dropbtn">Vorhandene Räume</button>
                 <div id="myDropdown1" class="dropdown-content">
-                    <button class="dropbtn">Raum 1 Modulname</button></a>
-                    <button class="dropbtn">Raum 2 Modulname</button></a>
-                    <button class="dropbtn">Raum 3 Modulname</button></a>
+                    <a href="#"><button class="dropbtn">Raum 1 Modulname</button></a>
+                    <a href="#"><button class="dropbtn">Raum 2 Modulname</button></a>
+                    <a href="#"><button class="dropbtn">Raum 3 Modulname</button></a>
                 </div>
                 <button onclick="" class="dropbtn">Räume hinzufügen</button>
             </div>
@@ -188,19 +224,17 @@
               </video>
                         </div>
                         <div class="col-md-12 py-4">
-                            <button id="start" class="btn btn-lg hover-top btn-glow" onclick="startVideo()">Start</button>
-                            <button id="pause" class="btn btn-lg  hover-top btn-glow" onclick="stopVideo()">Stop</button>
-                            <button id="restart" class="btn btn-lg  hover-top btn-glow" onclick="resetVideo()">Restart</button>
-                            <button id="setFlag" class="btn btn-lg hover-top btn-glow">Flag</button>
+              <button id="start" class="btn btn-lg hover-top btn-glow" onclick="startVideo()">Start</button>
+              <button id="pause" class="btn btn-lg  hover-top btn-glow" onclick="stopVideo()">Stop</button>
+              <button id="restart" class="btn btn-lg  hover-top btn-glow" onclick="resetVideo()">Restart</button>
+              <button id="setFlag" class="btn btn-lg hover-top btn-glow">Flag</button>
+              <button id="addVideo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#listvideos">Add Video to Queue</button>
 
-                            <div class="popup_content" id="pop_cont">
-                                <input type="text">
-                                <button id="sendFlag" onclick="flagVideo()" type="button" class="btn btn-primary btn-sm">Small button</button>
-                            </div>
-
-
-
-                        </div>
+              <div class="popup_content" id="pop_cont">
+                <input type="text">
+                <button id="" onclick="flagVideo()" type="button" class="btn btn-primary btn-sm">Small button</button>
+              </div>
+            </div>
                         <div id="flag">
                             <p>Flagged Time:</p>
                         </div>
@@ -227,6 +261,31 @@
                 </div>
             </div>
         </section>
+        <!-- Modal -->
+    <div class="modal fade" id="listvideos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Alle Videos</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body container">
+            <div class="row">
+              <div class="col-12 videolist">
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="changeVideo()">Add Video</button>
+          </div>
+        </div>
+      </div>
+    </div>
+<!--        Modal end-->
 
         <section>
             <div class="py-5 container">
