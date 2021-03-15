@@ -19,6 +19,8 @@
     <link rel="stylesheet" href="../css/video.css">
     <!-- Video core css-->
     <link rel="stylesheet" href="../css/controls.css">
+    <!-- Style css-->
+    <link  rel="stylesheet" href="../css/style.css">
 
     <script src="/socket.io/socket.io.js"></script>
     <!-- Jquery.js -->
@@ -129,6 +131,50 @@
 
 
     <main>
+        <div class="dropdown">
+            <button onclick="toogleDropdown()" class="dropbtn">Räume</button>
+            <div id="myDropdown" class="dropdown-content">
+                <button onclick="toogleDropdown1()" class="dropbtn">Vorhandene Räume</button>
+                <div id="myDropdown1" class="dropdown-content">
+                    <button class="dropbtn">Raum 1 GIP</button></a>
+                    <button class="dropbtn">Raum 2 GIP</button></a>
+                    <button class="dropbtn">Raum 3 GIP</button></a>
+                </div>
+                <button onclick="" class="dropbtn">Raum hinzufügen</button>
+            </div>
+        </div>
+        <script>
+    function toogleDropdown() {
+    document.getElementById("myDropdown").classList.toggle("show");
+  }
+  window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
+  function toogleDropdown1() {
+    document.getElementById("myDropdown1").classList.toggle("show");
+  }
+  window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+      var dropdowns = document.getElementsByClassName("dropdown-content");
+      var i;
+      for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
+</script>
         <section>
             <div class="py-5 container">
                 <div class="row py-lg-5">
