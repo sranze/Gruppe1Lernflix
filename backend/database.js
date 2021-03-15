@@ -44,7 +44,7 @@ function loadRooms(moodleroomid) {
     //json_agg for the json object generation
     //Variablennamen nach Belieben ändern! Z.B. RaumID oder MoodleRaumName,.....
 
-    //TODO: GROUP BY muss im Query enthalten sein, hier werden die Daten unter dem Namen moodleroomid gespeichert, was natürlich semantisch nicht stimmt (Funktioniert alles, nur Namensgebung halt falsch)
+    //TODO: GROUP BY muss im Query enthalten sein, hier werden die Daten unter dem Namen moodleroomid gespeichert was natürlich semantisch nicht stimmt (Funktioniert alles, nur Namensgebung halt falsch)
     const results = client.query(`SELECT moodleroomid, json_agg(json_build_object('RaumID', moodleroomid
                                                              , 'MoodleRaumName' , moodleroomname, 'LernflixRoomName', lernflixroomname, 'LernflixRaumID', lernflixroomid)) AS moodleroomname
                   FROM   rooms
