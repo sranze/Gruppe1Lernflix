@@ -69,7 +69,26 @@ function loadRooms(moodleroomid) {
 }
 
 // Save a new lernflixRoom related to a specific moodleRoom
-function saveRooms(lernflixRoomName, moodleRoomID) {
+function saveRooms(lernflixroomid, lernflixroomname, moodleroomid, moodleroomname) {
+
+    //Datenbank Heroku Postgres Connection
+    //Anmerkung Andre: Kann man diesen Prozess auslagern und bei jedem Query aufrufen? (ich weiß es nicht)
+    var timestamp = new Date();
+    const client = new Pool({
+        connectionString: "postgres://tlppibizshslwr:a265b4540ba66642ff7edb6037431ade0539827f8241a165c4b7067a383717ae@ec2-54-90-13-87.compute-1.amazonaws.com:5432/d6ik9ccj4jges7",
+        ssl: {
+            rejectUnauthorized: false
+        }
+    });
+
+    client.query(`INSERT INTO rooms(lernflixroomid, lernflixroomname, moodleroomid, moodleroomname) SELECT $1, $2, $3, $4 WHERE NOT EXISTS (SELECT * FROM rooms WHERE lernflixroomname = $2)`, ['Unique ID von Mathias', 'Name des Raumes wo von Frontend kommt', moodleroomid, moodleroomname], (err, res) => {
+        if (err) {
+            console.log("Raumname SCHON VORHANDEN!");
+            console.log(err);
+        }
+    });
+
+    client.end(); // Close connection
 
 }
 

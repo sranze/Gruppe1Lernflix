@@ -44,10 +44,10 @@ app.post("/auth", (req, res) => {
             moodleUserID = parseInt(moodleData.body.user_id);
             moodleProfilePicture = "https://elearning.hs-ruhrwest.de/user/pix.php/" + moodleUserID + "/f1.jpg";
             moodleRoom = moodleData.body.resource_link_id;
-
+            moodleRoomName = moodleData.body.context_title;
             // Load all Rooms according to moodleRoom user is from
             loadRooms(moodleRoom);
-
+            saveRooms(lernflixroomid, lernflixroomname, moodleRoom, moodleRoomName);
             // Shows all available session data from Moodle in Server logs
             //console.log("\n\n\nAvailable Data:\n" + JSON.stringify(sessions));
 
