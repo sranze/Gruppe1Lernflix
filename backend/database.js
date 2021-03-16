@@ -81,7 +81,7 @@ function saveRooms(lernflixroomid, lernflixroomname, moodleroomid, moodleroomnam
         }
     });
 
-    client.query(`INSERT INTO rooms(lernflixroomid, lernflixroomname, moodleroomid, moodleroomname) SELECT $1, $2, $3, $4 WHERE NOT EXISTS (SELECT lernflixroomname FROM rooms WHERE lernflixroomname = $2)`, [lernflixroomid, lernflixroomname, moodleroomid, moodleroomname], (err, res) => {
+    client.query(`INSERT INTO rooms(lernflixroomid, lernflixroomname, moodleroomid, moodleroomname) SELECT $1, $2, $3, $4`, [lernflixroomid, lernflixroomname, moodleroomid, moodleroomname], (err, res) => {
         if (err) {
             console.log("Raumname SCHON VORHANDEN!");
             console.log(err);
