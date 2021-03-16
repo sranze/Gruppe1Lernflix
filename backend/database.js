@@ -85,7 +85,7 @@ try {
     } catch (e) {
         console.log("Something went wrong " + e);
     } finally {
-        await client.end();
+        client.end();
     }
 }
 
