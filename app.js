@@ -45,8 +45,8 @@ app.post("/auth", (req, res) => {
             moodleProfilePicture = "https://elearning.hs-ruhrwest.de/user/pix.php/" + moodleUserID + "/f1.jpg";
             moodleRoom = moodleData.body.resource_link_id;
             moodleRoomName = moodleData.body.context_title;
-            lernflixroomid = "666";
-            lernflixroomname = "EIn neuen Test Raum";
+            lernflixroomid = "454398";
+            lernflixroomname = "EIn zweiter neuer Testraum für unique check";
             // Load all Rooms according to moodleRoom user is from
             loadRooms(moodleRoom);
             saveRooms(lernflixroomid, lernflixroomname, moodleRoom, moodleRoomName);
