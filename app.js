@@ -2,7 +2,7 @@ const express = require('express'); // Express as webserver
 const PORT = process.env.PORT || 3000;
 const socketIO = require('socket.io');
 const path = require('path');
-const messageFormatter = require('./backend/messages'); // make messages.js available
+const { messageFormatter, welcomeMessage } = require('./backend/messages'); // make messages.js available
 const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./backend/users'); // make functions in users.js available
 const { saveUser, loadRooms, loadUser, saveRooms } = require('./backend/database'); // make database functions available
 
@@ -44,12 +44,14 @@ app.post("/auth", (req, res) => {
             moodleUserID = parseInt(moodleData.body.user_id);
             moodleProfilePicture = "https://elearning.hs-ruhrwest.de/user/pix.php/" + moodleUserID + "/f1.jpg";
             moodleRoom = moodleData.body.resource_link_id;
-            moodleRoomName = moodleData.body.context_title;
-            lernflixroomid = "454398";
-            lernflixroomname = "EIn zweiter neuer Testraum für unique check";
+
             // Load all Rooms according to moodleRoom user is from
-            loadRooms(moodleRoom);
-            saveRooms(lernflixroomid, lernflixroomname, moodleRoom, moodleRoomName);
+            var test;
+            loadRooms(moodleRoom)
+                .then((value) => test = value);
+
+
+
             // Shows all available session data from Moodle in Server logs
             //console.log("\n\n\nAvailable Data:\n" + JSON.stringify(sessions));
 
@@ -100,24 +102,33 @@ const io = socketIO(server); // New socket-io object
 // Runs when a user connects (and is authenticated)
 io.on('connection', (socket) => {
     console.log(moodleFirstName + ' connected'); // Log when Client connects to websockets
-    socket.emit('message', messageFormatter('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWenn Du einen Raum wechseln möchtest, klicke einfach auf einen anderen.`));
-    socket.on('joinRoom', ({ userid, username, roomName }) => {
-        const user = userJoin(socket.id, userid, username, roomName); // Get current userid, name and room
 
-        socket.join(user.room); // Join the actual room
+    (async() => {
+        const roomInformation = await loadRooms(moodleRoom);
+        socket.emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWenn Du einen Raum wechseln möchtest, klicke einfach auf einen anderen.`, roomInformation));
 
-        socket.emit('message', messageFormatter('System', ('Hallo, ' + user.username + "! Du bist Raum " + user.room + " beigetreten."))); // Greet User | Welcome message to room
+    })()
 
-        socket.broadcast.to(user.room).emit('message', messageFormatter('System', (user.username + " ist dem Raum " + user.room + " beigetreten."))); // Broadcast when a user connects to room
+    // Join Room
+    socket.on('joinRoom', ({ userid, username, roomName, roomId }) => {
+        const user = userJoin(socket.id, userid, username, roomName, roomId); // Get current userid, name and room
+        console.log("Received id: " + roomId)
+        socket.join(user.roomId); // Join the actual room
+        console.log("ID: " + user.roomId)
+        console.log("Name: " + user.roomName)
+
+        socket.emit('message', messageFormatter('System', ('Hallo, ' + user.username + "! Du bist Raum " + user.roomName + " beigetreten."))); // Greet User | Welcome message to room
+
+        socket.broadcast.to(user.roomId).emit('message', messageFormatter('System', (user.username + " ist dem Raum " + user.roomName + " beigetreten."))); // Broadcast when a user connects to room
 
     });
 
     // Remove user from users-array and emit message
     socket.on('leaveRoom', () => {
         const user = userLeave(socket.id);
-        socket.leave(user.room); // Kick user out of room
+        socket.leave(user.roomId); // Kick user out of room
         if (user) {
-            io.to(user.room).emit('message', messageFormatter('System', (user.username + ' hat den Raum ' + user.room + ' verlassen.'))); // Broadcast when a user leaves Room
+            io.to(user.roomId).emit('message', messageFormatter('System', (user.username + ' hat den Raum ' + user.roomName + ' verlassen.'))); // Broadcast when a user leaves Room
             console.log(user.username + ' disconnected.'); //Log when Client disconnects from websockets
         }
     })
@@ -126,15 +137,15 @@ io.on('connection', (socket) => {
     socket.on('chatMessage', message => {
         const user = getCurrentUser(socket.id)
         console.log(message);
-        io.to(user.room).emit('message', messageFormatter(user.username, message));
+        io.to(user.roomId).emit('message', messageFormatter(user.username, message));
     });
 
     // Runs when user disconnects
     socket.on('disconnect', () => {
         const user = userLeave(socket.id);
         if (user) {
-            io.to(user.room).emit('message', messageFormatter('System', (user.username + ' hat den Raum ' + user.room + ' verlassen.'))); // Broadcast when a user leaves Room
-            console.log(user.username + ' disconnected from room ' + user.room + '.'); //Log when Client disconnects from websockets
+            io.to(user.roomId).emit('message', messageFormatter('System', (user.username + ' hat den Raum ' + user.roomName + ' verlassen.'))); // Broadcast when a user leaves Room
+            console.log(user.username + ' disconnected from room ' + user.roomName + '.'); //Log when Client disconnects from websockets
         }
     });
 });
