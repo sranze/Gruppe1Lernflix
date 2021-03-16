@@ -6,21 +6,22 @@ var didJoin = false;
 
 // Join and switch between rooms
 // TODO: Get Room Name(s) from server  (via PostgreSQL)
-function joinRoom(room) {
+function joinRoom(roomName, roomId) {
+    console.log("ID: " + roomId)
+    console.log("Name: " + roomName)
     if (!didJoin) {
         // Join new room
         var userid = params.userid;
         var username = params.username;
-        var roomName = room;
 
-        socket.emit('joinRoom', { userid, username, roomName });
+        socket.emit('joinRoom', { userid, username, roomName, roomId });
 
         didJoin = true;
     } else {
         // "Switch" rooms
         socket.emit('leaveRoom'); // Remove user from users array 
         didJoin = false;
-        joinRoom(room);
+        joinRoom(roomName, roomId);
     }
 }
 
@@ -29,6 +30,13 @@ socket.on('message', message => {
     showMessage(message);
 
     chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll down in chat
+});
+
+// Welcome message
+socket.on('welcome', message => {
+    showMessage(message);
+
+    showRooms(message.rooms);
 });
 
 // Submit/Send message
@@ -53,3 +61,29 @@ function showMessage(message) {
     </p>`;
     document.querySelector('.chat-messages').appendChild(div);
 };
+
+// Show rooms in DOM
+function showRooms(rooms) {
+    console.log(rooms);
+    var roomName = "PLACEHOLDER";
+    var roomId = 1234;
+    for (var i = 0; i < rooms.length; i += 2) {
+        roomName = rooms[i + 1];
+        roomId = rooms[i];
+
+        console.log("Id: " + roomId)
+        console.log("Name: " + roomName)
+
+        var button = document.createElement('button');
+        var bText = document.createTextNode(roomName);
+
+        button.setAttribute('id', rooms[i]);
+        button.appendChild(bText);
+        button.setAttribute('class', 'btn btn-primary')
+
+        button.onclick = function() { joinRoom(this.childNodes[0].nodeValue, this.id); };
+
+        var src = document.getElementById("body");
+        src.appendChild(button);
+    }
+}

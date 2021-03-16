@@ -8,4 +8,16 @@ function messageFormatter(messageFrom, text) {
     }
 }
 
-module.exports = messageFormatter;
+function welcomeMessage(messageFrom, text, rooms) {
+    return {
+        messageFrom,
+        text,
+        rooms,
+        time: moment().format('D.M.YY H:mm')
+    }
+}
+
+module.exports = {
+    messageFormatter,
+    welcomeMessage
+}

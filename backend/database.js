@@ -6,7 +6,7 @@ function saveUser(firstname, lastname, fullname, email, userid, profilepicture, 
     //Anmerkung Andre: Kann man diesen Prozess auslagern und bei jedem Query aufrufen? (ich weiß es nicht)
     var timestamp = new Date();
     const client = new Pool({
-        connectionString: "postgres://tlppibizshslwr:a265b4540ba66642ff7edb6037431ade0539827f8241a165c4b7067a383717ae@ec2-54-90-13-87.compute-1.amazonaws.com:5432/d6ik9ccj4jges7",
+        connectionString: "postgres://yjrdjvggafmafm:b411ff567635bb4365f585f0199ea3ece058d537905626ce340cebfaf9948fa2@ec2-34-239-33-57.compute-1.amazonaws.com:5432/d58f8s5f6g4lkv",
         ssl: {
             rejectUnauthorized: false
         }
@@ -28,44 +28,37 @@ function loadUser(userid) {
 }
 
 // Load all rooms related to moodleRooom
-function loadRooms(moodleroomid) {
-
-    //Datenbank Heroku Postgres Connection
-    var timestamp = new Date();
+async function loadRooms(moodleroomid) {
     const client = new Pool({
-        connectionString: "postgres://tlppibizshslwr:a265b4540ba66642ff7edb6037431ade0539827f8241a165c4b7067a383717ae@ec2-54-90-13-87.compute-1.amazonaws.com:5432/d6ik9ccj4jges7",
+        connectionString: "postgres://yjrdjvggafmafm:b411ff567635bb4365f585f0199ea3ece058d537905626ce340cebfaf9948fa2@ec2-34-239-33-57.compute-1.amazonaws.com:5432/d58f8s5f6g4lkv",
         ssl: {
             rejectUnauthorized: false
         }
     });
+    try {
+        const results = await client.query(`SELECT moodleroomid, json_agg(json_build_object('moodleroomid', moodleroomid
+                                            , 'moodleroomname' , moodleroomname, 'lernflixroomname', lernflixroomname, 'lernflixroomid', lernflixroomid)) AS moodleroomname
+                                            FROM   rooms
+                                            WHERE moodleroomid =  $1
+                                            GROUP  BY moodleroomid`, [moodleroomid])
 
+        var roomsFrontend = [];
 
-    //Select all Columns from Table rooms where moodleroomid = id which you enter.
-    //json_agg for the json object generation
-    //Variablennamen nach Belieben ändern! Z.B. RaumID oder MoodleRaumName,.....
-
-    //TODO: GROUP BY muss im Query enthalten sein, hier werden die Daten unter dem Namen moodleroomid gespeichert was natürlich semantisch nicht stimmt (Funktioniert alles, nur Namensgebung halt falsch)
-    const results = client.query(`SELECT moodleroomid, json_agg(json_build_object('RaumID', moodleroomid
-                                                             , 'MoodleRaumName' , moodleroomname, 'LernflixRoomName', lernflixroomname, 'LernflixRaumID', lernflixroomid)) AS moodleroomname
-                  FROM   rooms
-                  WHERE moodleroomid =  $1
-                  GROUP  BY moodleroomid`, [moodleroomid], (err, res) => {
-        if (err) {
-            console.log("Error - Konnte Räume Moodle Raum ID" + moodleroomid + " NICHT laden! Leider noch keine Räume in diesem Kurs vorhanden!");
-            console.log(err);
+        var roomLoadData = JSON.stringify(results.rows);
+        var roomLoadDataObject = JSON.parse(roomLoadData);
+        var innerArrayLength = roomLoadDataObject[0]["moodleroomname"].length;
+        for (var i = 0; i < innerArrayLength; i++) {
+            // console.log(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomname"])
+            roomsFrontend.push(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomid"]); // lernflix ids
+            roomsFrontend.push(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomname"]); // lernflix roomnames
         }
-        else{
-            console.log("Oha!  - Konnte Räume mit Moodle Raum ID " + moodleroomid + "  laden");
+        return roomsFrontend;
 
-            //Variable, welche das JSON enthält, fertig zum weiterbearbeiten und Abgreifen der Daten in herkömmlicher Art und Weise
-            var roomLoadData = JSON.stringify(res.rows);
-            console.log("Ouput des JSONs mit JSON.stringify" + JSON.stringify(res.rows));
-            console.log("Output der Variable mit dem JSON" + roomLoadData);
-        }
-    });
-
-
-
+    } catch (e) {
+        console.log("Something went wrong " + e);
+    } finally {
+        await client.end();
+    }
 }
 
 // Save a new lernflixRoom related to a specific moodleRoom
