@@ -6,7 +6,7 @@ function saveUser(firstname, lastname, fullname, email, userid, profilepicture, 
     //Anmerkung Andre: Kann man diesen Prozess auslagern und bei jedem Query aufrufen? (ich weiß es nicht)
     var timestamp = new Date();
     const client = new Pool({
-        connectionString: "postgres://yjrdjvggafmafm:b411ff567635bb4365f585f0199ea3ece058d537905626ce340cebfaf9948fa2@ec2-34-239-33-57.compute-1.amazonaws.com:5432/d58f8s5f6g4lkv",
+        connectionString: "postgres://tlppibizshslwr:a265b4540ba66642ff7edb6037431ade0539827f8241a165c4b7067a383717ae@ec2-54-90-13-87.compute-1.amazonaws.com:5432/d6ik9ccj4jges7",
         ssl: {
             rejectUnauthorized: false
         }
@@ -30,7 +30,7 @@ function loadUser(userid) {
 // Load all rooms related to moodleRooom
 async function loadRooms(moodleroomid) {
     const client = new Pool({
-        connectionString: "postgres://yjrdjvggafmafm:b411ff567635bb4365f585f0199ea3ece058d537905626ce340cebfaf9948fa2@ec2-34-239-33-57.compute-1.amazonaws.com:5432/d58f8s5f6g4lkv",
+        connectionString: "postgres://tlppibizshslwr:a265b4540ba66642ff7edb6037431ade0539827f8241a165c4b7067a383717ae@ec2-54-90-13-87.compute-1.amazonaws.com:5432/d6ik9ccj4jges7",
         ssl: {
             rejectUnauthorized: false
         }
