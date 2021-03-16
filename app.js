@@ -44,6 +44,7 @@ app.post("/auth", (req, res) => {
             moodleUserID = parseInt(moodleData.body.user_id);
             moodleProfilePicture = "https://elearning.hs-ruhrwest.de/user/pix.php/" + moodleUserID + "/f1.jpg";
             moodleRoom = moodleData.body.resource_link_id;
+            moodleRoomName = moodleData.body.context_title;
             lernflixroomid = "456";
             lernflixroomname = "Raum 3 Hardcoded";
             // Load all Rooms according to moodleRoom user is from
