@@ -12,7 +12,7 @@
     <title>Lernflix</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="../css/bootstrap.css">
+    <link rel="stylesheet" href="../css/bootstrap/bootstrap.min.css">
     <!-- Chat core css-->
     <link rel="stylesheet" href="../css/chat.css">
     <!-- Video core css-->
@@ -25,6 +25,8 @@
     <script src="/socket.io/socket.io.js"></script>
     <!-- Jquery.js -->
     <script src="../js/jquery.js"></script>
+    <!-- Bootstrap -->
+    <script src="../js/bootstrap/bootstrap.min.js"></script>
 
 
 
@@ -109,6 +111,34 @@
 
     <button type="button" class="btn btn-primary" onclick="joinRoom('erster Testraum')">ertster Testraum</button>
     <button type="button" class="btn btn-secondary" onclick="joinRoom('zweiter Testraum')">zweiter Testraum</button>
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Raum Anlegen</button>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Neuen Raum Anlegen</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Raumname:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    <!-- Bei "Raum Anlegen" muss saveRooms() + die joinRooms() Funktion getriggert werden + die Value von id "recupient-name" (name ggfs noch ändern) mitgeschickt werden + die zufälle id (die zufällige zahl von 1 bis ne milliarde oder was du gemacht hast) -->
+                    <button type="button" class="btn btn-primary">Raum anlegen</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <header>
         <div class="navbar navbar-dark bg-dark shadow-sm">
