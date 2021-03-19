@@ -6,12 +6,13 @@ var didJoin = false;
 
 // Join and switch between rooms
 function joinRoom(roomName, roomId) {
-    console.log("JOINING ROOM WITH NAME: " + roomName + " AND ID: " + roomId)
     if (!didJoin) {
-        // Join new room
+        console.log("JOINING ROOM WITH NAME: " + roomName + " AND ID: " + roomId)
+            // Join new room
         var userid = params.userid;
         var username = params.username;
-        socket.emit('joinRoom', { userid, username, roomName, roomId });
+        var moodleRoom = params.moodleRoom;
+        socket.emit('joinRoom', { userid, username, roomName, roomId, moodleRoom });
 
         didJoin = true;
     } else {
@@ -42,6 +43,17 @@ socket.on('error', message => {
     console.log(message);
 });
 
+// Refresh/Reload room view
+socket.on('refreshRooms', (messagePayload) => {
+    if (messagePayload.moodleRoom == params.moodleRoom) {
+        const rooms = document.getElementById('rooms');
+        while (rooms.firstChild) {
+            rooms.removeChild(rooms.lastChild);
+        }
+        showRooms(messagePayload.roomInformation);
+    }
+})
+
 // Submit/Send message
 chatForm.addEventListener('submit', (e) => {
     e.preventDefault(); // Stop default submission to file
@@ -67,6 +79,7 @@ function showMessage(message) {
 
 // Show rooms in DOM
 function showRooms(rooms) {
+    console.log(rooms)
     var roomName = "PLACEHOLDER";
     var roomId = 1234;
     for (var i = 0; i < rooms.length; i += 2) {
@@ -83,7 +96,7 @@ function showRooms(rooms) {
         button.onclick = function() { joinRoom(this.childNodes[0].nodeValue, this.id); };
 
         // TODO: Check if Button with room id already exists (Avoid Duplicate rooms!)
-        var src = document.getElementById("body");
+        var src = document.getElementById("rooms");
         src.appendChild(button);
     }
 }

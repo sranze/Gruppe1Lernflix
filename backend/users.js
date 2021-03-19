@@ -1,8 +1,8 @@
 const users = [];
 
 // Join user to chat
-function userJoin(socketid, userid, username, roomName, roomId) {
-    const user = { socketid, userid, username, roomName, roomId };
+function userJoin(socketid, userid, username, roomName, roomId, moodleRoom) {
+    const user = { socketid, userid, username, roomName, roomId, moodleRoom };
 
     users.push(user);
 
@@ -33,11 +33,20 @@ function getRoomUsers(roomId) {
     return users.filter(user => user.roomId === roomId);
 }
 
+function getMoodleRoomUsers(moodleRoom) {
+    return users.filter(users => user.moodleRoom === moodleRoom);
+}
+
+function returnAllUsers() {
+    return users;
+}
 // Export modules 
 module.exports = {
     userJoin,
     getCurrentUser,
     userLeave,
     getRoomUsers,
-    getSocketId
+    getSocketId,
+    getMoodleRoomUsers,
+    returnAllUsers
 }

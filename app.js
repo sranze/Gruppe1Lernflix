@@ -3,7 +3,7 @@ const PORT = process.env.PORT || 3000;
 const socketIO = require('socket.io');
 const path = require('path');
 const { messageFormatter, welcomeMessage } = require('./backend/messages'); // make messages.js available
-const { userJoin, getCurrentUser, userLeave, getRoomUsers, getSocketId } = require('./backend/users'); // make functions in users.js available
+const { userJoin, getCurrentUser, userLeave, getRoomUsers, getSocketId, getMoodleRoomUsers, returnAllUsers } = require('./backend/users'); // make functions in users.js available
 const { saveUser, loadRooms, saveRooms } = require('./backend/database'); // make database functions available
 
 var uuid = require("uuid4"); // used for session IDs
@@ -104,22 +104,41 @@ io.on('connection', (socket) => {
     (async() => {
         const roomInformation = await loadRooms(moodleRoom);
         socket.emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWenn Du einen Raum wechseln möchtest, klicke einfach auf einen anderen.`, roomInformation));
-
     })()
     // TODO: socket.on('saveRoom', ....) implementieren
     // Return sollte entweder erfolg oder ein bestimmer fehler sein
 
     // Join Room
-    socket.on('joinRoom', ({ userid, username, roomName, roomId }) => {
-        console.log("USER " + userid + " with name " + username + " joins Room: " + roomName + " with id " + roomId);
-        const user = userJoin(socket.id, userid, username, roomName, roomId); // Get current userid, name and room
+    socket.on('joinRoom', ({ userid, username, roomName, roomId, moodleRoom }) => {
+        console.log("USER " + userid + " with name " + username + " joins Room: " + roomName + " with id " + roomId + " in Moodle Room " + moodleRoom);
+        const user = userJoin(socket.id, userid, username, roomName, roomId, moodleRoom); // Get current userid, name and room
 
-        socket.join(user.roomId); // Join the actual room
+        socket.join(roomId); // Join the actual room
 
         socket.emit('message', messageFormatter('System', ('Hallo, ' + user.username + "! Du bist Raum " + user.roomName + " beigetreten."))); // Greet User | Welcome message to room
 
         socket.broadcast.to(user.roomId).emit('message', messageFormatter('System', (user.username + " ist dem Raum " + user.roomName + " beigetreten."))); // Broadcast when a user connects to room
 
+    });
+
+    // Create New Lernflix Room
+    socket.on('createRoom', ({ userid, username, newLernflixRoomName, moodleRoom, moodleRoomName }) => {
+        // TODO: Create actual room
+        var isSuccess;
+        (async() => {
+            isSuccess = await saveRooms(userid, username, newLernflixRoomName, moodleRoom, moodleRoomName);
+            if (isSuccess.success == true) {
+                // TODO: Join Room automatically
+                // Refresh room view for all clients
+                const roomInformation = await loadRooms(moodleRoom);
+                var moodleRoomId = isSuccess.moodleroomid;
+                const messagePayload = { roomInformation: roomInformation, moodleRoom: moodleRoomId }
+                io.emit('refreshRooms', messagePayload);
+            } else {
+                console.log("ROOM ERROR")
+                io.to(socket.id).emit('error', isSuccess.message);
+            }
+        })()
     });
 
     // Remove user from users-array and emit message
@@ -137,21 +156,6 @@ io.on('connection', (socket) => {
         const user = getCurrentUser(socket.id)
         console.log(message + " to room " + user.roomName + " with id " + user.roomId);
         io.to(user.roomId).emit('message', messageFormatter(user.username, message));
-    });
-
-    // Create New Lernflix Room
-    socket.on('createRoom', ({ userid, username, newLernflixRoomName, moodleRoom, moodleRoomName }) => {
-        // TODO: Create actual room
-        (async() => {
-            var isSuccess = await saveRooms(userid, username, newLernflixRoomName, moodleRoom, moodleRoomName);
-            if (isSuccess.success == true) {
-                // TODO: Join Room automatically
-                // TODO: Reload/Renew Room-List on Frontend
-            } else {
-                console.log("ROOM ERROR")
-                io.to(socket.id).emit('error', isSuccess.message);
-            }
-        })()
     });
 
     // Runs when user disconnects
