@@ -7,8 +7,7 @@ var didJoin = false;
 // Join and switch between rooms
 function joinRoom(roomName, roomId) {
     if (!didJoin) {
-        console.log("JOINING ROOM WITH NAME: " + roomName + " AND ID: " + roomId)
-            // Join new room
+        // Join new room
         var userid = params.userid;
         var username = params.username;
         var moodleRoom = params.moodleRoom;
@@ -25,7 +24,6 @@ function joinRoom(roomName, roomId) {
 
 // Message from server
 socket.on('message', message => {
-    console.log(message)
     showMessage(message);
 
     chatMessages.scrollTop = chatMessages.scrollHeight; // Scroll down in chat
@@ -38,9 +36,23 @@ socket.on('welcome', message => {
     showRooms(message.rooms);
 });
 
+// TODO: Create Success message
+socket.on('createRoomSuccess', message => {
+    console.log(message);
+});
+
 // Log error messages
 socket.on('error', message => {
-    console.log(message);
+    const div = document.createElement('div');
+    div.classList.add('alert');
+    div.classList.add('alert-danger');
+    div.classList.add('alert-dismissible');
+    div.classList.add('fade-in');
+    div.innerHTML = `<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Fehler</strong> ${message}`;
+
+    var src = document.getElementById("error");
+    src.appendChild(div);
 });
 
 // Refresh/Reload room view
@@ -79,7 +91,6 @@ function showMessage(message) {
 
 // Show rooms in DOM
 function showRooms(rooms) {
-    console.log(rooms)
     var roomName = "PLACEHOLDER";
     var roomId = 1234;
     for (var i = 0; i < rooms.length; i += 2) {
@@ -95,7 +106,6 @@ function showRooms(rooms) {
 
         button.onclick = function() { joinRoom(this.childNodes[0].nodeValue, this.id); };
 
-        // TODO: Check if Button with room id already exists (Avoid Duplicate rooms!)
         var src = document.getElementById("rooms");
         src.appendChild(button);
     }
@@ -108,7 +118,5 @@ function createRoom() {
     var moodleRoom = params.moodleRoom;
     var moodleRoomName = params.moodleRoomName;
     var newLernflixRoomName = document.getElementById('createRoomInputTextField').value;
-    console.log("MOODLE ID " + moodleRoom)
-    console.log("MOODLE ROOM NAME " + moodleRoomName)
     socket.emit('createRoom', { userid, username, newLernflixRoomName, moodleRoom, moodleRoomName })
 }

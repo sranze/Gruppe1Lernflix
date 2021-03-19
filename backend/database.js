@@ -11,29 +11,29 @@ function newPool() {
     return client;
 }
 
-// TODO: Fehlerbehandlung
 // TODO: Asynchron umschreiben
 // Saves an authenticated user to database, if not exists
 function saveUser(firstname, lastname, fullname, email, userid, profilepicture, moodleRoom) {
-    // Datenbank Heroku Postgres Connection
-    // TODO: Anmerkung Andre: Kann man diesen Prozess auslagern und bei jedem Query aufrufen? (ich weiß es nicht)
-    // TODO: Check if something is undefined
-    var timestamp = new Date();
-    const client = newPool();
+    if (typeof firstname !== 'undefined') {
+        if (firstname != 'undefined' && firstname != null && firstname != null) {
+            // Datenbank Heroku Postgres Connection
+            var timestamp = new Date();
+            const client = newPool();
 
-    client.query(`INSERT INTO moodledatauser(firstname, lastname, fullname, email, userid, profilepicture, moodleRoom, timestamp) SELECT $1, $2, $3, $4, $5, $6, $7, $8 WHERE NOT EXISTS (SELECT * FROM moodledatauser WHERE userid = $5)`, [firstname, lastname, fullname, email, userid, profilepicture, moodleRoom, timestamp], (err, res) => {
-        if (err) {
-            console.log("USER SCHON VORHANDEN!");
-            console.log(err);
+            client.query(`INSERT INTO moodledatauser(firstname, lastname, fullname, email, userid, profilepicture, moodleRoom, timestamp) SELECT $1, $2, $3, $4, $5, $6, $7, $8 WHERE NOT EXISTS (SELECT * FROM moodledatauser WHERE userid = $5)`, [firstname, lastname, fullname, email, userid, profilepicture, moodleRoom, timestamp], (err, res) => {
+                if (err) {
+                    console.log("USER SCHON VORHANDEN!");
+                    console.log(err);
+                }
+            });
+            console.log("User " + fullname + " " + userid + " created");
+            client.end();
         }
-    });
-    console.log("User created");
-    client.end();
+    }
 }
 
 // Load all rooms related to moodleRooom
 async function loadRooms(moodleroomid) {
-    // TODO: auslagern
     const client = newPool();
 
     try {
@@ -113,7 +113,6 @@ async function saveRooms(userid, username, lernflixroomname, moodleroomid, moodl
 }
 // TODO: Catch errors for frontend
 async function getAllLernflixRoomNames(moodleroomid) {
-    console.log("Moodleroomid: " + moodleroomid)
     var allLernflixRoomNames = [];
     const client = newPool();
     // Get all room names of db
@@ -162,6 +161,7 @@ function generateNewLernflixRoomId(upperBoundary, allLernflixRoomIds) {
         return randomNumber;
     }
 }
+
 module.exports = {
     saveUser,
     loadRooms,

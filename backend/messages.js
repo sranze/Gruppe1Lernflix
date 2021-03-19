@@ -1,5 +1,6 @@
 const moment = require('moment');
-// Helperfunction: Helps creating message object
+
+// Creates regular message object
 function messageFormatter(messageFrom, text) {
     return {
         messageFrom,
@@ -8,6 +9,7 @@ function messageFormatter(messageFrom, text) {
     }
 }
 
+// Creates welcome message object (/w rooms)
 function welcomeMessage(messageFrom, text, rooms) {
     return {
         messageFrom,

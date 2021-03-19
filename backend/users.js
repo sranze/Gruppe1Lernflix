@@ -1,4 +1,4 @@
-const users = [];
+const users = []; // Holds all users on heap
 
 // Join user to chat
 function userJoin(socketid, userid, username, roomName, roomId, moodleRoom) {
@@ -24,29 +24,23 @@ function userLeave(socketid) {
     }
 }
 
-function getSocketId(userid) {
-    return users.find(user => user.userid === userid);
-}
-
 // Get room users
 function getRoomUsers(roomId) {
     return users.filter(user => user.roomId === roomId);
 }
 
+// Get users by moodle room (id)
 function getMoodleRoomUsers(moodleRoom) {
     return users.filter(users => user.moodleRoom === moodleRoom);
 }
 
+// Returns all on heap available users
 function returnAllUsers() {
     return users;
 }
-// Export modules 
+
 module.exports = {
     userJoin,
     getCurrentUser,
-    userLeave,
-    getRoomUsers,
-    getSocketId,
-    getMoodleRoomUsers,
-    returnAllUsers
+    userLeave
 }
