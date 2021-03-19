@@ -16,10 +16,16 @@ function getCurrentUser(socketid) {
 
 // User leaves chat
 function userLeave(socketid) {
-    const index = users.findIndex(user => user.socketid === socketid);
-    if (index !== -1) {
-        return users.splice(index, 1)[0];
+    if (typeof socketid !== 'undefined') {
+        const index = users.findIndex(user => user.socketid === socketid);
+        if (index !== -1) {
+            return users.splice(index, 1)[0];
+        }
     }
+}
+
+function getSocketId(userid) {
+    return users.find(user => user.userid === userid);
 }
 
 // Get room users
@@ -32,5 +38,6 @@ module.exports = {
     userJoin,
     getCurrentUser,
     userLeave,
-    getRoomUsers
+    getRoomUsers,
+    getSocketId
 }

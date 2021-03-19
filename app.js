@@ -3,8 +3,8 @@ const PORT = process.env.PORT || 3000;
 const socketIO = require('socket.io');
 const path = require('path');
 const { messageFormatter, welcomeMessage } = require('./backend/messages'); // make messages.js available
-const { userJoin, getCurrentUser, userLeave, getRoomUsers } = require('./backend/users'); // make functions in users.js available
-const { saveUser, loadRooms, loadUser, saveRooms } = require('./backend/database'); // make database functions available
+const { userJoin, getCurrentUser, userLeave, getRoomUsers, getSocketId } = require('./backend/users'); // make functions in users.js available
+const { saveUser, loadRooms, saveRooms } = require('./backend/database'); // make database functions available
 
 var uuid = require("uuid4"); // used for session IDs
 var lti = require("ims-lti"); // used to implement the actual LTI-protocol
@@ -45,16 +45,6 @@ app.post("/auth", (req, res) => {
             moodleProfilePicture = "https://elearning.hs-ruhrwest.de/user/pix.php/" + moodleUserID + "/f1.jpg";
             moodleRoom = moodleData.body.resource_link_id;
             moodleRoomName = moodleData.body.context_title;
-            lernflixroomid = "456";
-            lernflixroomname = "Raum 3 Hardcoded";
-            // Load all Rooms according to moodleRoom user is from
-            var test;
-            loadRooms(moodleRoom)
-                .then((value) => test = value);
-
-            //zu Test-Zwecken! saveRooms() muss im Frontend aufgerufen werden beim Anlegen des Raumes
-            saveRooms(lernflixroomid, lernflixroomname, moodleRoom, moodleRoomName);
-
 
             // Shows all available session data from Moodle in Server logs
             //console.log("\n\n\nAvailable Data:\n" + JSON.stringify(sessions));
@@ -67,12 +57,15 @@ app.post("/auth", (req, res) => {
 							user: "${moodleData.body.ext_user_username}",
                             username: "${moodleFirstName}",
                             userid: "${moodleUserID}",
+                            moodleRoom: "${moodleRoom}",
+                            moodleRoomName: "${moodleRoomName}",
                             url_picture: "https://elearning.hs-ruhrwest.de/user/pix.php/${moodleUserID}/f1.jpg"
 						};
 					`);
 
             // Save connected user to DB if not exists
-            saveUser(moodleFirstName, moodleLastName, moodleFullName, moodleEmail, moodleUserID, moodleProfilePicture, moodleRoom);
+            // TODO: Uncomment
+            //saveUser(moodleFirstName, moodleLastName, moodleFullName, moodleEmail, moodleUserID, moodleProfilePicture, moodleRoom);
 
             res.setHeader("Content-Type", "text/html");
             res.send(sendMe);
@@ -103,6 +96,7 @@ server.listen(PORT, '0.0.0.0', function() {
 
 const io = socketIO(server); // New socket-io object
 
+// TODO: Check if undefined - Fehlerbehandlung
 // Runs when a user connects (and is authenticated)
 io.on('connection', (socket) => {
     console.log(moodleFirstName + ' connected'); // Log when Client connects to websockets
@@ -112,14 +106,15 @@ io.on('connection', (socket) => {
         socket.emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWenn Du einen Raum wechseln möchtest, klicke einfach auf einen anderen.`, roomInformation));
 
     })()
+    // TODO: socket.on('saveRoom', ....) implementieren
+    // Return sollte entweder erfolg oder ein bestimmer fehler sein
 
     // Join Room
     socket.on('joinRoom', ({ userid, username, roomName, roomId }) => {
+        console.log("USER " + userid + " with name " + username + " joins Room: " + roomName + " with id " + roomId);
         const user = userJoin(socket.id, userid, username, roomName, roomId); // Get current userid, name and room
-        console.log("Received id: " + roomId)
+
         socket.join(user.roomId); // Join the actual room
-        console.log("ID: " + user.roomId)
-        console.log("Name: " + user.roomName)
 
         socket.emit('message', messageFormatter('System', ('Hallo, ' + user.username + "! Du bist Raum " + user.roomName + " beigetreten."))); // Greet User | Welcome message to room
 
@@ -135,13 +130,28 @@ io.on('connection', (socket) => {
             io.to(user.roomId).emit('message', messageFormatter('System', (user.username + ' hat den Raum ' + user.roomName + ' verlassen.'))); // Broadcast when a user leaves Room
             console.log(user.username + ' disconnected.'); //Log when Client disconnects from websockets
         }
-    })
+    });
 
     // Listen for chat messages and emit
     socket.on('chatMessage', message => {
         const user = getCurrentUser(socket.id)
-        console.log(message);
+        console.log(message + " to room " + user.roomName + " with id " + user.roomId);
         io.to(user.roomId).emit('message', messageFormatter(user.username, message));
+    });
+
+    // Create New Lernflix Room
+    socket.on('createRoom', ({ userid, username, newLernflixRoomName, moodleRoom, moodleRoomName }) => {
+        // TODO: Create actual room
+        (async() => {
+            var isSuccess = await saveRooms(userid, username, newLernflixRoomName, moodleRoom, moodleRoomName);
+            if (isSuccess.success == true) {
+                // TODO: Join Room automatically
+                // TODO: Reload/Renew Room-List on Frontend
+            } else {
+                console.log("ROOM ERROR")
+                io.to(socket.id).emit('error', isSuccess.message);
+            }
+        })()
     });
 
     // Runs when user disconnects
