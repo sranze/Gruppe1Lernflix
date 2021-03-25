@@ -164,6 +164,7 @@ socket.on('loadNewVideo', url => {
 
     videoplayer.setAttribute('src', url)
     videoplayer.controls = false;
+    videoplayer.play();
 })
 
 // Pause video - html listener
@@ -196,6 +197,11 @@ function skipToTime() {
 socket.on('skipTimeVideo', time => {
     videoplayer.currentTime = time;
 })
+
+// Set volume
+function setVolume(volume) {
+    videoplayer.volume = volume / 100;
+}
 
 // Update seek time slider 
 function seekTimeSliderUpdate() {
