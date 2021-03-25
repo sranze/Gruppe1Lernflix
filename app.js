@@ -158,8 +158,10 @@ io.on('connection', (socket) => {
         // Listen for chat messages and emit
         socket.on('chatMessage', message => {
             const user = getCurrentUser(socket.id)
-            console.log("User " + user.userid + " " + user.username + ": " + message + " to room: " + user.roomName + " with id: " + user.roomId);
-            io.to(user.roomId).emit('message', messageFormatter(user.username, message));
+            if (typeof user !== 'undefined') {
+                console.log("User " + user.userid + " " + user.username + ": " + message + " to room: " + user.roomName + " with id: " + user.roomId);
+                io.to(user.roomId).emit('message', messageFormatter(user.username, message));
+            }
         });
 
         // Runs when user disconnects
@@ -170,5 +172,43 @@ io.on('connection', (socket) => {
                 console.log("User " + user.username + " with ID " + user.userid + ' disconnected from room ' + user.roomName + '.'); //Log when Client disconnects from websockets
             }
         });
+
+        // Change Video
+        socket.on('changeVideo', url => {
+            const user = getCurrentUser(socket.id)
+            if (typeof user !== 'undefined') {
+                console.log("Changing Video in Room w/ ID " + user.roomId + " Video with URL " + url)
+                io.to(user.roomId).emit('loadNewVideo', url);
+            }
+        })
+
+        // Play video
+        socket.on('playVideo', () => {
+            const user = getCurrentUser(socket.id)
+            if (typeof user !== 'undefined') {
+                console.log("Playing Video in Room w/ ID " + user.roomId)
+                io.to(user.roomId).emit('playVideo');
+            }
+        })
+
+        // Pause video
+        socket.on('pauseVideo', () => {
+            const user = getCurrentUser(socket.id)
+            if (typeof user !== 'undefined') {
+                console.log("Pausing Video in Room w/ ID " + user.roomId)
+                io.to(user.roomId).emit('pauseVideo');
+            }
+        })
+
+        // Skip time video
+        socket.on('skipTimeVideo', time => {
+            const user = getCurrentUser(socket.id)
+            if (typeof user !== 'undefined') {
+                console.log("Skipping Time in Video in Room w/ ID " + user.roomId + " to Time " + time)
+                io.to(user.roomId).emit('skipTimeVideo', time);
+            }
+        })
+
+        // TODO: Send currently playing video to joining room-members + sync their videotime
     }
 });

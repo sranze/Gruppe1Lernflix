@@ -1,8 +1,19 @@
+// Chat references
 const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
 
+// Websocket
 const socket = io(); // New socket object
 var didJoin = false;
+
+// Videoplayer references
+const videoplayer = document.getElementById('videoplayer');
+const videoplayerSeekslider = document.getElementById('seekslider');
+let videoplayerTimeText = document.getElementById('videoplayerTimeText');
+
+// Videoplayer event listener
+videoplayer.addEventListener('timeupdate', seekTimeSliderUpdate, false);
+videoplayerSeekslider.addEventListener('change', skipToTime, false);
 
 // Join and switch between rooms
 function joinRoom(roomName, roomId) {
@@ -141,4 +152,61 @@ function createSystemNotification(message, isSuccess) {
 
     var src = document.getElementById("error");
     src.appendChild(div);
+}
+
+// Emit change of video to server
+function changeVideo(url) {
+    socket.emit('changeVideo', url);
+}
+
+// Change video
+socket.on('loadNewVideo', url => {
+
+    videoplayer.setAttribute('src', url)
+    videoplayer.controls = false;
+})
+
+// Pause video - html listener
+function pauseVideo() {
+    socket.emit('pauseVideo');
+}
+
+// Play video - html listener
+function playVideo() {
+    socket.emit('playVideo');
+}
+
+// Pause video - socket
+socket.on('playVideo', () => {
+    videoplayer.play();
+})
+
+// Play video - socket
+socket.on('pauseVideo', () => {
+    videoplayer.pause();
+})
+
+// Skip time - html listener
+function skipToTime() {
+    var jumpToTime = videoplayer.duration * (videoplayerSeekslider.value / 100);
+    socket.emit('skipTimeVideo', jumpToTime)
+}
+
+// Skip time - socket
+socket.on('skipTimeVideo', time => {
+    videoplayer.currentTime = time;
+})
+
+// Update seek time slider 
+function seekTimeSliderUpdate() {
+    var sliderValue = videoplayer.currentTime * (100 / videoplayer.duration);
+    videoplayerSeekslider.value = sliderValue;
+    var currentMinutes = Math.floor(videoplayer.currentTime / 60);
+    var currentSeconds = Math.floor(videoplayer.currentTime - currentMinutes * 60);
+    var durationMinutes = Math.floor(videoplayer.duration / 60);
+    var durationSeconds = Math.floor(videoplayer.duration - durationMinutes * 60);
+    if (currentSeconds < 10) currentSeconds = '0' + currentSeconds;
+    if (durationSeconds < 10) durationSeconds = '0' + durationSeconds;
+
+    videoplayerTimeText.innerHTML = currentMinutes + ':' + currentSeconds + '/' + durationMinutes + ':' + durationSeconds;
 }
