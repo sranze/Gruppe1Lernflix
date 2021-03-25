@@ -45,20 +45,21 @@ app.post("/auth", (req, res) => {
             moodleProfilePicture = "https://elearning.hs-ruhrwest.de/user/pix.php/" + moodleUserID + "/f1.jpg";
             moodleRoom = moodleData.body.resource_link_id;
             moodleRoomName = moodleData.body.context_title;
+            moodleContextId = moodleData.body.context_id;
 
             // Shows all available session data from Moodle in Server logs
             //console.log("\n\n\nAvailable Data:\n" + JSON.stringify(sessions));
 
             // Send html Back, if authentication correct
             var sendMe = index.toString().replace("//PARAMS**GO**HERE",
-                `
-						const params = {
+                `           const params = {
 							sessionID: "${sessionID}",
 							user: "${moodleData.body.ext_user_username}",
                             username: "${moodleFirstName}",
                             userid: "${moodleUserID}",
                             moodleRoom: "${moodleRoom}",
                             moodleRoomName: "${moodleRoomName}",
+                            moodleContextId: "${moodleContextId}",
                             url_picture: "https://elearning.hs-ruhrwest.de/user/pix.php/${moodleUserID}/f1.jpg"
 						};
 					`);
@@ -67,6 +68,7 @@ app.post("/auth", (req, res) => {
             saveUser(moodleFirstName, moodleLastName, moodleFullName, moodleEmail, moodleUserID, moodleProfilePicture, moodleRoom);
 
             res.setHeader("Content-Type", "text/html");
+
             res.send(sendMe);
         }
     });
@@ -135,9 +137,10 @@ io.on('connection', (socket) => {
                     const messagePayload = { roomInformation: roomInformation, moodleRoom: moodleRoomId }
                     io.emit('refreshRooms', messagePayload);
                     io.emit('createRoomSuccess', "Raum erfolgreich erstellt.");
+                    io.to(socket.id).emit('error', isSuccess);
                 } else {
                     console.log("Couldnt create room. Error: " + isSuccess.message);
-                    io.to(socket.id).emit('error', isSuccess.message);
+                    io.to(socket.id).emit('error', isSuccess);
                 }
             })()
         });

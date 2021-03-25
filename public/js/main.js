@@ -34,6 +34,7 @@ socket.on('welcome', message => {
     showMessage(message);
 
     showRooms(message.rooms);
+    getVideos(params.moodleContextId);
 });
 
 // TODO: Create Success message
@@ -43,16 +44,8 @@ socket.on('createRoomSuccess', message => {
 
 // Log error messages
 socket.on('error', message => {
-    const div = document.createElement('div');
-    div.classList.add('alert');
-    div.classList.add('alert-danger');
-    div.classList.add('alert-dismissible');
-    div.classList.add('fade-in');
-    div.innerHTML = `<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-    <strong>Fehler</strong> ${message}`;
+    createSystemNotification(message, message.success);
 
-    var src = document.getElementById("error");
-    src.appendChild(div);
 });
 
 // Refresh/Reload room view
@@ -119,4 +112,33 @@ function createRoom() {
     var moodleRoomName = params.moodleRoomName;
     var newLernflixRoomName = document.getElementById('createRoomInputTextField').value;
     socket.emit('createRoom', { userid, username, newLernflixRoomName, moodleRoom, moodleRoomName })
+}
+
+// Get request for videos
+function getVideos(moodleContextId) {
+    var message = { message: "Es konnten keine Videos geladen werden. Bitte schließe die Seite und versuche es erneut." }
+    if (typeof moodleContextId === 'undefined') createSystemNotification(message, false);
+
+    const url = "https://opencast-engage.hs-rw.de/search/episode.json?q=" + moodleContextId
+
+}
+
+// Creates HTML for error or success system notifications
+function createSystemNotification(message, isSuccess) {
+    const div = document.createElement('div');
+    div.classList.add('alert');
+    div.classList.add('alert-dismissible');
+    if (isSuccess == true) {
+        div.classList.add('alert-success');
+        div.innerHTML = `<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Erfolg</strong> ${message.message}`;
+    } else {
+        div.classList.add('alert-danger');
+        div.innerHTML = `<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Fehler</strong> ${message.message}`;
+    }
+    div.classList.add('fade-in');
+
+    var src = document.getElementById("error");
+    src.appendChild(div);
 }
