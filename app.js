@@ -5,6 +5,7 @@ const path = require('path');
 const { messageFormatter, welcomeMessage } = require('./backend/messages'); // make messages.js available
 const { userJoin, getCurrentUser, userLeave } = require('./backend/users'); // make functions in users.js available
 const { saveUser, loadRooms, saveRooms } = require('./backend/database'); // make database functions available
+const { loadVideoInformation, saveVideoInformation } = require('./backend/rooms'); // make room (video-information) functions available
 
 var uuid = require("uuid4"); // used for session IDs
 var lti = require("ims-lti"); // used to implement the actual LTI-protocol
@@ -110,7 +111,7 @@ io.on('connection', (socket) => {
         // Load rooms and emit list of rooms to frontend
         (async() => {
             const roomInformation = await loadRooms(moodleRoom);
-            socket.emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWenn Du einen Raum wechseln möchtest, klicke einfach auf einen anderen.`, roomInformation));
+            io.to(socket.id).emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWenn Du einen Raum wechseln möchtest, klicke einfach auf einen anderen.`, roomInformation));
         })()
 
         // Join Room
@@ -121,6 +122,9 @@ io.on('connection', (socket) => {
             socket.join(roomId); // Join the actual room
             socket.emit('message', messageFormatter('System', ('Hallo, ' + user.username + "! Du bist Raum " + user.roomName + " beigetreten."))); // Greet User | Welcome message to room
             socket.broadcast.to(user.roomId).emit('message', messageFormatter('System', (user.username + " ist dem Raum " + user.roomName + " beigetreten."))); // Broadcast when a user connects to room
+            // Get currently playing Video-Info and tell client
+            const videoInfo = loadVideoInformation(user.roomId);
+            io.to(socket.id).emit('videoSync', videoInfo);
         });
 
         // Create New Lernflix Room
@@ -202,6 +206,7 @@ io.on('connection', (socket) => {
 
         // Skip time video
         socket.on('skipTimeVideo', time => {
+            // Send Skip Time command to all clients of room
             const user = getCurrentUser(socket.id)
             if (typeof user !== 'undefined') {
                 console.log("Skipping Time in Video in Room w/ ID " + user.roomId + " to Time " + time)
@@ -210,5 +215,10 @@ io.on('connection', (socket) => {
         })
 
         // TODO: Send currently playing video to joining room-members + sync their videotime
+        socket.on('updateVideoInfo', videoInformation => {
+            console.log("VIDEO INFORMATION FROM CLIENT: ")
+            console.log(videoInformation.videoURL, videoInformation.roomID + " ETC")
+            saveVideoInformation(videoInformation);
+        })
     }
 });

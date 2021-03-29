@@ -26,7 +26,6 @@ function saveUser(firstname, lastname, fullname, email, userid, profilepicture, 
                     console.log(err);
                 }
             });
-            console.log("User " + fullname + " " + userid + " created");
             client.end();
         }
     }

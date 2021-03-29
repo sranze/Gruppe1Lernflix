@@ -15,6 +15,8 @@ let videoplayerTimeText = document.getElementById('videoplayerTimeText');
 videoplayer.addEventListener('timeupdate', seekTimeSliderUpdate, false);
 videoplayerSeekslider.addEventListener('change', skipToTime, false);
 
+let lernflixRoomID;
+
 // Join and switch between rooms
 function joinRoom(roomName, roomId) {
     if (!didJoin) {
@@ -22,12 +24,14 @@ function joinRoom(roomName, roomId) {
         var userid = params.userid;
         var username = params.username;
         var moodleRoom = params.moodleRoom;
+        lernflixRoomID = roomId;
         socket.emit('joinRoom', { userid, username, roomName, roomId, moodleRoom });
 
         didJoin = true;
     } else {
         // "Switch" rooms
         socket.emit('leaveRoom'); // Remove user from users array 
+        lernflixRoomID = roomId;
         didJoin = false;
         joinRoom(roomName, roomId);
     }
@@ -165,6 +169,8 @@ socket.on('loadNewVideo', url => {
     videoplayer.setAttribute('src', url)
     videoplayer.controls = false;
     videoplayer.play();
+    var videoInfo = getVideoInfo();
+    socket.emit('updateVideoInfo', videoInfo);
 })
 
 // Pause video - html listener
@@ -180,11 +186,17 @@ function playVideo() {
 // Pause video - socket
 socket.on('playVideo', () => {
     videoplayer.play();
+    // TODO Update Video on Heap
+    var videoInfo = getVideoInfo();
+    socket.emit('updateVideoInfo', videoInfo);
 })
 
 // Play video - socket
 socket.on('pauseVideo', () => {
     videoplayer.pause();
+    // TODO Update Video on Heap
+    var videoInfo = getVideoInfo();
+    socket.emit('updateVideoInfo', videoInfo);
 })
 
 // Skip time - html listener
@@ -196,6 +208,9 @@ function skipToTime() {
 // Skip time - socket
 socket.on('skipTimeVideo', time => {
     videoplayer.currentTime = time;
+    // TODO Update Video on Heap
+    var videoInfo = getVideoInfo();
+    socket.emit('updateVideoInfo', videoInfo);
 })
 
 // Set volume
@@ -215,4 +230,45 @@ function seekTimeSliderUpdate() {
     if (durationSeconds < 10) durationSeconds = '0' + durationSeconds;
 
     videoplayerTimeText.innerHTML = currentMinutes + ':' + currentSeconds + '/' + durationMinutes + ':' + durationSeconds;
+}
+
+// Sync video on room join
+socket.on('videoSync', video => {
+    console.log("RECEIVED: ")
+    console.log(video)
+    videoplayer.setAttribute('src', video.videoURL);
+
+    // Play video at specific time if is still playing
+    let currentTime = Math.floor(Date.now() / 1000);
+    let maxDurationTime = video.videoTime + currentTime;
+    let actualDurationTime = video.videoOffset + currentTime;
+    let timeVideoStarted = video.timestamp;
+    let actualPlayTime;
+    if (actualDurationTime < maxDurationTime) {
+        console.log("Video can still play. time is " + currentTime)
+        actualPlayTime = (currentTime - timeVideoStarted) + video.videoOffset
+        videoplayer.currentTime = actualPlayTime;
+        console.log("Current video time: " + videoplayer.currentTime)
+        video.isPaused == true ? videoplayer.pause() : videoplayer.play();
+    } else {
+        console.log("Video cant play.")
+        videoplayer.currentTime = 0;
+        videoplayer.pause();
+    }
+    videoplayer.controls = false;
+});
+
+// Gets video information, returns obj with info
+function getVideoInfo() {
+    var isPaused = videoplayer.paused;
+    if (isPaused == undefined) isPaused = true;
+    const videoObject = {
+        roomID: lernflixRoomID,
+        videoURL: videoplayer.src,
+        videoTime: videoplayer.duration,
+        videoOffset: videoplayer.currentTime,
+        timestamp: Math.floor(Date.now() / 1000),
+        isPaused: isPaused
+    }
+    return videoObject;
 }
