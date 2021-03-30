@@ -193,9 +193,8 @@
   });
 });
   </script>
-<input type="text" id="createRoomInputTextField" value="Some text...">
-<button type="button" class="btn btn-primary" onclick="createRoom()">Raum erstellen</button>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Raum Anlegen</button>
+
+
 
 <header>
     <div class="navbar navbar-dark bg-dark shadow-sm ">
@@ -212,8 +211,8 @@
                 </a>
             </div>
             <div class="search_room dropdown ">
-                <input class="form-control dropdown-toggle" type="text" placeholder="Suchen sie ein Moodle raum aus" id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="callJoinRoom()">Search</button>
+                <input class="form-control dropdown-toggle" type="text" placeholder="Zur Chatraum Auswahl..." id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="callJoinRoom()">Beitritt </button>
                 <div id="rooms" class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <button class="dropdown-item" type="button">Action</button>
                     <button id="531514655"   class="dropdown-item" type="button">TESSSSSSSSSSSST</button>
@@ -240,69 +239,73 @@
 
 
 <main>
-
-    <section>
-        <div class="py-3 container">
-            <div class="row rooms">
-                <input class="form-control" type="text" placeholder="Moodle" id="createRooms">
-                <button type="button" class="btn btn-outline-dark" onclick="createRoom()">Raum erstellen</button>
-                <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Raum Anlegen</button>
-            </div>
-        </div>
-    </section>
-
-
-    <section>
-        <div class="py-2 container">
-            <div class="row py-lg-5">
-                <div class="col-md-8 themed-grid-col">
-                    <div class="videoplayer">
-                        <h2>Video Title</h2>
-                        <video width="854" height="480" controls class="vid-fluid" id="videoplayer" src="" >
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <input id="seekslider" type="range" min="0" max="100" value="0" step="1" style="width: 400 px;">
-                    <span id="videoplayerTimeText">0:00/0:00</span>
-                    <input id="volumeControl" type="range" min="0" max="100" step="1" oninput="setVolume(this.value)" onchange="setVolume(this.value)">
-                    <div class="col-md-12 py-4">
-                        <button id="start" class="btn btn-lg hover-top btn-glow" onclick="playVideo()">Play</button>
-                        <button id="pause" class="btn btn-lg  hover-top btn-glow" onclick="pauseVideo()">Pause</button>
-                        <button id="setFlag" class="btn btn-lg hover-top btn-glow">Flag</button>
-                        <button id="addVideo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#listvideos">Add Video to Queue</button>
-
-                        <div class="popup_content" id="pop_cont">
-                            <input type="text">
-                            <button id="" onclick="flagVideo()" type="button" class="btn btn-primary btn-sm">Small button</button>
-                        </div>
-                    </div>
-                    <div id="flag">
-                        <p>Flagged Time:</p>
-                    </div>
+    <div class="container">
+    <input type="text" id="createRoomInputTextField" value="Raumname eingeben....">
+    <button type="button" class="btn btn-primary" onclick="createRoom()">Raum Anlegen</button>
+    </div>
+    <!--
+        <section>
+            <div class="py-3 container">
+                <div class="row rooms">
+                    <input class="form-control" type="text" placeholder="Moodle" id="createRooms">
+                    <button type="button" class="btn btn-outline-dark" onclick="createRoom()">Raum erstellen</button>
+                    <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#exampleModal" data-whatever="@getbootstrap">Raum Anlegen</button>
                 </div>
-                <div class="col-md-4 themed-grid-col">
-                    <a></a>
-                    <div class="chat-container">
-                        <header class="chat-header">
-                            <h2> Chat</h2>
-                        </header>
-                        <main class="chat-main">
+            </div>
+        </section>
 
-                            <div class="chat-messages">
+    -->
+        <section>
+            <div class="py-2 container">
+                <div class="row py-lg-5">
+                    <div class="col-md-8 themed-grid-col">
+                        <div class="videoplayer">
+                            <h2>Video Title</h2>
+                            <video width="854" height="480" controls class="vid-fluid" id="videoplayer" src="" >
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                        <input id="seekslider" type="range" min="0" max="100" value="0" step="1" style="width: 400 px;">
+                        <span id="videoplayerTimeText">0:00/0:00</span>
+                        <input id="volumeControl" type="range" min="0" max="100" step="1" oninput="setVolume(this.value)" onchange="setVolume(this.value)">
+                        <div class="col-md-12 py-4">
+                            <button id="start" class="btn btn-lg hover-top btn-glow" onclick="playVideo()">Play</button>
+                            <button id="pause" class="btn btn-lg  hover-top btn-glow" onclick="pauseVideo()">Pause</button>
+                            <button id="setFlag" class="btn btn-lg hover-top btn-glow">Flag</button>
+                            <button id="addVideo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#listvideos">Add Video to Queue</button>
+
+                            <div class="popup_content" id="pop_cont">
+                                <input type="text">
+                                <button id="" onclick="flagVideo()" type="button" class="btn btn-primary btn-sm">Small button</button>
                             </div>
-                        </main>
-                        <div class="chat-form-container">
-                            <form id="chat-form">
-                                <input id="msg" type="text" placeholder="Nachricht eingeben" required autocomplete="off" />
-                                <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
-                            </form>
+                        </div>
+                        <div id="flag">
+                            <p>Flagged Time:</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 themed-grid-col">
+                        <a></a>
+                        <div class="chat-container">
+                            <header class="chat-header">
+                                <h2> Chat</h2>
+                            </header>
+                            <main class="chat-main">
+
+                                <div class="chat-messages">
+                                </div>
+                            </main>
+                            <div class="chat-form-container">
+                                <form id="chat-form">
+                                    <input id="msg" type="text" placeholder="Nachricht eingeben" required autocomplete="off" />
+                                    <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- Modal -->
+        </section>
+        <!-- Modal -->
     <div class="modal fade" id="listvideos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
