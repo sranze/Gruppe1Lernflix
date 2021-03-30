@@ -211,12 +211,15 @@
                 </a>
             </div>
             <div class="search_room dropdown ">
+                <input class="form-control dropdown-toggle" type="text" placeholder="Raumname eingeben...." id="createRoomInputTextField" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
+                <button class="btn btn-outline-success my-2 my-sm-0" onclick="createRoom()">Anlegen</button>
+
+            </div>
+            <div class="search_room dropdown ">
                 <input class="form-control dropdown-toggle" type="text" placeholder="Zur Chatraum Auswahl..." id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="callJoinRoom()">Beitritt </button>
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="callJoinRoom()">Beitritt</button>
                 <div id="rooms" class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <button class="dropdown-item" type="button">Action</button>
-                    <button id="531514655"   class="dropdown-item" type="button">TESSSSSSSSSSSST</button>
-                    <button id="499078358"   class="dropdown-item" type="button">TEEEEEEEEEEEST2</button>
 
                 </div>
             </div>
@@ -239,10 +242,7 @@
 
 
 <main>
-    <div class="container">
-    <input type="text" id="createRoomInputTextField" value="Raumname eingeben....">
-    <button type="button" class="btn btn-primary" onclick="createRoom()">Raum Anlegen</button>
-    </div>
+
     <!--
         <section>
             <div class="py-3 container">
