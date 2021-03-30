@@ -1,6 +1,6 @@
 const rooms = [];
 
-// Saves videoURL, videoTime and videoOffset on heap
+// Saves videoURL, videoTime and videoOffset on heaps
 // TODO: Check if room exists, then update values
 function saveVideoInformation(videoInformation) {
     console.log("saveVideoInformation called...")
