@@ -239,14 +239,18 @@ socket.on('videoSync', video => {
     videoplayer.setAttribute('src', video.videoURL);
 
     // Play video at specific time if is still playing
-    let currentTime = Math.floor(Date.now() / 1000);
+    let currentTime = (Date.now() / 1000);
     let maxDurationTime = video.videoTime + currentTime;
     let actualDurationTime = video.videoOffset + currentTime;
     let timeVideoStarted = video.timestamp;
     let actualPlayTime;
     if (actualDurationTime < maxDurationTime) {
         console.log("Video can still play. time is " + currentTime)
-        actualPlayTime = (currentTime - timeVideoStarted) + video.videoOffset
+        if (video.isPaused == false) {
+            actualPlayTime = (currentTime - timeVideoStarted) + video.videoOffset;
+        } else {
+            actualPlayTime = video.videoOffset;
+        }
         videoplayer.currentTime = actualPlayTime;
         console.log("Current video time: " + videoplayer.currentTime)
         video.isPaused == true ? videoplayer.pause() : videoplayer.play();
@@ -267,7 +271,7 @@ function getVideoInfo() {
         videoURL: videoplayer.src,
         videoTime: videoplayer.duration,
         videoOffset: videoplayer.currentTime,
-        timestamp: Math.floor(Date.now() / 1000),
+        timestamp: (Date.now() / 1000),
         isPaused: isPaused
     }
     return videoObject;
