@@ -269,19 +269,21 @@
                         <span id="videoplayerTimeText">0:00/0:00</span>
                         <input id="volumeControl" type="range" min="0" max="100" step="1" oninput="setVolume(this.value)" onchange="setVolume(this.value)">
                         <div class="col-md-12 py-4">
-                            <button id="start" class="btn btn-lg hover-top btn-glow" onclick="playVideo()">Play</button>
-                            <button id="pause" class="btn btn-lg  hover-top btn-glow" onclick="pauseVideo()">Pause</button>
-                            <button id="setFlag" class="btn btn-lg hover-top btn-glow">Flag</button>
-                            <button id="addVideo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#listvideos">Add Video to Queue</button>
+                            <button id="start" class="btn btn-primary" onclick="playVideo()">Play</button>
+                            <button id="pause" class="btn btn-secondary" onclick="pauseVideo()">Pause</button>
+                            <button id="setFlag" class="btn btn-danger">Flagge Setzten</button>
+                            <button id="addVideo" type="button" class="btn btn-info" data-toggle="modal" data-target="#listvideos">Video hinzufügen</button>
 
                             <div class="popup_content" id="pop_cont">
                                 <input type="text">
                                 <button id="" onclick="flagVideo()" type="button" class="btn btn-primary btn-sm">Small button</button>
                             </div>
                         </div>
+                        <!--
                         <div id="flag">
                             <p>Flagged Time:</p>
                         </div>
+                        -->
                     </div>
                     <div class="col-md-4 themed-grid-col">
                         <a></a>
