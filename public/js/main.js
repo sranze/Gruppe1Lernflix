@@ -166,11 +166,13 @@ function changeVideo(url) {
 // Change video
 socket.on('loadNewVideo', url => {
 
-    videoplayer.setAttribute('src', url)
+    videoplayer.setAttribute('src', url);
     videoplayer.controls = false;
     videoplayer.play();
-    var videoInfo = getVideoInfo();
-    socket.emit('updateVideoInfo', videoInfo);
+    videoplayer.onloadedmetadata = function() {
+        var videoInfo = getVideoInfo();
+        socket.emit('updateVideoInfo', videoInfo);
+    }
 })
 
 // Pause video - html listener
@@ -186,7 +188,6 @@ function playVideo() {
 // Pause video - socket
 socket.on('playVideo', () => {
     videoplayer.play();
-    // TODO Update Video on Heap
     var videoInfo = getVideoInfo();
     socket.emit('updateVideoInfo', videoInfo);
 })
@@ -234,8 +235,6 @@ function seekTimeSliderUpdate() {
 
 // Sync video on room join
 socket.on('videoSync', video => {
-    console.log("RECEIVED: ")
-    console.log(video)
     videoplayer.setAttribute('src', video.videoURL);
 
     // Play video at specific time if is still playing
@@ -245,17 +244,14 @@ socket.on('videoSync', video => {
     let timeVideoStarted = video.timestamp;
     let actualPlayTime;
     if (actualDurationTime < maxDurationTime) {
-        console.log("Video can still play. time is " + currentTime)
         if (video.isPaused == false) {
             actualPlayTime = (currentTime - timeVideoStarted) + video.videoOffset;
         } else {
             actualPlayTime = video.videoOffset;
         }
         videoplayer.currentTime = actualPlayTime;
-        console.log("Current video time: " + videoplayer.currentTime)
         video.isPaused == true ? videoplayer.pause() : videoplayer.play();
     } else {
-        console.log("Video cant play.")
         videoplayer.currentTime = 0;
         videoplayer.pause();
     }

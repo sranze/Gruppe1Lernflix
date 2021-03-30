@@ -216,9 +216,11 @@ io.on('connection', (socket) => {
 
         // TODO: Send currently playing video to joining room-members + sync their videotime
         socket.on('updateVideoInfo', videoInformation => {
-            console.log("VIDEO INFORMATION FROM CLIENT: ")
-            console.log(videoInformation.videoURL, videoInformation.roomID + " ETC")
-            saveVideoInformation(videoInformation);
+            if (videoInformation.videoURL !== 'undefined' && videoInformation.videoURL !== 'null') {
+                console.log("VIDEO INFORMATION FROM CLIENT: ")
+                console.log(videoInformation.videoURL, videoInformation.roomID + " ETC")
+                saveVideoInformation(videoInformation);
+            }
         })
     }
 });
