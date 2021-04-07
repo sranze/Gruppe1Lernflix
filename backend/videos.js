@@ -1,35 +1,34 @@
-const rooms = [];
+const videos = [];
 
 // Saves videoURL, videoTime and videoOffset on heaps
-// TODO: Check if room exists, then update values
 function saveVideoInformation(videoInformation) {
     console.log("saveVideoInformation called...")
-    const room = videoInformation;
+    const video = videoInformation;
     const roomID = videoInformation.roomID;
-    console.log("Room ID is: " + roomID)
-    const index = rooms.findIndex(room => room.roomID === roomID)
+    console.log("video ID is: " + roomID)
+    const index = videos.findIndex(video => video.roomID === roomID)
     console.log("index is: " + index)
     if (index !== -1) {
-        rooms.splice(index, 1)[0]
+        videos.splice(index, 1)[0]
     }
-    console.log("created room looks like:")
-    console.log(room)
-    rooms.push(room)
+    console.log("created video looks like:")
+    console.log(video)
+    videos.push(video)
     console.log("Array:")
-    console.log(rooms)
+    console.log(videos)
 
 }
 
 // Returns videoURL, videoTime and videoOffset 
 function loadVideoInformation(roomID) {
-    console.log("ROOMS LOADING: ")
-    console.log("Array: " + rooms)
+    console.log("videos LOADING: ")
+    console.log("Array: " + videos)
     console.log("Find:")
-    console.log(rooms.find(room => room.roomID === roomID))
-    if (rooms.find(room => room.roomID === roomID) == undefined) {
+    console.log(videos.find(video => video.roomID === roomID))
+    if (videos.find(video => video.roomID === roomID) == undefined) {
         return { roomID: roomID, videoURL: "", videoTime: "00:00", videoOffset: "", isPaused: false, timestamp: null };
     } else {
-        return rooms.find(room => room.roomID === roomID);
+        return videos.find(video => video.roomID === roomID);
     }
 }
 

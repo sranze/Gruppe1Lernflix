@@ -5,7 +5,7 @@ const path = require('path');
 const { messageFormatter, welcomeMessage } = require('./backend/messages'); // make messages.js available
 const { userJoin, getCurrentUser, userLeave } = require('./backend/users'); // make functions in users.js available
 const { saveUser, loadRooms, saveRooms } = require('./backend/database'); // make database functions available
-const { loadVideoInformation, saveVideoInformation } = require('./backend/rooms'); // make room (video-information) functions available
+const { loadVideoInformation, saveVideoInformation } = require('./backend/videos'); // make room (video-information) functions available
 
 var uuid = require("uuid4"); // used for session IDs
 var lti = require("ims-lti"); // used to implement the actual LTI-protocol
@@ -217,8 +217,6 @@ io.on('connection', (socket) => {
         // TODO: Send currently playing video to joining room-members + sync their videotime
         socket.on('updateVideoInfo', videoInformation => {
             if (videoInformation.videoURL !== 'undefined' && videoInformation.videoURL !== 'null') {
-                console.log("VIDEO INFORMATION FROM CLIENT: ")
-                console.log(videoInformation.videoURL, videoInformation.roomID + " ETC")
                 saveVideoInformation(videoInformation);
             }
         })

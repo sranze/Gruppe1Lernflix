@@ -39,105 +39,105 @@
     <!-- Video Functions-->
     <script>
         /*
-                                                                                                                var flagID = 0;
+                                                                                                                        var flagID = 0;
 
-                                                                                                                $(document).ready(function() {
-                                                                                                                    //get popup_content // Input und Button
-                                                                                                                    var popup_content = $("#pop_cont")
+                                                                                                                        $(document).ready(function() {
+                                                                                                                            //get popup_content // Input und Button
+                                                                                                                            var popup_content = $("#pop_cont")
 
-                                                                                                                    tippy('#setFlag', {
-                                                                                                                        content: popup_content.html(),
-                                                                                                                        trigger: 'click',
-                                                                                                                        hideOnClick: true,
-                                                                                                                        allowHTML: true,
-                                                                                                                        interactive: true,
+                                                                                                                            tippy('#setFlag', {
+                                                                                                                                content: popup_content.html(),
+                                                                                                                                trigger: 'click',
+                                                                                                                                hideOnClick: true,
+                                                                                                                                allowHTML: true,
+                                                                                                                                interactive: true,
 
-                                                                                                                    });
+                                                                                                                            });
 
-                                                                                                                    //Zeit wird bei Klick auf Flag genommen und an FlagVideo als Parameter weitergegeben. Grund: Kommentare zu schreiben benötigt Zeit
-                                                                                                                    //während man Kommentar schreibt läuft Video weiter --> Flag wäre nicht mehr Zeitgenau. 
-                                                                                                                    $("#setFlag").click(function() {
-                                                                                                                        var curTime = Math.floor(video1.currentTime);
-                                                                                                                        $(".tippy-content > button").attr("onclick", "flagVideo(" + curTime + ")")
-                                                                                                                        $(".tippy-content > input").select();
-
-                                                                                                                    })
-
-                                                                                                                    $(document).on("click", ".videoElement", function() {
-                                                                                                                        var NewVideoUrl = $(this).attr("data-url");
-                                                                                                                        changeVideo(NewVideoUrl)
-                                                                                                                    })
-
-                                                                                                                    //Lädt alle Videos in das Modal
-                                                                                                                    $.ajax({
-                                                                                                                        url: '../assets/opencastAPI.json',
-                                                                                                                        type: "GET",
-                                                                                                                        dataType: 'JSON',
-                                                                                                                        success: function(data) {
-                                                                                                                            $.each(data["search-results"].result, function(i, item) {
-                                                                                                                                var video_thumbnail = item['mediapackage']['attachments']['attachment'][2]['url']
-                                                                                                                                var video_title = item['mediapackage']['title']
-                                                                                                                                var video_res480p = item['mediapackage']['media']['track'][0]['url']
-                                                                                                                                    //            var video_res720p = data['search-results']['result'][0]['mediapackage']['media']['track'][2]['url']
-                                                                                                                                    //            var video_res1080p = data['search-results']['result'][0]['mediapackage']['media']['track'][1]['url']
-                                                                                                                                $(".videolist").append("<div tabindex ='-1' id='videoElement" + i + "' class='videoElement py-3 fadein' data-url=" + video_res480p + "><img class='videoThumbnail col-6' src=" + video_thumbnail + "/><h1 class='videoTitle col-6 px-3'>" + video_title + "</h1></div>");
+                                                                                                                            //Zeit wird bei Klick auf Flag genommen und an FlagVideo als Parameter weitergegeben. Grund: Kommentare zu schreiben benötigt Zeit
+                                                                                                                            //während man Kommentar schreibt läuft Video weiter --> Flag wäre nicht mehr Zeitgenau. 
+                                                                                                                            $("#setFlag").click(function() {
+                                                                                                                                var curTime = Math.floor(video1.currentTime);
+                                                                                                                                $(".tippy-content > button").attr("onclick", "flagVideo(" + curTime + ")")
+                                                                                                                                $(".tippy-content > input").select();
 
                                                                                                                             })
+
+                                                                                                                            $(document).on("click", ".videoElement", function() {
+                                                                                                                                var NewVideoUrl = $(this).attr("data-url");
+                                                                                                                                changeVideo(NewVideoUrl)
+                                                                                                                            })
+
+                                                                                                                            //Lädt alle Videos in das Modal
+                                                                                                                            $.ajax({
+                                                                                                                                url: '../assets/opencastAPI.json',
+                                                                                                                                type: "GET",
+                                                                                                                                dataType: 'JSON',
+                                                                                                                                success: function(data) {
+                                                                                                                                    $.each(data["search-results"].result, function(i, item) {
+                                                                                                                                        var video_thumbnail = item['mediapackage']['attachments']['attachment'][2]['url']
+                                                                                                                                        var video_title = item['mediapackage']['title']
+                                                                                                                                        var video_res480p = item['mediapackage']['media']['track'][0]['url']
+                                                                                                                                            //            var video_res720p = data['search-results']['result'][0]['mediapackage']['media']['track'][2]['url']
+                                                                                                                                            //            var video_res1080p = data['search-results']['result'][0]['mediapackage']['media']['track'][1]['url']
+                                                                                                                                        $(".videolist").append("<div tabindex ='-1' id='videoElement" + i + "' class='videoElement py-3 fadein' data-url=" + video_res480p + "><img class='videoThumbnail col-6' src=" + video_thumbnail + "/><h1 class='videoTitle col-6 px-3'>" + video_title + "</h1></div>");
+
+                                                                                                                                    })
+                                                                                                                                }
+
+                                                                                                                            });
+                                                                                                                        });
+
+                                                                                                                        //startet Video
+                                                                                                                        function startVideo() {
+                                                                                                                            $("#video1").trigger("play");
+                                                                                                                        }
+                                                                                                                        //pausiert Video
+                                                                                                                        function stopVideo() {
+                                                                                                                            $("#video1").trigger("pause");
+                                                                                                                        }
+                                                                                                                        //lädt das Video neu
+                                                                                                                        function resetVideo() {
+                                                                                                                            $("#video1").trigger("load");
                                                                                                                         }
 
-                                                                                                                    });
-                                                                                                                });
-
-                                                                                                                //startet Video
-                                                                                                                function startVideo() {
-                                                                                                                    $("#video1").trigger("play");
-                                                                                                                }
-                                                                                                                //pausiert Video
-                                                                                                                function stopVideo() {
-                                                                                                                    $("#video1").trigger("pause");
-                                                                                                                }
-                                                                                                                //lädt das Video neu
-                                                                                                                function resetVideo() {
-                                                                                                                    $("#video1").trigger("load");
-                                                                                                                }
 
 
+                                                                                                                        //setzt eine "Flagge" bzw. Makiert 
+                                                                                                                        function flagVideo(curTime) {
 
-                                                                                                                //setzt eine "Flagge" bzw. Makiert 
-                                                                                                                function flagVideo(curTime) {
+                                                                                                                            flagID++
+                                                                                                                            //gets Video from Dom
+                                                                                                                            var vid = document.getElementById("video1");
+                                                                                                                            //gets current Time of selected Video
 
-                                                                                                                    flagID++
-                                                                                                                    //gets Video from Dom
-                                                                                                                    var vid = document.getElementById("video1");
-                                                                                                                    //gets current Time of selected Video
+                                                                                                                            //gets input.value
+                                                                                                                            var popup_input = $(".tippy-content > input")
+                                                                                                                            var input_text = popup_input.val();
 
-                                                                                                                    //gets input.value
-                                                                                                                    var popup_input = $(".tippy-content > input")
-                                                                                                                    var input_text = popup_input.val();
+                                                                                                                            //formats Seconds into HH:MM:SS
+                                                                                                                            var date = new Date(0);
+                                                                                                                            date.setSeconds(curTime); // specify value for SECONDS here
+                                                                                                                            var timeString = date.toISOString().substr(11, 8);
 
-                                                                                                                    //formats Seconds into HH:MM:SS
-                                                                                                                    var date = new Date(0);
-                                                                                                                    date.setSeconds(curTime); // specify value for SECONDS here
-                                                                                                                    var timeString = date.toISOString().substr(11, 8);
-
-                                                                                                                    //erstellt ein Element mit unique ID und setzt parameter zu JumpVideo direkt ein.
-                                                                                                                    $("#flag").append("<p onclick='jumpVideo(" + curTime + ")'id=flagID_" + flagID + ">Time: " + timeString + "<br/>Message:  " + input_text);
-                                                                                                                    popup_input.val('');
+                                                                                                                            //erstellt ein Element mit unique ID und setzt parameter zu JumpVideo direkt ein.
+                                                                                                                            $("#flag").append("<p onclick='jumpVideo(" + curTime + ")'id=flagID_" + flagID + ">Time: " + timeString + "<br/>Message:  " + input_text);
+                                                                                                                            popup_input.val('');
 
 
-                                                                                                                }
+                                                                                                                        }
 
-                                                                                                                //springt zu bestimmter Sekunde im Video
-                                                                                                                function jumpVideo(seconds) {
-                                                                                                                    var vid = document.getElementById("video1");
-                                                                                                                    vid.currentTime = seconds;
-                                                                                                                }
-                                                                                                                
-                                                                                                                        function changeVideo(url) {
-                                                                                                                            var currentVideo = $("#video1")
-                                                                                                                            currentVideo.attr("src", url)
+                                                                                                                        //springt zu bestimmter Sekunde im Video
+                                                                                                                        function jumpVideo(seconds) {
+                                                                                                                            var vid = document.getElementById("video1");
+                                                                                                                            vid.currentTime = seconds;
+                                                                                                                        }
+                                                                                                                        
+                                                                                                                                function changeVideo(url) {
+                                                                                                                                    var currentVideo = $("#video1")
+                                                                                                                                    currentVideo.attr("src", url)
 
-                                                                                                                        }*/
+                                                                                                                                }*/
     </script>
 
 
@@ -149,105 +149,105 @@
 
 
 
-<div id="error"></div>
+    <div id="error"></div>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Neuen Raum Anlegen</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Raumname:</label>
-                        <input type="text" class="form-control" id="recipient-name">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                <!-- Bei "Raum Anlegen" muss saveRooms() + die joinRooms() Funktion getriggert werden + die Value von id "recupient-name" (name ggfs noch ändern) mitgeschickt werden + die zufälle id (die zufällige zahl von 1 bis ne milliarde oder was du gemacht hast) -->
-                <button type="button" class="btn btn-primary">Raum anlegen</button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Neuen Raum Anlegen</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Raumname:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+                    <!-- Bei "Raum Anlegen" muss saveRooms() + die joinRooms() Funktion getriggert werden + die Value von id "recupient-name" (name ggfs noch ändern) mitgeschickt werden + die zufälle id (die zufällige zahl von 1 bis ne milliarde oder was du gemacht hast) -->
+                    <button type="button" class="btn btn-primary">Raum anlegen</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 
-<!--*************+START*************-->
-<!--********************************-->
-<!--***********Navigation***********-->
-<script>
-    $(document).ready(function() {
-      $("#profileName").text(`${params.username}`);
-      $("#profileImg").attr("src", `${params.url_picture}`);
-    });
-  </script>
+    <!--*************+START*************-->
+    <!--********************************-->
+    <!--***********Navigation***********-->
+    <script>
+        $(document).ready(function() {
+            $("#profileName").text(`${params.username}`);
+            $("#profileImg").attr("src", `${params.url_picture}`);
+        });
+    </script>
 
-<!-- Search function -->
-<script>
-  $(document).ready(function(){
-  $("#searchRooms").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#rooms button").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-  });
-});
-  </script>
+    <!-- Search function -->
+    <script>
+        $(document).ready(function() {
+            $("#searchRooms").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("#rooms button").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
 
 
 
-<header>
-    <div class="navbar navbar-dark bg-dark shadow-sm ">
-        <div class="container">
-            <div class="logo">
-                <a class="navbar-brand d-flex align-items-center">
-                    <div class="profileInfo">
-                        <img style="margin-right:10px"  src="/../assets/illustrations/111111.PNG" />
-                        <div class="">
-                    <strong>Lernflix</strong>
+    <header>
+        <div class="navbar navbar-dark bg-dark shadow-sm ">
+            <div class="container">
+                <div class="logo">
+                    <a class="navbar-brand d-flex align-items-center">
+                        <div class="profileInfo">
+                            <img style="margin-right:10px" src="/../assets/illustrations/111111.PNG" />
+                            <div class="">
+                                <strong>Lernflix</strong>
 
+                            </div>
                         </div>
-                    </div>
-                </a>
-            </div>
-            <div class="search_room dropdown ">
-                <input class="form-control dropdown-toggle" type="text" placeholder="Raumname eingeben...." id="createRoomInputTextField" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
-                <button class="btn btn-outline-success my-2 my-sm-0" onclick="createRoom()">Anlegen</button>
-
-            </div>
-            <div class="search_room dropdown ">
-                <input class="form-control dropdown-toggle" type="text" placeholder="Zur Chatraum Auswahl..." id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="callJoinRoom()">Beitritt</button>
-                <div id="rooms" class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <button class="dropdown-item" type="button">Action</button>
-
-                </div>
-            </div>
-            <div class="profileInfo">
-                <img id="profileImg" src="../assets/illustrations/error404_2.png" />
-                <div class="">
-                    <p id="profileName">&nbsp;</p>
-                    <a href="#">
-                        <p>Logout</p>
                     </a>
                 </div>
+                <div class="search_room dropdown ">
+                    <input class="form-control dropdown-toggle" type="text" placeholder="Raumname eingeben...." id="createRoomInputTextField" data-bs-toggle="dropdown" aria-expanded="false" onclick="">
+                    <button class="btn btn-outline-success my-2 my-sm-0" onclick="createRoom()">Anlegen</button>
+
+                </div>
+                <div class="search_room dropdown ">
+                    <input class="form-control dropdown-toggle" type="text" placeholder="Zur Chatraum Auswahl..." id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="callJoinRoom()">Beitritt</button>
+                    <div id="rooms" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                        <button class="dropdown-item" type="button">Action</button>
+
+                    </div>
+                </div>
+                <div class="profileInfo">
+                    <img id="profileImg" src="../assets/illustrations/error404_2.png" />
+                    <div class="">
+                        <p id="profileName">&nbsp;</p>
+                        <a href="#">
+                            <p>Logout</p>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</header>
+    </header>
 
-<!--********************************-->
-<!--***********Navigation***********-->
-<!--**************END***************-->
+    <!--********************************-->
+    <!--***********Navigation***********-->
+    <!--**************END***************-->
 
 
-<main>
+    <main>
 
-    <!--
+        <!--
         <section>
             <div class="py-3 container">
                 <div class="row rooms">
@@ -265,7 +265,7 @@
                     <div class="col-md-8 themed-grid-col">
                         <div class="videoplayer">
                             <h2>Video Title</h2>
-                            <video width="854" height="480" controls class="vid-fluid" id="videoplayer" src="" >
+                            <video width="854" height="480" controls class="vid-fluid" id="videoplayer" src="">
                                 Your browser does not support the video tag.
                             </video>
                         </div>
@@ -312,39 +312,39 @@
             </div>
         </section>
         <!-- Modal -->
-    <div class="modal fade" id="listvideos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Alle Videos</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <div class="modal fade" id="listvideos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Alle Videos</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                </div>
-                <div class="modal-body container">
-                    <div class="row">
-                        <div class="col-12 videolist">
-                            <button type="button" class="btn btn-secondary"  data-dismiss="modal" onclick="changeVideo(`https://opencast-engage.hs-rw.de/static/mh_default_org/engage-player/26316efa-efa8-4906-b9c4-2ef5d1a613a3/17fe9ed6-72f1-4024-848b-85af5104e30d/_.mp4`)">Video 1 - Hasen</button>
-                            <button type="button" class="btn btn-secondary"  data-dismiss="modal" onclick="changeVideo(`https://opencast-engage.hs-rw.de/static/mh_default_org/api/8531fc76-4876-4113-b36a-d47e822ceb70/03a1670b-d5ca-41f6-8a29-7ca5a387efac/_.mp4`)">Video 2 - Python</button>
+                    </div>
+                    <div class="modal-body container">
+                        <div class="row">
+                            <div class="col-12 videolist">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="changeVideo(`https://opencast-engage.hs-rw.de/static/mh_default_org/engage-player/26316efa-efa8-4906-b9c4-2ef5d1a613a3/17fe9ed6-72f1-4024-848b-85af5104e30d/_.mp4`)">Video 1 - Hasen</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="changeVideo(`https://opencast-engage.hs-rw.de/static/mh_default_org/api/8531fc76-4876-4113-b36a-d47e822ceb70/03a1670b-d5ca-41f6-8a29-7ca5a387efac/_.mp4`)">Video 2 - Python</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-               <!--
+                    <!--
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="button" class="btn btn-primary" onclick="changeVideo()">Add Video</button>
                 </div>
                 -->
+                </div>
             </div>
         </div>
-    </div>
-    <!--Modal end-->
+        <!--Modal end-->
 
-</main>
-<!--  Hier statt CDN die .js Dateien runterladen und verlinkung anpassen-->
-<script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
-<script src="../js/main.js"></script>
+    </main>
+    <!--  Hier statt CDN die .js Dateien runterladen und verlinkung anpassen-->
+    <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+    <script src="../js/main.js"></script>
 </body>
 
 </html>
