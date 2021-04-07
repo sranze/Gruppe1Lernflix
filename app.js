@@ -6,6 +6,7 @@ const { messageFormatter, welcomeMessage } = require('./backend/messages'); // m
 const { userJoin, getCurrentUser, userLeave } = require('./backend/users'); // make functions in users.js available
 const { saveUser, loadRooms, saveRooms } = require('./backend/database'); // make database functions available
 const { loadVideoInformation, saveVideoInformation } = require('./backend/videos'); // make room (video-information) functions available
+const { loadFlags, saveFlag, removeFlag } = require('./backend/flags') // make flag functionalities available
 
 var uuid = require("uuid4"); // used for session IDs
 var lti = require("ims-lti"); // used to implement the actual LTI-protocol
@@ -125,6 +126,9 @@ io.on('connection', (socket) => {
             // Get currently playing Video-Info and tell client
             const videoInfo = loadVideoInformation(user.roomId);
             io.to(socket.id).emit('videoSync', videoInfo);
+            // Load flags
+            const flags = loadFlags(user.roomId, videoInfo.videoURL);
+            io.to(user.roomId).emit('updateFlags', flags);
         });
 
         // Create New Lernflix Room
@@ -184,6 +188,9 @@ io.on('connection', (socket) => {
                 console.log("Changing Video in Room w/ ID " + user.roomId + " Video with URL " + url)
                 io.to(user.roomId).emit('loadNewVideo', url);
             }
+            // Load flags
+            const flags = loadFlags(user.roomId, url);
+            io.to(user.roomId).emit('updateFlags', flags);
         })
 
         // Play video
@@ -214,10 +221,36 @@ io.on('connection', (socket) => {
             }
         })
 
-        // TODO: Send currently playing video to joining room-members + sync their videotime
+        // Updates video Information (time etc.) on heap
         socket.on('updateVideoInfo', videoInformation => {
             if (videoInformation.videoURL !== 'undefined' && videoInformation.videoURL !== 'null') {
                 saveVideoInformation(videoInformation);
+            }
+        })
+
+        // Adds flag to heap, specific to videoURL and roomID
+        socket.on('addFlag', flagInformation => {
+            const user = getCurrentUser(socket.id)
+            if (typeof user !== 'undefined') {
+                if (flagInformation !== 'undefined') {
+                    console.log("Received Flag information: RoomID: " + flagInformation.roomID + " Current Time: " + flagInformation.videoTime + " Video URL: " + flagInformation.videoURL + " Annotation: " + flagInformation.annotation);
+                    saveFlag(flagInformation);
+                }
+                // Load flags
+                const flags = loadFlags(user.roomId, flagInformation.videoURL);
+                io.to(user.roomId).emit('updateFlags', flags);
+            }
+        })
+
+        // TODO: Remove flag from heap
+        socket.on('removeFlag', flagInformation => {
+            const user = getCurrentUser(socket.id)
+            if (typeof user !== 'undefined') {
+                if (flagInformation !== 'undefined') {
+
+                }
+                // TODO: Load flags
+                // TODO: Error handling if something is undefined
             }
         })
     }

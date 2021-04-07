@@ -10,6 +10,7 @@ var didJoin = false;
 const videoplayer = document.getElementById('videoplayer');
 const videoplayerSeekslider = document.getElementById('seekslider');
 let videoplayerTimeText = document.getElementById('videoplayerTimeText');
+var videoTimeFlagPreview = 0;
 
 // Videoplayer event listener
 videoplayer.addEventListener('timeupdate', seekTimeSliderUpdate, false);
@@ -271,4 +272,57 @@ function getVideoInfo() {
         isPaused: isPaused
     }
     return videoObject;
+}
+
+// Adds flag
+function addFlag() {
+    let roomID = lernflixRoomID;
+    let videoTime = videoplayer.currentTime;
+    let annotation = document.getElementById('flagAnnotation').value;
+    let videoURL = videoplayer.src;
+    let creator = params.userid;
+    let flagInformation = {
+            roomID: roomID,
+            creator: creator,
+            videoTime: videoTime,
+            videoURL: videoURL,
+            annotation: annotation,
+        }
+        // TODO: Error handling if something is undefined or empty
+    socket.emit('addFlag', flagInformation);
+}
+
+// Updates flags
+socket.on('updateFlags', flags => {
+    // TODO: Error handling if something is undefined or empty
+    console.log("Flags:")
+    for (var i = 0; i < flags.length; i++) {
+        console.log(flags[i])
+    }
+    // TODO: Show flags on videoplayer, update flags (visually)
+    // TODO: Create functionality for flags on videoplayer
+})
+
+// Prepares information for flag modallable
+function loadFlagModal() {
+    let videoPreview = document.getElementById('videoPreview');
+    var canvas = capture(videoplayer);
+    canvas.onclick = function() {
+        window.open(this.toDataURL());
+    };
+    videoPreview.innerHTML = '';
+    videoPreview.appendChild(canvas);
+}
+
+// Captures Video Preview
+function capture(video) {
+    const scaleFactor = 0.5;
+    var w = video.videoWidth * scaleFactor;
+    var h = video.videoHeight * scaleFactor;
+    var canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(video, 0, 0, w, h);
+    return canvas;
 }
