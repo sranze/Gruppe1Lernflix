@@ -29,8 +29,11 @@ function loadFlags(roomID, videoURL) {
 }
 
 // Removes flag based on VideoURL and roomID
-function removeFlag(params) {
+function removeFlag(roomID, videoInformation) {
     // TODO: Add Remove Flag functionality
+    for (var i = 0; i < flags.length; i++) {
+
+    }
 }
 
 module.exports = {

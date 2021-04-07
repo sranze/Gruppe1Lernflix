@@ -242,15 +242,16 @@ io.on('connection', (socket) => {
             }
         })
 
-        // TODO: Remove flag from heap
+        // TODO: Remove flag from heap - See flags.js (its incomplete)
         socket.on('removeFlag', flagInformation => {
             const user = getCurrentUser(socket.id)
             if (typeof user !== 'undefined') {
                 if (flagInformation !== 'undefined') {
-
+                    removeFlag(user.roomId, flagInformation)
                 }
-                // TODO: Load flags
-                // TODO: Error handling if something is undefined
+                // Load flags
+                const flags = loadFlags(user.roomId, flagInformation.videoURL);
+                io.to(user.roomId).emit('updateFlags', flags);
             }
         })
     }

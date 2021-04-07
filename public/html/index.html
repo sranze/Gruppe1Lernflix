@@ -130,7 +130,9 @@
                                 Your browser does not support the video tag.
                             </video>
                         </div>
-                        <input id="seekslider" type="range" min="0" max="100" value="0" step="1" style="width: 400 px;" list="seeksliderFlagOptions">
+                        <div class="range">
+                            <input id="seekslider" type="range" min="0" max="100" value="0" step="1" style="width: 400 px;" list="seeksliderFlagOptions">
+                        </div>
                         <span id="videoplayerTimeText">0:00/0:00</span>
                         <input id="volumeControl" type="range" min="0" max="100" step="1" oninput="setVolume(this.value)" onchange="setVolume(this.value)">
                         <div class="col-md-12 py-4">

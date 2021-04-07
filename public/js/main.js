@@ -295,6 +295,7 @@ function addFlag() {
 // Updates flags
 socket.on('updateFlags', flags => {
     // TODO: Error handling if something is undefined or empty
+    let seekslider = document.getElementById('seekslider');
     console.log("Flags:")
     for (var i = 0; i < flags.length; i++) {
         console.log(flags[i])
