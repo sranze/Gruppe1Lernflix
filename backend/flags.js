@@ -22,6 +22,7 @@ function loadFlags(roomID, videoURL) {
             if (flags[i].roomID === roomID && flags[i].videoURL === videoURL) {
                 loadedFlags.push(flags[i]);
                 console.log("Flag Number " + i + " added to return value");
+
             }
         }
         return loadedFlags;
