@@ -165,6 +165,8 @@ function createSystemNotification(message, isSuccess) {
 
 // Emit change of video to server
 function changeVideo(url) {
+
+        addFlag();
     socket.emit('changeVideo', url);
 }
 
