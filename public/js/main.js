@@ -10,7 +10,9 @@ var didJoin = false;
 const videoplayer = document.getElementById('videoplayer');
 const videoplayerSeekslider = document.getElementById('seekslider');
 let videoplayerTimeText = document.getElementById('videoplayerTimeText');
-var videoTimeFlagPreview = 0;
+
+const flagImg = new Image();
+flagImg.src = "../assets/illustrations/flag_black_18dp.svg";
 
 // Videoplayer event listener
 videoplayer.addEventListener('timeupdate', seekTimeSliderUpdate, false);
@@ -142,16 +144,18 @@ function getVideos(moodleContextId) {
 // Creates HTML for error or success system notifications
 function createSystemNotification(message, isSuccess) {
     const div = document.createElement('div');
+    var errorMessage = message.message;
     div.classList.add('alert');
     div.classList.add('alert-dismissible');
     if (isSuccess == true) {
         div.classList.add('alert-success');
         div.innerHTML = `<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Erfolg</strong> ${message.message}`;
+        <strong>Erfolg</strong> ${errorMessage}`;
     } else {
+        if (typeof errorMessage === 'undefined') errorMessage = "Unbekannter Fehler. Bitte schließen Sie diesen Tab und öffnen Sie Lernflix erneut."
         div.classList.add('alert-danger');
         div.innerHTML = `<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong>Fehler</strong> ${message.message}`;
+        <strong>Fehler</strong> ${errorMessage}`;
     }
     div.classList.add('fade-in');
 
@@ -294,14 +298,21 @@ function addFlag() {
 
 // Updates flags
 socket.on('updateFlags', flags => {
-    // TODO: Error handling if something is undefined or empty
-    let seekslider = document.getElementById('seekslider');
+    var flagCanvas = document.getElementById('flagsCanvas');
+    var flagCanvasctx = flagCanvas.getContext("2d")
+    flagCanvasctx.clearRect(0, 0, flagCanvas.width, flagCanvas.height);
+    var oneSecondLength = videoplayerSeekslider.offsetWidth / videoplayer.duration;
+    var positionOnCanvas = 0;
+    flagCanvas.width = videoplayerSeekslider.offsetWidth;
+    flagCanvas.height = videoplayerSeekslider.offsetHeight;
+    // TODO: Show flags on videoplayer, update flags (visually)
+    // TODO: Create functionality for flags on videoplayer
     console.log("Flags:")
     for (var i = 0; i < flags.length; i++) {
         console.log(flags[i])
+        positionOnCanvas = flags[i].videoTime * oneSecondLength;
+        flagCanvasctx.drawImage(flagImg, positionOnCanvas, 0);
     }
-    // TODO: Show flags on videoplayer, update flags (visually)
-    // TODO: Create functionality for flags on videoplayer
 })
 
 // Prepares information for flag modallable
