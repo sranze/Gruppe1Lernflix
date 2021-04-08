@@ -182,26 +182,15 @@ io.on('connection', (socket) => {
         });
 
         // Change Video
-        socket.on('changeVideo',  url => {
-
+        socket.on('changeVideo', url => {
             const user = getCurrentUser(socket.id)
             if (typeof user !== 'undefined') {
                 console.log("Changing Video in Room w/ ID " + user.roomId + " Video with URL " + url)
                 io.to(user.roomId).emit('loadNewVideo', url);
             }
-
-             if (flagInformation !== 'undefined') {
-                                console.log("Received Flag information: RoomID: " + flagInformation.roomID + " Current Time: " + flagInformation.videoTime + " Video URL: " + flagInformation.videoURL + " Annotation: " + flagInformation.annotation);
-                                saveFlag(flagInformation);
-                            }
-
             // Load flags
-            const flags = loadFlags(user.roomId, url, flagInformation.videoURL);
-
+            const flags = loadFlags(user.roomId, url);
             io.to(user.roomId).emit('updateFlags', flags);
-
-
-
         })
 
         // Play video

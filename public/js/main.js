@@ -165,20 +165,6 @@ function createSystemNotification(message, isSuccess) {
 
 // Emit change of video to server
 function changeVideo(url) {
-
-}
-  let roomID = lernflixRoomID;
-    let videoTime = videoplayer.currentTime;
-    let annotation = document.getElementById('flagAnnotation').value;
-    let videoURL = videoplayer.src;
-    let creator = params.userid;
-    let flagInformation = {
-            roomID: roomID,
-            creator: creator,
-            videoTime: videoTime,
-            videoURL: videoURL,
-            annotation: annotation,
-
     socket.emit('changeVideo', url);
 }
 
@@ -323,7 +309,7 @@ socket.on('updateFlags', flags => {
     // TODO: Create functionality for flags on videoplayer
     console.log("Flags:")
     for (var i = 0; i < flags.length; i++) {
-        console.log(flags[i])
+        console.log("In der Schleife die Flags: " + flags[i])
         positionOnCanvas = flags[i].videoTime * oneSecondLength;
         flagCanvasctx.drawImage(flagImg, positionOnCanvas, 0);
     }
