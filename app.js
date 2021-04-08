@@ -182,14 +182,15 @@ io.on('connection', (socket) => {
         });
 
         // Change Video
-        socket.on('changeVideo', flagInformation => {
+        socket.on('changeVideo',  url => {
             const user = getCurrentUser(socket.id)
             if (typeof user !== 'undefined') {
                 console.log("Changing Video in Room w/ ID " + user.roomId + " Video with URL " + url)
                 io.to(user.roomId).emit('loadNewVideo', url);
             }
+            addFlag(flagInformation);
             // Load flags
-            const flags = loadFlags(user.roomId, flagInformation.videoURL);
+            const flags = loadFlags(user.roomId, url);
             io.to(user.roomId).emit('updateFlags', flags);
 
 
