@@ -309,7 +309,7 @@ socket.on('updateFlags', flags => {
     // TODO: Create functionality for flags on videoplayer
     console.log("Flags:")
     for (var i = 0; i < flags.length; i++) {
-        console.log("In der Schleife die Flags: " + flags[i])
+        console.log(flags[i])
         positionOnCanvas = flags[i].videoTime * oneSecondLength;
         flagCanvasctx.drawImage(flagImg, positionOnCanvas, 0);
     }
