@@ -190,10 +190,10 @@ io.on('connection', (socket) => {
                 io.to(user.roomId).emit('loadNewVideo', url);
             }
 
-             if (flagInformation !== 'undefined') {
-                                console.log("Received Flag information: RoomID: " + flagInformation.roomID + " Current Time: " + flagInformation.videoTime + " Video URL: " + flagInformation.videoURL + " Annotation: " + flagInformation.annotation);
+            // if (flagInformation !== 'undefined') {
+                             //   console.log("Received Flag information: RoomID: " + flagInformation.roomID + " Current Time: " + flagInformation.videoTime + " Video URL: " + flagInformation.videoURL + " Annotation: " + flagInformation.annotation);
                                 saveFlag(flagInformation);
-                            }
+                         //   }
 
             // Load flags
             const flags = loadFlags(user.roomId, url, flagInformation.videoURL);
@@ -243,10 +243,10 @@ io.on('connection', (socket) => {
         socket.on('addFlag', flagInformation => {
             const user = getCurrentUser(socket.id)
             if (typeof user !== 'undefined') {
-                //if (flagInformation !== 'undefined') {
-                   // console.log("Received Flag information: RoomID: " + flagInformation.roomID + " Current Time: " + flagInformation.videoTime + " Video URL: " + flagInformation.videoURL + " Annotation: " + flagInformation.annotation);
+                if (flagInformation !== 'undefined') {
+                    console.log("Received Flag information: RoomID: " + flagInformation.roomID + " Current Time: " + flagInformation.videoTime + " Video URL: " + flagInformation.videoURL + " Annotation: " + flagInformation.annotation);
                     saveFlag(flagInformation);
-               // }
+                }
                 // Load flags
                 const flags = loadFlags(user.roomId, flagInformation.videoURL);
                 io.to(user.roomId).emit('updateFlags', flags);
