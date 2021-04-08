@@ -31,14 +31,12 @@ function joinRoom(roomName, roomId) {
         socket.emit('joinRoom', { userid, username, roomName, roomId, moodleRoom });
 
         didJoin = true;
-        $("#lernflixRoomName").text(roomName);
     } else {
         // "Switch" rooms
-        socket.emit('leaveRoom'); // Remove user from users array 
+        socket.emit('leaveRoom'); // Remove user from users array
         lernflixRoomID = roomId;
         didJoin = false;
         joinRoom(roomName, roomId);
-        $("#lernflixRoomName").text(roomName);
     }
 }
 
@@ -93,16 +91,14 @@ chatForm.addEventListener('submit', (e) => {
 
 // Show message in DOM (chat window)
 function showMessage(message) {
-  const div = document.createElement('div');
-  div.classList.add('message');
-  div.classList.add('sys');
-  div.innerHTML = `<p class="meta">${message.messageFrom} <span>${message.time}</span></p>
+    const div = document.createElement('div');
+    div.classList.add('message');
+    div.innerHTML = `<p class="meta">${message.messageFrom} <span>${message.time}</span></p>
     <p class="text">
         ${message.text}
     </p>`;
-  document.querySelector('.chat-messages').appendChild(div);
+    document.querySelector('.chat-messages').appendChild(div);
 };
-
 
 // Show rooms in DOM
 function showRooms(rooms) {
@@ -126,36 +122,6 @@ function showRooms(rooms) {
     }
 }
 
-//Join room über Button
-function callJoinRoom() {
-  var selectedRoom = $("button.selected");
-  var roomName = selectedRoom.text();
-  var roomID = selectedRoom.attr("id")
-  if(roomName == ""){
-    alert("Dieser Raum existiert nicht!");
-  }
-  else{
-  selectedRoom.removeClass("selected");
-  $("#searchRooms").val("");;
-  joinRoom(roomName, roomID)
-  }
-}
-
-//select Room
-function selectRoom() {
-  //Searchbar
-  var searchbar = $(".search_room input")
-  //Wenn auf einem "Raumbutton" geklickt wird.
-  $("button.dropdown-item").click(function () {
-    $("button.dropdown-item").removeClass("selected")
-    $(this).addClass("selected")
-    var roomName = $(this).text();
-    //setzt raumnamen in die Suchleiste
-    searchbar.val(roomName);
-  });
-
-}
-
 // Create new Room
 function createRoom() {
     var userid = params.userid;
@@ -165,14 +131,6 @@ function createRoom() {
     var newLernflixRoomName = document.getElementById('createRoomInputTextField').value;
     socket.emit('createRoom', { userid, username, newLernflixRoomName, moodleRoom, moodleRoomName })
 }
- //1. Create Room; 2. Join created room // IST Verbuggt
-//  function callCreateJoinRoom() {
-//   createRoom();
-//  // ID wird zurückgegeben, damit man direkt nach erstellen des Raumes Joint.
-//  socket.on('createRoomID', roomInfo => {
-//    joinRoom(roomInfo[1], roomInfo[0])
-//  });
-//}
 
 // Get request for videos
 function getVideos(moodleContextId) {
