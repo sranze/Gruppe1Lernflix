@@ -1,4 +1,8 @@
+//out: null
+
 /* Style the navigation bar */
+@navbar-button-color : #368252;
+
 .navbar {
   width: 100%;
   background-color: #000000;
@@ -8,16 +12,25 @@
   .container {
     width: 100%;
 
-    .logo {}
+    .logo {
+      display: inline-flex;
+      
+      img{
+      width: 40px;
+      height: auto;
+      margin-right: 15px;
+      }
+    }
 
      .search_room {
-      width: 30%;
+      width: 50%;
       display: inline-flex;
 
       >button {
         margin-left: 20px;
-        background-color: #42826D;
+        background-color: @navbar-button-color;
         color: #fff;
+        white-space: nowrap;
       }
        
        #rooms{
