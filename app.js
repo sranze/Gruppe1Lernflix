@@ -5,8 +5,6 @@ const path = require('path');
 const { messageFormatter, welcomeMessage } = require('./backend/messages'); // make messages.js available
 const { userJoin, getCurrentUser, userLeave } = require('./backend/users'); // make functions in users.js available
 const { saveUser, loadRooms, saveRooms } = require('./backend/database'); // make database functions available
-const { loadVideoInformation, saveVideoInformation } = require('./backend/videos'); // make room (video-information) functions available
-const { loadFlags, saveFlag, removeFlag } = require('./backend/flags') // make flag functionalities available
 
 var uuid = require("uuid4"); // used for session IDs
 var lti = require("ims-lti"); // used to implement the actual LTI-protocol
@@ -39,6 +37,7 @@ app.post("/auth", (req, res) => {
             var sessionID = uuid();
 
             sessions[sessionID] = moodleData;
+            console.log(moodleData);
             moodleFirstName = moodleData.body.lis_person_name_given;
             moodleLastName = moodleData.body.lis_person_name_family;
             moodleFullName = moodleFirstName + " " + moodleLastName;
@@ -112,7 +111,7 @@ io.on('connection', (socket) => {
         // Load rooms and emit list of rooms to frontend
         (async() => {
             const roomInformation = await loadRooms(moodleRoom);
-            io.to(socket.id).emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWenn Du einen Raum wechseln möchtest, klicke einfach auf einen anderen.`, roomInformation));
+            socket.emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWenn Du einen Raum wechseln möchtest, klicke einfach auf einen anderen.`, roomInformation));
         })()
 
         // Join Room
@@ -122,13 +121,8 @@ io.on('connection', (socket) => {
 
             socket.join(roomId); // Join the actual room
             socket.emit('message', messageFormatter('System', ('Hallo, ' + user.username + "! Du bist Raum " + user.roomName + " beigetreten."))); // Greet User | Welcome message to room
+            
             socket.broadcast.to(user.roomId).emit('message', messageFormatter('System', (user.username + " ist dem Raum " + user.roomName + " beigetreten."))); // Broadcast when a user connects to room
-            // Get currently playing Video-Info and tell client
-            const videoInfo = loadVideoInformation(user.roomId);
-            io.to(socket.id).emit('videoSync', videoInfo);
-            // Load flags
-            const flags = loadFlags(user.roomId, videoInfo.videoURL);
-            io.to(user.roomId).emit('updateFlags', flags);
         });
 
         // Create New Lernflix Room
@@ -145,6 +139,9 @@ io.on('connection', (socket) => {
                     const messagePayload = { roomInformation: roomInformation, moodleRoom: moodleRoomId }
                     io.emit('refreshRooms', messagePayload);
                     io.emit('createRoomSuccess', "Raum erfolgreich erstellt.");
+                    //Last room informations 
+                    var lastRoom = roomInformation.slice(-2);
+                    io.emit('createRoomID', lastRoom);
                     io.to(socket.id).emit('error', isSuccess);
                 } else {
                     console.log("Couldnt create room. Error: " + isSuccess.message);
@@ -188,9 +185,6 @@ io.on('connection', (socket) => {
                 console.log("Changing Video in Room w/ ID " + user.roomId + " Video with URL " + url)
                 io.to(user.roomId).emit('loadNewVideo', url);
             }
-            // Load flags
-            const flags = loadFlags(user.roomId, url);
-            io.to(user.roomId).emit('updateFlags', flags);
         })
 
         // Play video
@@ -213,7 +207,6 @@ io.on('connection', (socket) => {
 
         // Skip time video
         socket.on('skipTimeVideo', time => {
-            // Send Skip Time command to all clients of room
             const user = getCurrentUser(socket.id)
             if (typeof user !== 'undefined') {
                 console.log("Skipping Time in Video in Room w/ ID " + user.roomId + " to Time " + time)
@@ -221,38 +214,6 @@ io.on('connection', (socket) => {
             }
         })
 
-        // Updates video Information (time etc.) on heap
-        socket.on('updateVideoInfo', videoInformation => {
-            if (videoInformation.videoURL !== 'undefined' && videoInformation.videoURL !== 'null') {
-                saveVideoInformation(videoInformation);
-            }
-        })
-
-        // Adds flag to heap, specific to videoURL and roomID
-        socket.on('addFlag', flagInformation => {
-            const user = getCurrentUser(socket.id)
-            if (typeof user !== 'undefined') {
-                if (flagInformation !== 'undefined') {
-                    console.log("Received Flag information: RoomID: " + flagInformation.roomID + " Current Time: " + flagInformation.videoTime + " Video URL: " + flagInformation.videoURL + " Annotation: " + flagInformation.annotation);
-                    saveFlag(flagInformation);
-                }
-                // Load flags
-                const flags = loadFlags(user.roomId, flagInformation.videoURL);
-                io.to(user.roomId).emit('updateFlags', flags);
-            }
-        })
-
-        // TODO: Remove flag from heap - See flags.js (its incomplete)
-        socket.on('removeFlag', flagInformation => {
-            const user = getCurrentUser(socket.id)
-            if (typeof user !== 'undefined') {
-                if (flagInformation !== 'undefined') {
-                    removeFlag(user.roomId, flagInformation)
-                }
-                // Load flags
-                const flags = loadFlags(user.roomId, flagInformation.videoURL);
-                io.to(user.roomId).emit('updateFlags', flags);
-            }
-        })
+        // TODO: Send currently playing video to joining room-members + sync their videotime
     }
 });
