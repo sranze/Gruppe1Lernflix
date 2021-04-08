@@ -166,7 +166,19 @@ function createSystemNotification(message, isSuccess) {
 // Emit change of video to server
 function changeVideo(url) {
 
-        addFlag();
+}
+  let roomID = lernflixRoomID;
+    let videoTime = videoplayer.currentTime;
+    let annotation = document.getElementById('flagAnnotation').value;
+    let videoURL = videoplayer.src;
+    let creator = params.userid;
+    let flagInformation = {
+            roomID: roomID,
+            creator: creator,
+            videoTime: videoTime,
+            videoURL: videoURL,
+            annotation: annotation,
+
     socket.emit('changeVideo', url);
 }
 
