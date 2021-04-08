@@ -50,7 +50,7 @@ app.post("/auth", (req, res) => {
             moodleContextId = moodleData.body.context_id;
 
             // Shows all available session data from Moodle in Server logs
-            //console.log("\n\n\nAvailable Data:\n" + JSON.stringify(sessions));x
+            //console.log("\n\n\nAvailable Data:\n" + JSON.stringify(sessions));
 
             // Send html Back, if authentication correct
             var sendMe = index.toString().replace("//PARAMS**GO**HERE",
@@ -182,7 +182,7 @@ io.on('connection', (socket) => {
         });
 
         // Change Video
-        socket.on('changeVideo', (url, flagInformation) => {
+        socket.on('changeVideo', url => {
             const user = getCurrentUser(socket.id)
             if (typeof user !== 'undefined') {
                 console.log("Changing Video in Room w/ ID " + user.roomId + " Video with URL " + url)
@@ -190,8 +190,7 @@ io.on('connection', (socket) => {
             }
             // Load flags
             const flags = loadFlags(user.roomId, url);
-            const flags2 = loadFlags(user.roomId, flagInformation.videoURL);
-            io.to(user.roomId).emit('updateFlags', (flags, flags2));
+            io.to(user.roomId).emit('updateFlags', flags);
         })
 
         // Play video
