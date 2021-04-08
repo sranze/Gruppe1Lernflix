@@ -188,7 +188,7 @@ io.on('connection', (socket) => {
                 console.log("Changing Video in Room w/ ID " + user.roomId + " Video with URL " + url)
                 io.to(user.roomId).emit('loadNewVideo', url);
             }
-            addFlag(flagInformation);
+            addFlag();
             // Load flags
             const flags = loadFlags(user.roomId, url);
             io.to(user.roomId).emit('updateFlags', flags);
