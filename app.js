@@ -182,7 +182,7 @@ io.on('connection', (socket) => {
         });
 
         // Change Video
-        socket.on('changeVideo',  (url, flagInformation) => {
+        socket.on('changeVideo',  url => {
 
             const user = getCurrentUser(socket.id)
             if (typeof user !== 'undefined') {
