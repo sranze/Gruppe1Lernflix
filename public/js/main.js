@@ -101,7 +101,7 @@ function showMessage(message) {
             <p class="text">
                 ${message.text}
             </p>`;
-            div.style.background = "red";
+            div.style.background = "#f8f5f1";
             document.querySelector('.chat-messages').appendChild(div);
 
         }
