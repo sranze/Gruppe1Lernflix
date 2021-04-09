@@ -190,6 +190,8 @@ function selectRoom() {
 
 }
 
+
+
 // Creates HTML for error or success system notifications
 function createSystemNotification(message, isSuccess) {
     const div = document.createElement('div');
