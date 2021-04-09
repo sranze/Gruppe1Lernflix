@@ -31,12 +31,14 @@ function joinRoom(roomName, roomId) {
         socket.emit('joinRoom', { userid, username, roomName, roomId, moodleRoom });
 
         didJoin = true;
+        $("#lernflixRoomName").text(roomName);
     } else {
         // "Switch" rooms
         socket.emit('leaveRoom'); // Remove user from users array
         lernflixRoomID = roomId;
         didJoin = false;
         joinRoom(roomName, roomId);
+        $("#lernflixRoomName").text(roomName);
     }
 }
 
@@ -122,6 +124,8 @@ function showRooms(rooms) {
     }
 }
 
+
+
 // Create new Room
 function createRoom() {
     var userid = params.userid;
@@ -138,6 +142,36 @@ function getVideos(moodleContextId) {
     if (typeof moodleContextId === 'undefined') createSystemNotification(message, false);
 
     const url = "https://opencast-engage.hs-rw.de/search/episode.json?q=" + moodleContextId
+
+}
+
+//Join room über Button
+function callJoinRoom() {
+  var selectedRoom = $("button.selected");
+  var roomName = selectedRoom.text();
+  var roomID = selectedRoom.attr("id")
+  if(roomName == ""){
+    alert("Dieser Raum existiert nicht!");
+  }
+  else{
+  selectedRoom.removeClass("selected");
+  $("#searchRooms").val("");;
+  joinRoom(roomName, roomID)
+  }
+}
+
+//select Room
+function selectRoom() {
+  //Searchbar
+  var searchbar = $(".search_room input")
+  //Wenn auf einem "Raumbutton" geklickt wird.
+  $("button.dropdown-item").click(function () {
+    $("button.dropdown-item").removeClass("selected")
+    $(this).addClass("selected")
+    var roomName = $(this).text();
+    //setzt raumnamen in die Suchleiste
+    searchbar.val(roomName);
+  });
 
 }
 

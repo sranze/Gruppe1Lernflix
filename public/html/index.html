@@ -173,29 +173,30 @@
 </head>
 
 <body id="body">
-  <div class="modal fade" id="createRoomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Neuen Raum Anlegen</h5>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Raumname:</label>
-              <input class="form-control" type="text" placeholder="Bitte Raumnamen eingeben" id="createRoomInputTextField">
-            </div>
-          </form>
-          <div id="error">
-
+<div class="modal fade" id="createRoomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Neuen Raum Anlegen</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Raumname:</label>
+            <input class="form-control" type="text" placeholder="Bitte Raumnamen eingeben" id="createRoomInputTextField">
           </div>
+        </form>
+        <div id="error">
+
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Schließen</button>
-          <!-- Bei "Raum Anlegen" muss saveRooms() + die joinRooms() Funktion getriggert werden + die Value von id "recupient-name" (name ggfs noch ändern) mitgeschickt werden + die zufälle id (die zufällige zahl von 1 bis ne milliarde oder was du gemacht hast) -->
-          <button type="button" class="btn btn-outline-dark" onclick="callCreateJoinRoom()">Raum anlegen</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Schließen</button>
+        <!-- Bei "Raum Anlegen" muss saveRooms() + die joinRooms() Funktion getriggert werden + die Value von id "recupient-name" (name ggfs noch ändern) mitgeschickt werden + die zufälle id (die zufällige zahl von 1 bis ne milliarde oder was du gemacht hast) -->
+        <button type="button" class="btn btn-outline-dark" onclick="callCreateJoinRoom()">Raum anlegen</button>
+
+      </div>
       </div>
     </div>
   </div>
@@ -241,13 +242,12 @@
           </a>
         </div>
         <div class="search_room dropdown ">
-          <input class="form-control dropdown-toggle" type="text" placeholder="Suchen sie ein Moodle raum aus" id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
+          <input class="form-control dropdown-toggle" type="text" placeholder="Suchen sie einen Moodle Raum aus" id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="callJoinRoom()">Raum Beitreten</button>
           <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#createRoomModal" data-whatever="@getbootstrap">Raum Anlegen</button>
           <div id="rooms" class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <button class="dropdown-item" type="button">Action</button>
-            <button id="531514655" class="dropdown-item" type="button">TESSSSSSSSSSSST</button>
-            <button id="499078358" class="dropdown-item" type="button">TEEEEEEEEEEEST2</button>
+
+
 
           </div>
         </div>
