@@ -95,11 +95,26 @@ chatForm.addEventListener('submit', (e) => {
 function showMessage(message) {
     const div = document.createElement('div');
     div.classList.add('message');
-    div.innerHTML = `<p class="meta">${message.messageFrom} <span>${message.time}</span></p>
-    <p class="text">
-        ${message.text}
-    </p>`;
-    document.querySelector('.chat-messages').appendChild(div);
+        if (message.messageFrom == "System") {
+
+         div.innerHTML = `<p class="meta">${message.messageFrom} <span>${message.time}</span></p>
+            <p class="text">
+                ${message.text}
+            </p>`;
+            div.style.color = "red";
+            document.querySelector('.chat-messages').appendChild(div);
+
+        }
+        else {
+
+         div.innerHTML = `<p class="meta">${message.messageFrom} <span>${message.time}</span></p>
+            <p class="text">
+                ${message.text}
+            </p>`;
+            document.querySelector('.chat-messages').appendChild(div);
+
+        }
+
 };
 
 // Show rooms in DOM
