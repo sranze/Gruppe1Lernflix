@@ -12,7 +12,7 @@ const videoplayerSeekslider = document.getElementById('seekslider');
 let videoplayerTimeText = document.getElementById('videoplayerTimeText');
 
 const flagImg = new Image();
-flagImg.src = "../assets/illustrations/flag_black_18dp.svg";
+flagImg.src = "../assets/illustrations/flag_black_24dp.svg";
 
 // Videoplayer event listener
 videoplayer.addEventListener('timeupdate', seekTimeSliderUpdate, false);
@@ -355,7 +355,7 @@ socket.on('updateFlags', flags => {
     var oneSecondLength = videoplayerSeekslider.offsetWidth / videoplayer.duration;
     var positionOnCanvas = 0;
     flagCanvas.width = videoplayerSeekslider.offsetWidth;
-    flagCanvas.height = videoplayerSeekslider.offsetHeight;
+    flagCanvas.height = videoplayerSeekslider.offsetHeight * 0.75;
     // TODO: Show flags on videoplayer, update flags (visually)
     // TODO: Create functionality for flags on videoplayer
     console.log("Flags:")
