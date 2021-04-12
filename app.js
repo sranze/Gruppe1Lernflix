@@ -1,5 +1,7 @@
+require('dotenv').config()
+
 const express = require('express'); // Express as webserver
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 const socketIO = require('socket.io');
 const path = require('path');
 const { messageFormatter, welcomeMessage } = require('./backend/messages'); // make messages.js available
@@ -7,6 +9,8 @@ const { userJoin, getCurrentUser, userLeave } = require('./backend/users'); // m
 const { saveUser, loadRooms, saveRooms } = require('./backend/database'); // make database functions available
 const { loadVideoInformation, saveVideoInformation } = require('./backend/videos'); // make room (video-information) functions available
 const { loadFlags, saveFlag, removeFlag } = require('./backend/flags') // make flag functionalities available
+
+
 
 var uuid = require("uuid4"); // used for session IDs
 var lti = require("ims-lti"); // used to implement the actual LTI-protocol
@@ -44,7 +48,7 @@ app.post("/auth", (req, res) => {
             moodleFullName = moodleFirstName + " " + moodleLastName;
             moodleEmail = moodleData.body.lis_person_contact_email_primary;
             moodleUserID = parseInt(moodleData.body.user_id);
-            moodleProfilePicture = "https://elearning.hs-ruhrwest.de/user/pix.php/" + moodleUserID + "/f1.jpg";
+            moodleProfilePicture = process.env.MOODLEPROFILEPICTURE1 + moodleUserID + process.env.MOODLEPROFILEPICTURE2;
             moodleRoom = moodleData.body.resource_link_id;
             moodleRoomName = moodleData.body.context_title;
             moodleContextId = moodleData.body.context_id;
