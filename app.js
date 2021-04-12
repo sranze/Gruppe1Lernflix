@@ -20,7 +20,8 @@ filter = new Filter();
 
 console.log(filter.clean(" hi du Asshole"));
 console.log(filter.clean(" heheheheheh Asshole"));
-console.log(filter.clean("hi "));
+console.log(filter.clean("hi arschloch"));
+
 var uuid = require("uuid4"); // used for session IDs
 var lti = require("ims-lti"); // used to implement the actual LTI-protocol
 var fs = require('fs'); // filesystem
@@ -181,7 +182,7 @@ io.on('connection', (socket) => {
             const user = getCurrentUser(socket.id)
             if (typeof user !== 'undefined') {
                 console.log("User " + user.userid + " " + user.username + ": " + message + " to room: " + user.roomName + " with id: " + user.roomId);
-                io.to(user.roomId).emit('message', messageFormatter(user.username, message));
+                io.to(user.roomId).emit('message', messageFormatter(user.username, filter.clean(message)));
             }
         });
 

@@ -1,4 +1,4 @@
-require('dotenv').config()
+//require('dotenv').config()
 
 // Chat references
 const chatForm = document.getElementById('chat-form');
