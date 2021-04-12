@@ -1,5 +1,8 @@
 require('dotenv').config()
 
+const Filter = require('bad-words'),
+
+
 const express = require('express'); // Express as webserver
 const PORT = process.env.PORT;
 const socketIO = require('socket.io');
@@ -15,6 +18,11 @@ const MOODLE_PROFILE_PICTURE2 = process.env.MOODLE_PROFILE_PICTURE2;
 const ANWENDERSCHLUESSEL = process.env.ANWENDERSCHLUESSEL;
 const OEFFENTLICHERSCHLUESSEL = process.env.OEFFENTLICHERSCHLUESSEL;
 
+filter = new Filter();
+
+console.log(filter.clean(" hi du Asshole"));
+console.log(filter.clean(" heheheheheh Asshole"));
+console.log(filter.clean("hi "));
 var uuid = require("uuid4"); // used for session IDs
 var lti = require("ims-lti"); // used to implement the actual LTI-protocol
 var fs = require('fs'); // filesystem
