@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const express = require('express'); // Express as webserver
-const Filter = require('bad-words'),
+const Filter = require('bad-words');
 const PORT = process.env.PORT;
 const socketIO = require('socket.io');
 const path = require('path');
