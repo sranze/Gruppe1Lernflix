@@ -1,10 +1,12 @@
 const moment = require('moment');
+var Filter = require('bad-words'),
+    filter = new Filter();
 
 // Creates regular message object
 function messageFormatter(messageFrom, text) {
     return {
         messageFrom,
-        text,
+        filter.clean(text),
         time: moment().format('D.M.YY H:mm')
     }
 }

@@ -11,6 +11,31 @@ Wichtig: Lokal vorhandene Dateien, Module, Pakete usw. m ü s s e n serverseitig
 Hiermit könnt Ihr Logs ansehen, um ggfs. nicht gleichzeitig zu pushen:
 heroku logs --source app --tail
 
+# Environmental Variables (.env)
+
+Um unsere Sensiblen Daten (Datenbank, Moodle Schlüssel etc.) zu sichern, wurden diese Daten in eine .env Datei ausgelagert.
+Diese Datei darf n i c h t in Gitlab gepusht werden, da sonst unsere Anwendungsdaten öffentlich sind.
+
+Deswegen wurde die .env Datei in die .gitignore Datei eingetragen, welche das Pushen der .env Datei verhindert.
+Die .env Datei muss sich aber auf dem Server befinden und lokal zum Entwickeln. Als Hilfe hat die Datei sample env liefert hierbei die Struktur, welche unsere .env hat. 
+
+.env in der lokalen Entwicklungsumgebung einrichten:
+
+1. Die .env Datei muss angelegt werden mit der Struktur, welche in sample env zu finden ist.
+2. Die Kennwörter und Schlüssel eintragen, welche man von uns bekommt
+
+.env auf dem Server (unsere Heroku Server + HRW Server) einrichten:
+
+1. Die .env Datei muss angelegt werden mit der Struktur, welche in sample env zu finden ist.
+2. Die Kennwörter und Schlüssel eintragen, welche man von uns bekommt
+3. in .gitignore den Eintrag *.env auskommentieren mit #.
+4. Auf den SERVER pushen
+5. Nach Erfolgreichen Push sofort die *.env Datei wieder entkommentieren.
+
+Somit ist die Environment Datei auf dem Server und Gitlab ist geschützt durch .gitignore.
+Die .env Datei auf dem Server ist nur anzupassen mit den Schritten 3-5, wenn man Kennwörter etc. ändern muss.
+
+
 # Vorgehensweise Pull, Commit, Push usw.
 
 Ladet euch wie bisher diese Branch lokal in euer Repo. Legt diese Branch ggfs. lokal an.
