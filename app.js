@@ -66,7 +66,7 @@ app.post("/auth", (req, res) => {
                             moodleRoom: "${moodleRoom}",
                             moodleRoomName: "${moodleRoomName}",
                             moodleContextId: "${moodleContextId}",
-                            url_picture: "https://elearning.hs-ruhrwest.de/user/pix.php/${moodleUserID}/f1.jpg"
+                            url_picture: "${process.env.MOODLEPROFILEPICTURE1}${moodleUserID}${process.env.MOODLEPROFILEPICTURE2}"
 						};
 					`);
 
