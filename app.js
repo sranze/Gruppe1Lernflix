@@ -17,7 +17,7 @@ const ANWENDERSCHLUESSEL = process.env.ANWENDERSCHLUESSEL;
 const OEFFENTLICHERSCHLUESSEL = process.env.OEFFENTLICHERSCHLUESSEL;
 
 filter = new Filter();
-const extraFilterWords = require("./extra_words_filter.json");
+const extraFilterWords = require("./extra_words_filter.txt");
 filter.addWords(...extraFilterWords);
 
 console.log(filter.clean(" hi du Asshole"));
