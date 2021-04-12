@@ -198,7 +198,7 @@ cemetery
 chav
 cherrypopper
 chickslick
-children's
+
 chin
 chinaman
 chinamen
@@ -642,7 +642,7 @@ intheass
 inthebuff
 israel
 israeli
-israel's
+
 italiano
 itch
 jackass
@@ -845,7 +845,7 @@ necro
 negro
 negroes
 negroid
-negro's
+
 nig
 niger
 nigerian
@@ -858,16 +858,16 @@ niggard
 niggarded
 niggarding
 niggardliness
-niggardliness's
+
 niggardly
 niggards
-niggard's
+
 niggaz
 nigger
 niggerhead
 niggerhole
 niggers
-nigger's
+
 niggle
 niggled
 niggles
@@ -1189,7 +1189,7 @@ snigger
 sniggered
 sniggering
 sniggers
-snigger's
+
 sniper
 snot
 snowback
@@ -1371,7 +1371,7 @@ williewanker
 willy
 wn
 wog
-women's
+
 wop
 wtf
 wuss
