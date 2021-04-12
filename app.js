@@ -10,8 +10,10 @@ const { saveUser, loadRooms, saveRooms } = require('./backend/database'); // mak
 const { loadVideoInformation, saveVideoInformation } = require('./backend/videos'); // make room (video-information) functions available
 const { loadFlags, saveFlag, removeFlag } = require('./backend/flags') // make flag functionalities available
 
-const MOODLEPROFILEPICTURE1 = process.env.MOODLEPROFILEPICTURE1;
-const MOODLEPROFILEPICTURE2 = process.env.MOODLEPROFILEPICTURE2;
+const MOODLE_PROFILE_PICTURE1 = process.env.MOODLE_PROFILE_PICTURE1;
+const MOODLE_PROFILE_PICTURE2 = process.env.MOODLE_PROFILE_PICTURE2;
+const ANWENDERSCHLUESSEL = process.env.ANWENDERSCHLUESSEL;
+const OEFFENTLICHERSCHLUESSEL = process.env.OEFFENTLICHERSCHLUESSEL;
 
 var uuid = require("uuid4"); // used for session IDs
 var lti = require("ims-lti"); // used to implement the actual LTI-protocol
@@ -34,7 +36,7 @@ var moodleFirstName, moodleLastName, moodleFullName, moodleEmail, moodleUserID, 
 
 // OAuth Post
 app.post("/auth", (req, res) => {
-    var moodleData = new lti.Provider("3=((gMW7aqH[ZzKr", "Wt3A6Ts8mYjxV25v"); // First is "Anwenderschlüssel" in Moodle. Second is "Öffentliches Kennwort"
+    var moodleData = new lti.Provider(ANWENDERSCHLUESSEL, OEFFENTLICHERSCHLUESSEL); // First is "Anwenderschlüssel" in Moodle. Second is "Öffentliches Kennwort"
     moodleData.valid_request(req, (err, isValid) => {
         if (!isValid) {
             // Sends user to authentication error site
@@ -49,7 +51,7 @@ app.post("/auth", (req, res) => {
             moodleFullName = moodleFirstName + " " + moodleLastName;
             moodleEmail = moodleData.body.lis_person_contact_email_primary;
             moodleUserID = parseInt(moodleData.body.user_id);
-            moodleProfilePicture = MOODLEPROFILEPICTURE1 + moodleUserID + MOODLEPROFILEPICTURE2;
+            moodleProfilePicture = MOODLE_PROFILE_PICTURE1 + moodleUserID + MOODLE_PROFILE_PICTURE2;
             moodleRoom = moodleData.body.resource_link_id;
             moodleRoomName = moodleData.body.context_title;
             moodleContextId = moodleData.body.context_id;
@@ -67,7 +69,7 @@ app.post("/auth", (req, res) => {
                             moodleRoom: "${moodleRoom}",
                             moodleRoomName: "${moodleRoomName}",
                             moodleContextId: "${moodleContextId}",
-                            url_picture: "${MOODLEPROFILEPICTURE1}${moodleUserID}${MOODLEPROFILEPICTURE2}"
+                            url_picture: "${MOODLE_PROFILE_PICTURE1}${moodleUserID}${MOODLE_PROFILE_PICTURE2}"
 						};
 					`);
 
