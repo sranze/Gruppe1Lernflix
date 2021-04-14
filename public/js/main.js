@@ -143,6 +143,16 @@ function showRooms(rooms) {
 
 
 
+// Create new Feedback
+function createFeedback() {
+    var userid = params.userid;
+    var username = params.username;
+    var moodleRoom = params.moodleRoom;
+    var moodleRoomName = params.moodleRoomName;
+    var feedbackText = document.getElementById('createFeedback').value;
+    socket.emit('createFeedback', { userid, username, feedbackText, moodleRoom, moodleRoomName })
+}
+
 // Create new Room
 function createRoom() {
     var userid = params.userid;
