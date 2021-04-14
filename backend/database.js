@@ -185,5 +185,6 @@ function generateNewLernflixRoomId(upperBoundary, allLernflixRoomIds) {
 module.exports = {
     saveUser,
     loadRooms,
-    saveRooms
+    saveRooms,
+    saveFeedback
 }
