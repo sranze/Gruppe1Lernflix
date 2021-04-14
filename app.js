@@ -7,7 +7,7 @@ const socketIO = require('socket.io');
 const path = require('path');
 const { messageFormatter, welcomeMessage } = require('./backend/messages'); // make messages.js available
 const { userJoin, getCurrentUser, userLeave } = require('./backend/users'); // make functions in users.js available
-const { saveUser, loadRooms, saveRooms } = require('./backend/database'); // make database functions available
+const { saveUser, loadRooms, saveRooms, saveFeedback } = require('./backend/database'); // make database functions available
 const { loadVideoInformation, saveVideoInformation } = require('./backend/videos'); // make room (video-information) functions available
 const { loadFlags, saveFlag, removeFlag } = require('./backend/flags') // make flag functionalities available
 
@@ -161,6 +161,28 @@ io.on('connection', (socket) => {
                     const messagePayload = { roomInformation: roomInformation, moodleRoom: moodleRoomId }
                     io.emit('refreshRooms', messagePayload);
                     io.emit('createRoomSuccess', "Raum erfolgreich erstellt.");
+                    io.to(socket.id).emit('error', isSuccess);
+                } else {
+                    console.log("Couldnt create room. Error: " + isSuccess.message);
+                    io.to(socket.id).emit('error', isSuccess);
+                }
+            })()
+        });
+
+ // Create New Lernflix Room
+        socket.on('createFeedback', ({ userid, username, feedbackText, moodleRoom, moodleRoomName }) => {
+            var isSuccess;
+            (async() => {
+                isSuccess = await saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName);
+                if (isSuccess.success == true) {
+                    // TODO: Join Room automatically
+
+                    // Refresh room view for all clients
+                    const roomInformation = await loadRooms(moodleRoom);
+                    var moodleRoomId = isSuccess.moodleroomid;
+                    const messagePayload = { roomInformation: roomInformation, moodleRoom: moodleRoomId }
+                    io.emit('refreshRooms', messagePayload);
+                    io.emit('createRoomSuccess', "Feedback erfolgreich erstellt.");
                     io.to(socket.id).emit('error', isSuccess);
                 } else {
                     console.log("Couldnt create room. Error: " + isSuccess.message);
