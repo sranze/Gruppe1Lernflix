@@ -33,6 +33,25 @@ function saveUser(firstname, lastname, fullname, email, userid, profilepicture, 
     }
 }
 
+
+function saveFeedback( userid, username, feedbackText, moodleRoom, moodleRoomName ) {
+    if (typeof firstname !== 'undefined') {
+
+            // Datenbank Heroku Postgres Connection
+            var timestamp = new Date();
+            const client = newPool();
+
+            client.query(`INSERT INTO feedbackTable( userid, username, feedbackText, moodleRoom, moodleRoomName, timestamp) SELECT $1, $2, $3, $4, $5, $6, $7, $8`, [ userid, username, feedbackText, moodleRoom, moodleRoomName, timestamp], (err, res) => {
+                if (err) {
+                    console.log("USER SCHON VORHANDEN!");
+                    console.log(err);
+                }
+            });
+            client.end();
+
+    }
+}
+
 // Load all rooms related to moodleRooom
 async function loadRooms(moodleroomid) {
     const client = newPool();
