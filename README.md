@@ -36,6 +36,16 @@ Somit ist die Environment Datei auf dem Server und Gitlab ist geschützt durch .
 Die .env Datei auf dem Server ist nur anzupassen mit den Schritten 3-5, wenn man Kennwörter etc. ändern muss.
 
 
+Falls trotz .gitignore die .env in Git angezeigt wird:
+
+To the people who might be searching for this issue still, are looking at this page only.
+
+This will help you remove cached index files, and then only add the ones you need, including changes to your .gitignore file.
+
+1. git rm -r --cached .  
+2. git add .
+3. git commit -m 'Removing ignored files'
+
 # Vorgehensweise Pull, Commit, Push usw.
 
 Ladet euch wie bisher diese Branch lokal in euer Repo. Legt diese Branch ggfs. lokal an.
