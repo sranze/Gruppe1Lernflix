@@ -144,7 +144,7 @@ io.on('connection', (socket) => {
             io.to(socket.id).emit('videoSync', videoInfo);
             // Load flags
             const flags = loadFlags(user.roomId, videoInfo.videoURL);
-            io.to(user.roomId).emit('updateFlags', flags);
+            io.to(user.roomId).emit('createFlags', flags);
         });
 
         // Create New Lernflix Room
@@ -206,7 +206,7 @@ io.on('connection', (socket) => {
             }
             // Load flags
             const flags = loadFlags(user.roomId, url);
-            io.to(user.roomId).emit('updateFlags', flags);
+            io.to(user.roomId).emit('createFlags', flags);
         })
 
         // Play video
