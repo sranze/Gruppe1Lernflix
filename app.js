@@ -20,10 +20,6 @@ filter = new Filter();
 const extraFilterWords = require("./extra_words_filter.json");
 filter.addWords(...extraFilterWords);
 
-console.log(filter.clean(" hi du Asshole"));
-console.log(filter.clean(" heheheheheh Asshole"));
-console.log(filter.clean("hi arschloch"));
-
 var uuid = require("uuid4"); // used for session IDs
 var lti = require("ims-lti"); // used to implement the actual LTI-protocol
 var fs = require('fs'); // filesystem
