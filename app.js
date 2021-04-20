@@ -125,7 +125,7 @@ io.on('connection', (socket) => {
         (async() => {
             const roomInformation = await loadRooms(moodleRoom);
             const feedbackInformation = await loadFeedback();
-                        console.log("Schauen ob feedback geht ne: " + roomInformation);
+                        console.log("Schauen ob feedback geht ne: " + feedbackInformation);
             io.to(socket.id).emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWenn Du einen Raum wechseln möchtest, klicke einfach auf einen anderen.`, roomInformation));
         })()
 
