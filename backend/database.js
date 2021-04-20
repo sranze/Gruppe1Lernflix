@@ -35,15 +35,15 @@ function saveUser(firstname, lastname, fullname, email, userid, profilepicture, 
 
 
 function saveFeedback( userid, username, feedbackText, moodleRoom, moodleRoomName ) {
-    if (typeof firstname !== 'undefined') {
+    if (typeof userid !== 'undefined') {
 
             // Datenbank Heroku Postgres Connection
             var timestamp = new Date();
             const client = newPool();
 
-            client.query(`INSERT INTO feedback( userid, username, feedbackText, moodleRoom, moodleRoomName, timestamp) SELECT $1, $2, $3, $4, $5, $6, $7, $8`, [ userid, username, feedbackText, moodleRoom, moodleRoomName, timestamp], (err, res) => {
+            client.query(`INSERT INTO feedback( userid, username, feedbackText, moodleRoom, moodleRoomName, timestamp) SELECT $1, $2, $3, $4, $5, $6`, [ userid, username, feedbackText, moodleRoom, moodleRoomName, timestamp], (err, res) => {
                 if (err) {
-                    console.log("USER SCHON VORHANDEN!");
+                    console.log("Feedback geht nicht SCHON VORHANDEN!");
                     console.log(err);
                 }
             });
