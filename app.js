@@ -20,10 +20,6 @@ filter = new Filter();
 const extraFilterWords = require("./extra_words_filter.json");
 filter.addWords(...extraFilterWords);
 
-console.log(filter.clean(" hi du Asshole"));
-console.log(filter.clean(" heheheheheh Asshole"));
-console.log(filter.clean("hi arschloch"));
-
 var uuid = require("uuid4"); // used for session IDs
 var lti = require("ims-lti"); // used to implement the actual LTI-protocol
 var fs = require('fs'); // filesystem
@@ -84,7 +80,7 @@ app.post("/auth", (req, res) => {
 
             // Save connected user to DB if not exists
             saveUser(moodleFirstName, moodleLastName, moodleFullName, moodleEmail, moodleUserID, moodleProfilePicture, moodleRoom);
-
+            saveFeedback(moodleUserID, moodleFullName, "Lol ein BeispielText", moodleRoom, moodleContextId);
             res.setHeader("Content-Type", "text/html");
 
             res.send(sendMe);
@@ -144,7 +140,7 @@ io.on('connection', (socket) => {
             io.to(socket.id).emit('videoSync', videoInfo);
             // Load flags
             const flags = loadFlags(user.roomId, videoInfo.videoURL);
-            io.to(user.roomId).emit('updateFlags', flags);
+            io.to(user.roomId).emit('createFlags', flags);
         });
 
         // Create New Lernflix Room
@@ -228,7 +224,7 @@ io.on('connection', (socket) => {
             }
             // Load flags
             const flags = loadFlags(user.roomId, url);
-            io.to(user.roomId).emit('updateFlags', flags);
+            io.to(user.roomId).emit('createFlags', flags);
         })
 
         // Play video
