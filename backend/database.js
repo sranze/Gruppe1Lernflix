@@ -60,7 +60,7 @@ async function loadFeedback() {
 
     try {
         const results = await client.query(`SELECT feedbackText, json_agg(json_build_object('feedbackText', feedbackText
-                                            , 'userid' , userid, 'username', username, 'moodleRoom', moodleRoom)) AS moodleroomname
+                                            , 'userid' , userid, 'username', username, 'moodleRoom', moodleRoom)) AS feedbackText
                                             FROM   feedback
                                             GROUP  BY feedbackText`, [feedbackText])
 
