@@ -52,6 +52,38 @@ function saveFeedback( userid, username, feedbackText, moodleRoom, moodleRoomNam
     }
 }
 
+
+
+// Load all rooms related to moodleRooom
+async function loadFeedback() {
+    const client = newPool();
+
+    try {
+        const results = await client.query(`SELECT feedbackText, json_agg(json_build_object('feedbackText', feedbackText
+                                            , 'userid' , userid, 'username', username, 'moodleRoom', moodleRoom)) AS moodleroomname
+                                            FROM   feedback
+                                            GROUP  BY feedbackText`, [feedbackText])
+
+        var roomsFrontend = [];
+
+        var roomLoadData = JSON.stringify(results.rows);
+        var roomLoadDataObject = JSON.parse(roomLoadData);
+        var innerArrayLength = roomLoadDataObject[0]["feedbackText"].length;
+        for (var i = 0; i < innerArrayLength; i++) {
+            // console.log(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomname"])
+            roomsFrontend.push(roomLoadDataObject[0]["feedbackText"][i]["userid"]); // lernflix ids
+            roomsFrontend.push(roomLoadDataObject[0]["feedbackText"][i]["username"]); // lernflix roomnames
+        }
+        return roomsFrontend;
+
+    } catch (e) {
+        // TODO: Return an Error message to frontend
+        console.log("Something went wrong " + e);
+    } finally {
+        await client.end();
+    }
+}
+
 // Load all rooms related to moodleRooom
 async function loadRooms(moodleroomid) {
     const client = newPool();
@@ -186,5 +218,6 @@ module.exports = {
     saveUser,
     loadRooms,
     saveRooms,
-    saveFeedback
+    saveFeedback,
+    loadFeedback
 }
