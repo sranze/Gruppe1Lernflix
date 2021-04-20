@@ -55,12 +55,12 @@ function saveFeedback( userid, username, feedbackText, moodleRoom, moodleRoomNam
 
 
 // Load all rooms related to moodleRooom
-async function loadFeedback(moodleroomid) {
+async function loadFeedback() {
     const client = newPool();
 
     try {
-        const results = await client.query(`SELECT moodleroomid, json_agg(json_build_object('moodleroomid', moodleroomid
-                                            , 'userid' , userid, 'username', username, 'moodleRoom', moodleRoom)) AS feedbackText
+        const results = await client.query(`SELECT feedbackText, json_agg(json_build_object('feedbackText', feedbackText
+                                            , 'userid' , userid, 'username', username, 'moodleRoom', moodleRoom)) AS userid
                                             FROM   feedback
                                             GROUP  BY feedbackText`, [feedbackText])
 
@@ -68,11 +68,11 @@ async function loadFeedback(moodleroomid) {
 
         var roomLoadData = JSON.stringify(results.rows);
         var roomLoadDataObject = JSON.parse(roomLoadData);
-        var innerArrayLength = roomLoadDataObject[0]["feedbackText"].length;
+        var innerArrayLength = roomLoadDataObject[0]["userid"].length;
         for (var i = 0; i < innerArrayLength; i++) {
             // console.log(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomname"])
-            roomsFrontend.push(roomLoadDataObject[0]["feedbackText"][i]["userid"]); // lernflix ids
-            roomsFrontend.push(roomLoadDataObject[0]["feedbackText"][i]["username"]); // lernflix roomnames
+            roomsFrontend.push(roomLoadDataObject[0]["userid"][i]["userid"]); // lernflix ids
+            roomsFrontend.push(roomLoadDataObject[0]["userid"][i]["username"]); // lernflix roomnames
         }
         return roomsFrontend;
 
