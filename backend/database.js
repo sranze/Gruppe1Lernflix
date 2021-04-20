@@ -41,7 +41,7 @@ function saveFeedback( userid, username, feedbackText, moodleRoom, moodleRoomNam
             var timestamp = new Date();
             const client = newPool();
 
-            client.query(`INSERT INTO feedbackTable( userid, username, feedbackText, moodleRoom, moodleRoomName, timestamp) SELECT $1, $2, $3, $4, $5, $6, $7, $8`, [ userid, username, feedbackText, moodleRoom, moodleRoomName, timestamp], (err, res) => {
+            client.query(`INSERT INTO feedback( userid, username, feedbackText, moodleRoom, moodleRoomName, timestamp) SELECT $1, $2, $3, $4, $5, $6, $7, $8`, [ userid, username, feedbackText, moodleRoom, moodleRoomName, timestamp], (err, res) => {
                 if (err) {
                     console.log("USER SCHON VORHANDEN!");
                     console.log(err);
