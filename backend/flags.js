@@ -23,11 +23,12 @@ function loadFlags(roomID, videoURL) {
     }
 }
 
-// Removes flag based on VideoURL and roomID
-function removeFlag(roomID, videoInformation) {
-    // TODO: Add Remove Flag functionality
+// Removes flag based on VideoURL, videoTime (of Flag Position) and roomID
+function removeFlag(roomID, flagInformation) {
     for (var i = 0; i < flags.length; i++) {
-
+        if (flags[i].roomID === roomID && flags[i].videoURL === flagInformation.videoURL && flags[i].videoTime === flagInformation.videoTime) {
+            if (i > -1) flags.splice(i, 1);
+        }
     }
 }
 

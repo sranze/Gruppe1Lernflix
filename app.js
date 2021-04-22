@@ -254,16 +254,18 @@ io.on('connection', (socket) => {
             }
         })
 
-        // TODO: Remove flag from heap - See flags.js (its incomplete)
+        // Removes Flag from Heap
         socket.on('removeFlag', flagInformation => {
             const user = getCurrentUser(socket.id)
-            if (typeof user !== 'undefined') {
-                if (flagInformation !== 'undefined') {
-                    removeFlag(user.roomId, flagInformation)
-                }
-                // Load flags
+            if (typeof flagInformation.videoURL !== 'undefined' && typeof flagInformation.videoTime !== 'undefined' && typeof user !== 'undefined') {
+                // Remove flag
+                removeFlag(user.roomId, flagInformation);
+                // Load/Update flags
                 const flags = loadFlags(user.roomId, flagInformation.videoURL);
                 io.to(user.roomId).emit('updateFlags', flags);
+            } else {
+                var isSuccess = { message: "Ein Fehler ist beim Entfernen der Flagge aufgetreten.", isSuccess: false };
+                io.to(socket.id).emit('error', isSuccess);
             }
         })
     }
