@@ -457,137 +457,35 @@
     <!-- End Feedback Modal -->
     <div class="navba">
       <a href="#home"  data-toggle="modal" data-target="#feedbackModal" style="text-align:center">Feedback</a>
-      <a href="#news" style="text-align:center" data-toggle="modal" data-target="#myModal"> Über uns</a>
-      <a href="#contact" style="text-align:center">Kontakt</a>
+      <a href="#news" style="text-align:center" data-toggle="modal" data-target=""> Über Lernflix</a>
+      <a href="#contact" style="text-align:center" data-toggle="modal" data-target="#contact">Kontakt</a>
     </div>
 
-
-    <!-- Modal Contact -->
-    <div id="myModal" class="modal fade" role="dialog">
-      <div class="modal-dialog">
-
-        <!-- Modal content-->
+    <!-- Modal -->
+    <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="contact" aria-hidden="true">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-            <h4 class="modal-title">Contact Us</h4>
+            <h5 class="modal-title" id="contact1">Kontakt</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <div class="modal-body">
 
-            <form role="form" method="post" id="reused_form" >
-              <p>
-                Send your message in the form below and we will get back to you as early as possible.
-              </p>
+            <p>Bei generellen Rückfragen zu Lernflix:</p >  <a href = "mailto: carolin.strassman@hs-ruhrwest.de">Carolin Straßmann</a> oder <a href = "mailto: andreas.lingnau@hs-ruhrwest.de">Andreas Lingnau</a>
+            <p style="margin-top:10%">Bei technischen Rückfragen zu Lernflix:</p >  <a href = "mailto: andre.helgert@hs-ruhrwest.de">André Helgert</a>
 
-              <div class="form-group">
-                <label for="name">
-                  Name:</label>
-                <input type="text" class="form-control"
-                       id="name" name="name"   required maxlength="50">
-
-              </div>
-              <div class="form-group">
-                <label for="email">
-                  Email:</label>
-                <input type="email" class="form-control"
-                       id="email" name="email" required maxlength="50">
-              </div>
-              <div class="form-group">
-                <label for="name">
-                  Message:</label>
-                <textarea class="form-control" type="textarea" name="message"
-                          id="message" placeholder="Your Message Here"
-                          maxlength="6000" rows="7"></textarea>
-              </div>
-
-
-
-
-
-              <button type="submit" class="btn btn-lg btn-success btn-block" id="btnContactUs">Post It! →</button>
-
-            </form>
-            <div id="success_message" style="width:100%; height:100%; display:none; ">
-              <h3>Sent your message successfully!</h3>
-            </div>
-            <div id="error_message"
-                 style="width:100%; height:100%; display:none; ">
-              <h3>Error</h3>
-              Sorry there was an error sending your form.
-
-            </div>
           </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
+          </div>
         </div>
-
       </div>
     </div>
 
 
-    <script>
-$(function()
-{
-    function after_form_submitted(data)
-    {
-        if(data.result == 'success')
-        {
-            $('form#reused_form').hide();
-            $('#success_message').show();
-            $('#error_message').hide();
-        }
-        else
-        {
-            $('#error_message').append('<ul></ul>');
-
-            jQuery.each(data.errors,function(key,val)
-            {
-                $('#error_message ul').append('<li>'+key+':'+val+'</li>');
-            });
-            $('#success_message').hide();
-            $('#error_message').show();
-
-            //reverse the response on the button
-            $('button[type="button"]', $form).each(function()
-            {
-                $btn = $(this);
-                label = $btn.prop('orig_label');
-                if(label)
-                {
-                    $btn.prop('type','submit' );
-                    $btn.text(label);
-                    $btn.prop('orig_label','');
-                }
-            });
-
-        }//else
-    }
-
-	$('#reused_form').submit(function(e)
-      {
-        e.preventDefault();
-
-        $form = $(this);
-        //show some response on the button
-        $('button[type="submit"]', $form).each(function()
-        {
-            $btn = $(this);
-            $btn.prop('type','button' );
-            $btn.prop('orig_label',$btn.text());
-            $btn.text('Sending ...');
-        });
-
-
-                    $.ajax({
-                type: "POST",
-                url: '/../../handler.php',
-                data: $form.serialize(),
-                success: after_form_submitted,
-                dataType: 'json'
-            });
-
-      });
-});
-</script>
 
   </main>
   <!--  Hier statt CDN die .js Dateien runterladen und verlinkung anpassen-->
