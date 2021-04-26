@@ -55,13 +55,13 @@ function saveFeedback( userid, username, feedbackText, moodleRoom, moodleRoomNam
 
 
 // Load all rooms related to moodleRooom
-async function loadFeedback() {
+async function loadFeedback(feedbackText) {
     const client = newPool();
 
     try {
         const results = await client.query(`SELECT feedbackText, json_agg(json_build_object('feedbackText', feedbackText
                                             , 'userid' , userid, 'username', username, 'moodleRoom', moodleRoom)) AS userid
-                                            FROM   feedback
+                                            FROM   "feedbackLernflix"
                                             GROUP  BY feedbackText`, [feedbackText])
 
         var roomsFrontend = [];
