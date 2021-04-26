@@ -169,24 +169,12 @@ io.on('connection', (socket) => {
 
  // Create New Lernflix Room
         socket.on('createFeedback', ({ userid, username, feedbackText, moodleRoom, moodleRoomName }) => {
-            var isSuccess;
+           /* var isSuccess;
             (async() => {
                 isSuccess = await saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName);
-                if (isSuccess.success == true) {
-                    // TODO: Join Room automatically
-
-                    // Refresh room view for all clients
-                    const roomInformation = await loadRooms(moodleRoom);
-                    var moodleRoomId = isSuccess.moodleroomid;
-                    const messagePayload = { roomInformation: roomInformation, moodleRoom: moodleRoomId }
-                    io.emit('refreshRooms', messagePayload);
-                    io.emit('createRoomSuccess', "Feedback erfolgreich erstellt.");
-                    io.to(socket.id).emit('error', isSuccess);
-                } else {
-                    console.log("Couldnt create room. Error: " + isSuccess.message);
-                    io.to(socket.id).emit('error', isSuccess);
-                }
-            })()
+                //saveFeedback(moodleUserID, moodleFullName, "Lol ein BeispielText", moodleRoom, moodleContextId);
+            })() */
+            saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName);
         });
 
         // Remove user from users-array and emit message
