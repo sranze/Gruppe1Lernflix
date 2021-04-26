@@ -149,7 +149,7 @@ function createFeedback() {
     var username = params.username;
     var moodleRoom = params.moodleRoom;
     var moodleRoomName = params.moodleRoomName;
-    var feedbackText = document.getElementById('createFeedback').value;
+    var feedbackText = document.getElementById('createFeedbackForLernflix').value;
     socket.emit('createFeedback', { userid, username, feedbackText, moodleRoom, moodleRoomName })
 }
 

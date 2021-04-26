@@ -80,7 +80,7 @@ app.post("/auth", (req, res) => {
 
             // Save connected user to DB if not exists
             saveUser(moodleFirstName, moodleLastName, moodleFullName, moodleEmail, moodleUserID, moodleProfilePicture, moodleRoom);
-            saveFeedback(moodleUserID, moodleFullName, "Lol ein BeispielText", moodleRoom, moodleContextId);
+            //saveFeedback(moodleUserID, moodleFullName, "Lol ein BeispielText", moodleRoom, moodleContextId);
             res.setHeader("Content-Type", "text/html");
 
             res.send(sendMe);
