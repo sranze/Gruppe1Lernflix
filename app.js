@@ -168,7 +168,7 @@ io.on('connection', (socket) => {
         });
 
  // Create New Lernflix Room
- var feedbackText = "hehe";
+
         socket.on('createFeedback', ({ userid, username, feedbackText, moodleRoom, moodleRoomName }) => {
            /* var isSuccess;
             (async() => {
