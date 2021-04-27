@@ -164,6 +164,16 @@ function createRoom() {
     socket.emit('createRoom', { userid, username, newLernflixRoomName, moodleRoom, moodleRoomName })
 }
 
+// Create new Feedback
+function createFeedback() {
+    var userid = params.userid;
+    var username = params.username;
+    var moodleRoom = params.moodleRoom;
+    var moodleRoomName = params.moodleRoomName;
+    var feedbackText = document.getElementById('createFeedbackForLernflix').value;
+    socket.emit('createFeedback', { userid, username, feedbackText, moodleRoom, moodleRoomName })
+}
+
 // Get request for videos
 function getVideos(moodleContextId) {
     var message = { message: "Es konnten keine Videos geladen werden. Bitte schließe die Seite und versuche es erneut." }

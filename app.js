@@ -7,7 +7,7 @@ const socketIO = require('socket.io');
 const path = require('path');
 const { messageFormatter, welcomeMessage } = require('./backend/messages'); // make messages.js available
 const { userJoin, getCurrentUser, userLeave } = require('./backend/users'); // make functions in users.js available
-const { saveUser, loadRooms, saveRooms } = require('./backend/database'); // make database functions available
+const { saveUser, loadRooms, saveRooms, saveFeedback } = require('./backend/database'); // make database functions available
 const { loadVideoInformation, saveVideoInformation } = require('./backend/videos'); // make room (video-information) functions available
 const { loadFlags, saveFlag, removeFlag } = require('./backend/flags') // make flag functionalities available
 
@@ -180,7 +180,7 @@ io.on('connection', (socket) => {
             const user = getCurrentUser(socket.id)
             if (typeof user !== 'undefined') {
                 console.log("User " + user.userid + " " + user.username + ": " + message + " to room: " + user.roomName + " with id: " + user.roomId);
-                io.to(user.roomId).emit('message', messageFormatter(user.username, filter.clean(message)));
+                io.to(user.roomId).emit('message', messageFormatter(user.username, message));
             }
         });
 
@@ -268,5 +268,15 @@ io.on('connection', (socket) => {
                 io.to(socket.id).emit('error', isSuccess);
             }
         })
+
+        // Feedback
+        socket.on('createFeedback', ({ userid, username, feedbackText, moodleRoom, moodleRoomName }) => {
+            /* var isSuccess;
+             (async() => {
+                 isSuccess = await saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName);
+                 //saveFeedback(moodleUserID, moodleFullName, "Lol ein BeispielText", moodleRoom, moodleContextId);
+             })() */
+            saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName);
+        });
     }
 });
