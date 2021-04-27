@@ -16,6 +16,21 @@ let videoplayerTimeText = document.getElementById('videoplayerTimeText');
 const flagImg = new Image();
 flagImg.src = "../assets/illustrations/flag_black_24dp.svg";
 
+// Canvas (flags) 
+let flagCanvas = document.getElementById('flagsCanvas');
+let flagCanvasctx = flagCanvas.getContext("2d")
+flagCanvas.width = videoplayerSeekslider.offsetWidth;
+flagCanvas.height = videoplayerSeekslider.offsetHeight + 20;
+let flagsPositions = [],
+    tippyFlagTooltips = [];
+
+flagCanvas.addEventListener("mousemove", function(e) {
+    var rect = flagCanvas.getBoundingClientRect();
+    var canvasX = Math.round(e.clientX - rect.left); // Subtract the 'left' of the canvas 
+    //var canvasY = Math.round(e.clientY - rect.top); // from the X/Y positions to make  
+    mouseWithinFlag(canvasX);
+});
+
 // Videoplayer event listener
 videoplayer.addEventListener('timeupdate', seekTimeSliderUpdate, false);
 videoplayerSeekslider.addEventListener('change', skipToTime, false);
@@ -24,6 +39,7 @@ let lernflixRoomID;
 
 // Join and switch between rooms
 function joinRoom(roomName, roomId) {
+    flagCanvasctx.clearRect(0, 0, flagCanvas.width, flagCanvas.height);
     if (!didJoin) {
         // Join new room
         var userid = params.userid;
@@ -97,25 +113,24 @@ chatForm.addEventListener('submit', (e) => {
 function showMessage(message) {
     const div = document.createElement('div');
     div.classList.add('message');
-        if (message.messageFrom == "System") {
+    if (message.messageFrom == "System") {
 
-         div.innerHTML = `<p class="meta">${message.messageFrom} <span>${message.time}</span></p>
+        div.innerHTML = `<p class="meta">${message.messageFrom} <span>${message.time}</span></p>
             <p class="text">
                 ${message.text}
             </p>`;
-            div.style.background = "#f8f5f1";
-            document.querySelector('.chat-messages').appendChild(div);
+        div.style.background = "#f8f5f1";
+        document.querySelector('.chat-messages').appendChild(div);
 
-        }
-        else {
+    } else {
 
-         div.innerHTML = `<p class="meta">${message.messageFrom} <span>${message.time}</span></p>
+        div.innerHTML = `<p class="meta">${message.messageFrom} <span>${message.time}</span></p>
             <p class="text">
                 ${message.text}
             </p>`;
-            document.querySelector('.chat-messages').appendChild(div);
+        document.querySelector('.chat-messages').appendChild(div);
 
-        }
+    }
 
 };
 
@@ -174,31 +189,30 @@ function getVideos(moodleContextId) {
 
 //Join room über Button
 function callJoinRoom() {
-  var selectedRoom = $("button.selected");
-  var roomName = selectedRoom.text();
-  var roomID = selectedRoom.attr("id")
-  if(roomName == ""){
-    alert("Dieser Raum existiert nicht!");
-  }
-  else{
-  selectedRoom.removeClass("selected");
-  $("#searchRooms").val("");;
-  joinRoom(roomName, roomID)
-  }
+    var selectedRoom = $("button.selected");
+    var roomName = selectedRoom.text();
+    var roomID = selectedRoom.attr("id")
+    if (roomName == "") {
+        alert("Dieser Raum existiert nicht!");
+    } else {
+        selectedRoom.removeClass("selected");
+        $("#searchRooms").val("");;
+        joinRoom(roomName, roomID)
+    }
 }
 
 //select Room
 function selectRoom() {
-  //Searchbar
-  var searchbar = $(".search_room input")
-  //Wenn auf einem "Raumbutton" geklickt wird.
-  $("button.dropdown-item").click(function () {
-    $("button.dropdown-item").removeClass("selected")
-    $(this).addClass("selected")
-    var roomName = $(this).text();
-    //setzt raumnamen in die Suchleiste
-    searchbar.val(roomName);
-  });
+    //Searchbar
+    var searchbar = $(".search_room input")
+        //Wenn auf einem "Raumbutton" geklickt wird.
+    $("button.dropdown-item").click(function() {
+        $("button.dropdown-item").removeClass("selected")
+        $(this).addClass("selected")
+        var roomName = $(this).text();
+        //setzt raumnamen in die Suchleiste
+        searchbar.val(roomName);
+    });
 
 }
 
@@ -347,13 +361,15 @@ function addFlag() {
     let videoTime = videoplayer.currentTime;
     let annotation = document.getElementById('flagAnnotation').value;
     let videoURL = videoplayer.src;
-    let creator = params.userid;
+    let creatorID = params.userid;
+    let creatorUsername = params.username;
     let flagInformation = {
             roomID: roomID,
-            creator: creator,
+            creatorID: creatorID,
             videoTime: videoTime,
             videoURL: videoURL,
             annotation: annotation,
+            creatorUsername: creatorUsername,
         }
         // TODO: Error handling if something is undefined or empty
     socket.emit('addFlag', flagInformation);
@@ -361,22 +377,58 @@ function addFlag() {
 
 // Updates flags
 socket.on('updateFlags', flags => {
-    var flagCanvas = document.getElementById('flagsCanvas');
-    var flagCanvasctx = flagCanvas.getContext("2d")
-    flagCanvasctx.clearRect(0, 0, flagCanvas.width, flagCanvas.height);
-    var oneSecondLength = videoplayerSeekslider.offsetWidth / videoplayer.duration;
-    var positionOnCanvas = 0;
-    flagCanvas.width = videoplayerSeekslider.offsetWidth;
-    flagCanvas.height = videoplayerSeekslider.offsetHeight * 0.75;
-    // TODO: Show flags on videoplayer, update flags (visually)
-    // TODO: Create functionality for flags on videoplayer
-    console.log("Flags:")
-    for (var i = 0; i < flags.length; i++) {
-        console.log("Flags in der Schleife " + flags[i])
-        positionOnCanvas = flags[i].videoTime * oneSecondLength;
-        flagCanvasctx.drawImage(flagImg, positionOnCanvas, 0);
+    drawFlags(videoplayer, flags);
+})
+
+socket.on('createFlags', flags => {
+    let videoplayerInformation = document.getElementById('videoplayer');
+    videoplayerInformation.onloadedmetadata = function() {
+        drawFlags(videoplayerInformation, flags);
     }
 })
+
+// Draws Flags on canvas and creates tooltip-instances
+function drawFlags(videoplayerInformation, flags) {
+    var flagSvg = flagImg.getBoundingClientRect();
+    let flagCanvas = document.getElementById('flagsCanvas');
+    let flagCanvasctx = flagCanvas.getContext("2d")
+    let videoplayerSeekslider = document.getElementById('seekslider');
+    flagCanvasctx.clearRect(0, 0, flagCanvas.width, flagCanvas.height);
+    var oneSecondLength = videoplayerSeekslider.offsetWidth / videoplayerInformation.duration;
+    var positionOnCanvas = 0;
+    flagsPositions = [];
+    // Clean up existing tooltips
+    for (var i = 0; i < tippyFlagTooltips.length; i++) {
+        tippyFlagTooltips[i].destroy()
+    }
+    tippyFlagTooltips = []
+        // Create flag objects for mouse tracking and tooltip-instances
+    for (var i = 0; i < flags.length; i++) {
+
+        positionOnCanvas = flags[i].videoTime * oneSecondLength;
+
+        flagCanvasctx.drawImage(flagImg, positionOnCanvas, flagCanvas.height * (1 / 4));
+        var flagObject = {
+            xPos: positionOnCanvas,
+            yPos: 0,
+            annotation: flags[i].annotation,
+            creatorUsername: flags[i].creatorUsername
+        }
+        flagsPositions.push(flagObject);
+        let tippyInstance = tippy(document.getElementById('tooltipFlag'));
+        tippyInstance.setProps({
+            followCursor: true,
+            theme: 'translucent',
+            delay: [200, 1000],
+        });
+        tippyInstance.setContent(flagsPositions[i].creatorUsername + ":\n" + flagsPositions[i].annotation);
+        tippyFlagTooltips.push(tippyInstance)
+    }
+    console.log("Array with flags:" + flagsPositions)
+        // TODO:
+        // Write new function that detects if mose is in canvas. get mouse pos. and check if it is positioned in a flag. if so:
+        // Call new function, that creates and shows a tooltip with creator name and annotation 
+}
 
 // Prepares information for flag modallable
 function loadFlagModal() {
@@ -400,4 +452,21 @@ function capture(video) {
     var ctx = canvas.getContext('2d');
     ctx.drawImage(video, 0, 0, w, h);
     return canvas;
+}
+
+// Checks if mouse is withing position of a flag
+function mouseWithinFlag(mouseX) {
+    if (flagsPositions.length !== 0) {
+        for (var i = 0; i < flagsPositions.length; i++) {
+            // TODO: Also check y mouse pos!!!
+            if (mouseX >= (flagsPositions[i].xPos) && mouseX <= (flagsPositions[i].xPos + flagImg.width)) {
+                console.log("MousePos: " + mouseX + "\nFlagPos: " + flagsPositions[i].xPos)
+                console.log(flagsPositions[i].creatorUsername)
+                console.log(flagsPositions[i].annotation)
+                tippyFlagTooltips[i].show()
+            } else {
+                tippyFlagTooltips[i].hide()
+            }
+        }
+    }
 }
