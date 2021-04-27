@@ -1,5 +1,3 @@
-//require('dotenv').config()
-
 // Chat references
 const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
@@ -27,8 +25,8 @@ let flagsPositions = [],
 flagCanvas.addEventListener("mousemove", function(e) {
     var rect = flagCanvas.getBoundingClientRect();
     var canvasX = Math.round(e.clientX - rect.left); // Subtract the 'left' of the canvas 
-    //var canvasY = Math.round(e.clientY - rect.top); // from the X/Y positions to make  
-    mouseWithinFlag(canvasX);
+    var canvasY = Math.round(e.clientY - rect.top); // from the X/Y positions to make  
+    mouseWithinFlag(canvasX, canvasY);
 });
 
 // Videoplayer event listener
@@ -75,9 +73,9 @@ socket.on('welcome', message => {
     getVideos(params.moodleContextId);
 });
 
-// TODO: Create Success message
+// Success on Room Creation
 socket.on('createRoomSuccess', message => {
-    console.log(message);
+    createSystemNotification(message, true);
 });
 
 // Log error messages
@@ -156,18 +154,6 @@ function showRooms(rooms) {
     }
 }
 
-
-
-// Create new Feedback
-function createFeedback() {
-    var userid = params.userid;
-    var username = params.username;
-    var moodleRoom = params.moodleRoom;
-    var moodleRoomName = params.moodleRoomName;
-    var feedbackText = document.getElementById('createFeedback').value;
-    socket.emit('createFeedback', { userid, username, feedbackText, moodleRoom, moodleRoomName })
-}
-
 // Create new Room
 function createRoom() {
     var userid = params.userid;
@@ -178,13 +164,22 @@ function createRoom() {
     socket.emit('createRoom', { userid, username, newLernflixRoomName, moodleRoom, moodleRoomName })
 }
 
+// Create new Feedback
+function createFeedback() {
+    var userid = params.userid;
+    var username = params.username;
+    var moodleRoom = params.moodleRoom;
+    var moodleRoomName = params.moodleRoomName;
+    var feedbackText = document.getElementById('createFeedbackForLernflix').value;
+    socket.emit('createFeedback', { userid, username, feedbackText, moodleRoom, moodleRoomName })
+}
+
 // Get request for videos
 function getVideos(moodleContextId) {
     var message = { message: "Es konnten keine Videos geladen werden. Bitte schließe die Seite und versuche es erneut." }
     if (typeof moodleContextId === 'undefined') createSystemNotification(message, false);
 
     const url = "https://opencast-engage.hs-rw.de/search/episode.json?q=" + moodleContextId
-
 }
 
 //Join room über Button
@@ -216,8 +211,6 @@ function selectRoom() {
 
 }
 
-
-
 // Creates HTML for error or success system notifications
 function createSystemNotification(message, isSuccess) {
     const div = document.createElement('div');
@@ -247,7 +240,6 @@ function changeVideo(url) {
 
 // Change video
 socket.on('loadNewVideo', url => {
-
     videoplayer.setAttribute('src', url);
     videoplayer.controls = false;
     videoplayer.play();
@@ -277,7 +269,6 @@ socket.on('playVideo', () => {
 // Play video - socket
 socket.on('pauseVideo', () => {
     videoplayer.pause();
-    // TODO Update Video on Heap
     var videoInfo = getVideoInfo();
     socket.emit('updateVideoInfo', videoInfo);
 })
@@ -291,7 +282,6 @@ function skipToTime() {
 // Skip time - socket
 socket.on('skipTimeVideo', time => {
     videoplayer.currentTime = time;
-    // TODO Update Video on Heap
     var videoInfo = getVideoInfo();
     socket.emit('updateVideoInfo', videoInfo);
 })
@@ -311,7 +301,10 @@ function seekTimeSliderUpdate() {
     var durationSeconds = Math.floor(videoplayer.duration - durationMinutes * 60);
     if (currentSeconds < 10) currentSeconds = '0' + currentSeconds;
     if (durationSeconds < 10) durationSeconds = '0' + durationSeconds;
-
+    if (isNaN(durationMinutes)) {
+        durationMinutes = '0';
+        durationSeconds = '00';
+    }
     videoplayerTimeText.innerHTML = currentMinutes + ':' + currentSeconds + '/' + durationMinutes + ':' + durationSeconds;
 }
 
@@ -364,20 +357,24 @@ function addFlag() {
     let creatorID = params.userid;
     let creatorUsername = params.username;
     let flagInformation = {
-            roomID: roomID,
-            creatorID: creatorID,
-            videoTime: videoTime,
-            videoURL: videoURL,
-            annotation: annotation,
-            creatorUsername: creatorUsername,
-        }
-        // TODO: Error handling if something is undefined or empty
+        roomID: roomID,
+        creatorID: creatorID,
+        videoTime: videoTime,
+        videoURL: videoURL,
+        annotation: annotation,
+        creatorUsername: creatorUsername,
+    }
+    if (flagInformation.roomID === 'undefined' || flagInformation.creatorID === 'undefined' || flagInformation.videoTime === 'undefined' || flagInformation.videoURL === 'undefined' || flagInformation.annotation === 'undefined' || flagInformation.creatorUsername === 'undefined') {
+        createSystemNotification("Fehler beim Hinzufügen einer Flagge. Bitte später erneut versuchen.", false);
+    }
+
     socket.emit('addFlag', flagInformation);
 }
 
 // Updates flags
 socket.on('updateFlags', flags => {
     drawFlags(videoplayer, flags);
+    loadRemoveFlagModal();
 })
 
 socket.on('createFlags', flags => {
@@ -389,7 +386,6 @@ socket.on('createFlags', flags => {
 
 // Draws Flags on canvas and creates tooltip-instances
 function drawFlags(videoplayerInformation, flags) {
-    var flagSvg = flagImg.getBoundingClientRect();
     let flagCanvas = document.getElementById('flagsCanvas');
     let flagCanvasctx = flagCanvas.getContext("2d")
     let videoplayerSeekslider = document.getElementById('seekslider');
@@ -410,9 +406,13 @@ function drawFlags(videoplayerInformation, flags) {
         flagCanvasctx.drawImage(flagImg, positionOnCanvas, flagCanvas.height * (1 / 4));
         var flagObject = {
             xPos: positionOnCanvas,
-            yPos: 0,
+            yPos: flagCanvas.height * (1 / 4),
             annotation: flags[i].annotation,
-            creatorUsername: flags[i].creatorUsername
+            creatorUsername: flags[i].creatorUsername,
+            roomID: flags[i].roomID,
+            creatorID: flags[i].creatorID,
+            videoURL: videoplayer.src,
+            videoTime: flags[i].videoTime,
         }
         flagsPositions.push(flagObject);
         let tippyInstance = tippy(document.getElementById('tooltipFlag'));
@@ -424,14 +424,11 @@ function drawFlags(videoplayerInformation, flags) {
         tippyInstance.setContent(flagsPositions[i].creatorUsername + ":\n" + flagsPositions[i].annotation);
         tippyFlagTooltips.push(tippyInstance)
     }
-    console.log("Array with flags:" + flagsPositions)
-        // TODO:
-        // Write new function that detects if mose is in canvas. get mouse pos. and check if it is positioned in a flag. if so:
-        // Call new function, that creates and shows a tooltip with creator name and annotation 
 }
 
 // Prepares information for flag modallable
 function loadFlagModal() {
+    document.getElementById('flagAnnotation').value = "";
     let videoPreview = document.getElementById('videoPreview');
     var canvas = capture(videoplayer);
     canvas.onclick = function() {
@@ -439,6 +436,48 @@ function loadFlagModal() {
     };
     videoPreview.innerHTML = '';
     videoPreview.appendChild(canvas);
+}
+
+// Loads all Flags into Modal
+function loadRemoveFlagModal() {
+    let flagListing = document.getElementById('flagListing');
+    while (flagListing.firstChild) {
+        flagListing.removeChild(flagListing.lastChild);
+    }
+    if (flagsPositions.length == 0) {
+        var error = document.createElement('div')
+        error.innerHTML = `
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Hier ist es noch leer</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">Zur Zeit wehen noch keine Flaggen im Wind.</h6>
+                                <p class="card-text">Wenn Du Flaggen entfernen willst, musst Du erst welche hinzufügen.</p>
+                            </div>
+                        </div>`;
+        flagListing.appendChild(error);
+    } else {
+        for (var i = 0; i < flagsPositions.length; i++) {
+            var error = document.createElement('div')
+            var minutes = Math.floor(flagsPositions[i].videoTime / 60).toFixed(0);
+            var seconds = (flagsPositions[i].videoTime - minutes * 60).toFixed(0);
+            var videotime;
+            minutes == 0 ? videotime = seconds + " Sekunden" : videotime = "Minute " + minutes + ":" + seconds;
+            error.innerHTML = `
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Flagge ${i+1}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">Von ${flagsPositions[i].creatorUsername} bei ${videotime}</h6>
+                                    <p class="card-text">${flagsPositions[i].annotation}</p>
+                                </div>
+                                <button type="button" class="btn btn-danger" onclick="deleteFlag(${i})">Entfernen</button>
+                            </div>
+                            <br>
+                            `;
+            flagListing.appendChild(error);
+        }
+    }
+    //videoPreview.innerHTML = '';
+    //videoPreview.appendChild(canvas);
 }
 
 // Captures Video Preview
@@ -454,15 +493,20 @@ function capture(video) {
     return canvas;
 }
 
+// Sends flag delete request
+function deleteFlag(position) {
+    if (flagsPositions[position] !== 'undefined') {
+        socket.emit('removeFlag', flagsPositions[position]);
+    } else {
+        createSystemNotification("Ein Fehler ist beim Löschen der Flagge aufgetreten. Bitte versuche es später erneut.", false);
+    }
+}
+
 // Checks if mouse is withing position of a flag
-function mouseWithinFlag(mouseX) {
+function mouseWithinFlag(mouseX, mouseY) {
     if (flagsPositions.length !== 0) {
         for (var i = 0; i < flagsPositions.length; i++) {
-            // TODO: Also check y mouse pos!!!
-            if (mouseX >= (flagsPositions[i].xPos) && mouseX <= (flagsPositions[i].xPos + flagImg.width)) {
-                console.log("MousePos: " + mouseX + "\nFlagPos: " + flagsPositions[i].xPos)
-                console.log(flagsPositions[i].creatorUsername)
-                console.log(flagsPositions[i].annotation)
+            if (mouseX >= (flagsPositions[i].xPos) && mouseX <= (flagsPositions[i].xPos + flagImg.width) && mouseY > flagsPositions[i].yPos && mouseY < (flagsPositions[i].yPos + flagImg.height)) {
                 tippyFlagTooltips[i].show()
             } else {
                 tippyFlagTooltips[i].hide()
