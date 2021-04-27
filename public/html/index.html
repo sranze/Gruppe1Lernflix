@@ -45,105 +45,105 @@
     <!-- Video Functions-->
     <script>
         /*
-            var flagID = 0;
+                                                                                                                    var flagID = 0;
 
-            $(document).ready(function() {
-              //get popup_content // Input und Button
-              var popup_content = $("#pop_cont")
+                                                                                                                    $(document).ready(function() {
+                                                                                                                      //get popup_content // Input und Button
+                                                                                                                      var popup_content = $("#pop_cont")
 
-              tippy('#setFlag', {
-                content: popup_content.html(),
-                trigger: 'click',
-                hideOnClick: true,
-                allowHTML: true,
-                interactive: true,
+                                                                                                                      tippy('#setFlag', {
+                                                                                                                        content: popup_content.html(),
+                                                                                                                        trigger: 'click',
+                                                                                                                        hideOnClick: true,
+                                                                                                                        allowHTML: true,
+                                                                                                                        interactive: true,
 
-              });
+                                                                                                                      });
 
-              //Zeit wird bei Klick auf Flag genommen und an FlagVideo als Parameter weitergegeben. Grund: Kommentare zu schreiben benötigt Zeit
-              //während man Kommentar schreibt läuft Video weiter --> Flag wäre nicht mehr Zeitgenau. 
-              $("#setFlag").click(function() {
-                var curTime = Math.floor(video1.currentTime);
-                $(".tippy-content > button").attr("onclick", "flagVideo(" + curTime + ")")
-                $(".tippy-content > input").select();
+                                                                                                                      //Zeit wird bei Klick auf Flag genommen und an FlagVideo als Parameter weitergegeben. Grund: Kommentare zu schreiben benötigt Zeit
+                                                                                                                      //während man Kommentar schreibt läuft Video weiter --> Flag wäre nicht mehr Zeitgenau. 
+                                                                                                                      $("#setFlag").click(function() {
+                                                                                                                        var curTime = Math.floor(video1.currentTime);
+                                                                                                                        $(".tippy-content > button").attr("onclick", "flagVideo(" + curTime + ")")
+                                                                                                                        $(".tippy-content > input").select();
 
-              })
+                                                                                                                      })
 
-              $(document).on("click", ".videoElement", function() {
-                var NewVideoUrl = $(this).attr("data-url");
-                changeVideo(NewVideoUrl)
-              })
+                                                                                                                      $(document).on("click", ".videoElement", function() {
+                                                                                                                        var NewVideoUrl = $(this).attr("data-url");
+                                                                                                                        changeVideo(NewVideoUrl)
+                                                                                                                      })
 
-              //Lädt alle Videos in das Modal
-              $.ajax({
-                url: '../assets/opencastAPI.json',
-                type: "GET",
-                dataType: 'JSON',
-                success: function(data) {
-                  $.each(data["search-results"].result, function(i, item) {
-                    var video_thumbnail = item['mediapackage']['attachments']['attachment'][2]['url']
-                    var video_title = item['mediapackage']['title']
-                    var video_res480p = item['mediapackage']['media']['track'][0]['url']
-                    //            var video_res720p = data['search-results']['result'][0]['mediapackage']['media']['track'][2]['url']
-                    //            var video_res1080p = data['search-results']['result'][0]['mediapackage']['media']['track'][1]['url']
-                    $(".videolist").append("<div tabindex ='-1' id='videoElement" + i + "' class='videoElement py-3 fadein' data-url=" + video_res480p + "><img class='videoThumbnail col-6' src=" + video_thumbnail + "/><h1 class='videoTitle col-6 px-3'>" + video_title + "</h1></div>");
+                                                                                                                      //Lädt alle Videos in das Modal
+                                                                                                                      $.ajax({
+                                                                                                                        url: '../assets/opencastAPI.json',
+                                                                                                                        type: "GET",
+                                                                                                                        dataType: 'JSON',
+                                                                                                                        success: function(data) {
+                                                                                                                          $.each(data["search-results"].result, function(i, item) {
+                                                                                                                            var video_thumbnail = item['mediapackage']['attachments']['attachment'][2]['url']
+                                                                                                                            var video_title = item['mediapackage']['title']
+                                                                                                                            var video_res480p = item['mediapackage']['media']['track'][0]['url']
+                                                                                                                            //            var video_res720p = data['search-results']['result'][0]['mediapackage']['media']['track'][2]['url']
+                                                                                                                            //            var video_res1080p = data['search-results']['result'][0]['mediapackage']['media']['track'][1]['url']
+                                                                                                                            $(".videolist").append("<div tabindex ='-1' id='videoElement" + i + "' class='videoElement py-3 fadein' data-url=" + video_res480p + "><img class='videoThumbnail col-6' src=" + video_thumbnail + "/><h1 class='videoTitle col-6 px-3'>" + video_title + "</h1></div>");
 
-                  })
-                }
+                                                                                                                          })
+                                                                                                                        }
 
-              });
-            });
+                                                                                                                      });
+                                                                                                                    });
 
-            //startet Video
-            function startVideo() {
-              $("#video1").trigger("play");
-            }
-            //pausiert Video
-            function stopVideo() {
-              $("#video1").trigger("pause");
-            }
-            //lädt das Video neu
-            function resetVideo() {
-              $("#video1").trigger("load");
-            }
-
-
-
-            //setzt eine "Flagge" bzw. Makiert 
-            function flagVideo(curTime) {
-
-              flagID++
-              //gets Video from Dom
-              var vid = document.getElementById("video1");
-              //gets current Time of selected Video
-
-              //gets input.value
-              var popup_input = $(".tippy-content > input")
-              var input_text = popup_input.val();
-
-              //formats Seconds into HH:MM:SS
-              var date = new Date(0);
-              date.setSeconds(curTime); // specify value for SECONDS here
-              var timeString = date.toISOString().substr(11, 8);
-
-              //erstellt ein Element mit unique ID und setzt parameter zu JumpVideo direkt ein.
-              $("#flag").append("<p onclick='jumpVideo(" + curTime + ")'id=flagID_" + flagID + ">Time: " + timeString + "<br/>Message:  " + input_text);
-              popup_input.val('');
+                                                                                                                    //startet Video
+                                                                                                                    function startVideo() {
+                                                                                                                      $("#video1").trigger("play");
+                                                                                                                    }
+                                                                                                                    //pausiert Video
+                                                                                                                    function stopVideo() {
+                                                                                                                      $("#video1").trigger("pause");
+                                                                                                                    }
+                                                                                                                    //lädt das Video neu
+                                                                                                                    function resetVideo() {
+                                                                                                                      $("#video1").trigger("load");
+                                                                                                                    }
 
 
-            }
 
-            //springt zu bestimmter Sekunde im Video
-            function jumpVideo(seconds) {
-              var vid = document.getElementById("video1");
-              vid.currentTime = seconds;
-            }
+                                                                                                                    //setzt eine "Flagge" bzw. Makiert 
+                                                                                                                    function flagVideo(curTime) {
 
-            function changeVideo(url) {
-              var currentVideo = $("#video1")
-              currentVideo.attr("src", url)
+                                                                                                                      flagID++
+                                                                                                                      //gets Video from Dom
+                                                                                                                      var vid = document.getElementById("video1");
+                                                                                                                      //gets current Time of selected Video
 
-            }*/
+                                                                                                                      //gets input.value
+                                                                                                                      var popup_input = $(".tippy-content > input")
+                                                                                                                      var input_text = popup_input.val();
+
+                                                                                                                      //formats Seconds into HH:MM:SS
+                                                                                                                      var date = new Date(0);
+                                                                                                                      date.setSeconds(curTime); // specify value for SECONDS here
+                                                                                                                      var timeString = date.toISOString().substr(11, 8);
+
+                                                                                                                      //erstellt ein Element mit unique ID und setzt parameter zu JumpVideo direkt ein.
+                                                                                                                      $("#flag").append("<p onclick='jumpVideo(" + curTime + ")'id=flagID_" + flagID + ">Time: " + timeString + "<br/>Message:  " + input_text);
+                                                                                                                      popup_input.val('');
+
+
+                                                                                                                    }
+
+                                                                                                                    //springt zu bestimmter Sekunde im Video
+                                                                                                                    function jumpVideo(seconds) {
+                                                                                                                      var vid = document.getElementById("video1");
+                                                                                                                      vid.currentTime = seconds;
+                                                                                                                    }
+
+                                                                                                                    function changeVideo(url) {
+                                                                                                                      var currentVideo = $("#video1")
+                                                                                                                      currentVideo.attr("src", url)
+
+                                                                                                                    }*/
     </script>
 
     <script>
@@ -306,17 +306,13 @@
               <button id="start" type="button" class="btn btn-outline-dark" onclick="playVideo()">Play</button>
               <button id="pause" class="btn btn-outline-dark" onclick="pauseVideo()">Pause</button>
               <button id="setFlag" class="btn btn-primary" data-toggle="modal" data-target="#flagModal" onclick="loadFlagModal()">Flagge Setzen</button>
-                <button id="removeFlag" class="btn btn-primary" data-toggle="modal" data-target="#removeFlagModal" onclick="loadRemoveFlagModal()">Flagge entfernen</button>
-                <button id="addVideo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#listvideos">Video auswählen</button>
-              <!--<button id="feedbackButton" type="button" class="btn btn-success" data-toggle="modal" data-target="#feedbackModal" style="float:right">Feedback</button>-->
+              <button id="setFlag" class="btn btn-primary" data-toggle="modal" data-target="#removeFlagModal" onclick="loadRemoveFlagModal()">Flagge entfernen</button>
+              <button id="addVideo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#listvideos">Video auswählen</button>
 
               <div class="popup_content" id="pop_cont">
                 <input type="text">
                 <button id="" onclick="flagVideo()" type="button" class="btn btn-primary btn-sm">Small button</button>
               </div>
-
-
-              <!-- Smiley ohne Funktion!
               <div class="icons container py-3">
                 <div class="row" style="border: 2px solid #000;padding: 5px 0px;">
 
@@ -348,11 +344,9 @@
                     </svg>
                   </div>
                 </div>
-              </div>  -->
+              </div>
             </div>
           </div>
-
-
 
           <div class="col-md-4 themed-grid-col">
             <a></a>
@@ -421,74 +415,90 @@
             <div id="videoPreview" style="display: inline-block; top: 4px; position: relative ;border: dotted 1px #ccc; padding: 2px;"></div>
             <br>
             <label for="flagAnnotationName">Bemerkung:</label>
-            <textarea name="flagAnnotationName" class="form-control" id="flagAnnotation" rows="2"></textarea>
+            <textarea name="flagAnnotationName" placeholder="Teile Deine Bemerkung mit anderen" class="form-control" id="flagAnnotation" rows="2"></textarea>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">abbrechen</button>
-            <button type="button" class="btn btn-primary" onclick="addFlag()">speichern</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addFlag()">speichern</button>
           </div>
         </div>
       </div>
     </div>
     <!-- End Flag Modal -->
-
-
-    <!-- Feedback Modal -->
-    <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="flagModalLable" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="feedbackModalLable"><img id="flagImg" src="../assets/illustrations/afd4i-yydke.svg" alt="A Flag."> Du hast Anregungen oder ein Feedback?</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-
-            <br>
-            <label for="flagAnnotationName">Dein Feedback:</label>
-            <input class="form-control" type="text" placeholder="Bitte Feedback eingeben" id="createFeedbackForLernflix">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-            <button type="button" class="btn btn-primary" onclick="createFeedback()" data-dismiss="modal">Abschicken</button>
+        <!-- Remove Flag Modal -->
+        <div class="modal fade" id="removeFlagModal" tabindex="-1" role="dialog" aria-labelledby="removeFlagModalLable" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="removeFlagModalLable"><img id="flagImg" src="../assets/illustrations/flag_black_24dp.svg" alt="A Flag.">Flagge entfernen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div id="flagListing" style="display: inline-block; top: 4px; position: relative ;"></div>
+                <br>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">schließen</button>
+              </div>
+            </div>
           </div>
         </div>
+        <!-- End Flag Modal -->
+        <!-- Feedback Modal -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="flagModalLable" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="feedbackModalLable"><img id="flagImg" src="../assets/illustrations/afd4i-yydke.svg" alt="A Flag."> Du hast Anregungen oder ein Feedback?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <br>
+        <label for="flagAnnotationName">Dein Feedback:</label>
+        <input class="form-control" type="text" placeholder="Bitte Feedback eingeben" id="createFeedbackForLernflix">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+        <button type="button" class="btn btn-primary" onclick="createFeedback()" data-dismiss="modal">Abschicken</button>
       </div>
     </div>
-    <!-- End Feedback Modal -->
-    <div class="navba" style="text-align:center">
-      <a href="#home"  data-toggle="modal" data-target="#feedbackModal" style="text-align:center">Feedback</a>
-      <a href="#news" style="text-align:center" data-toggle="modal" data-target=""> Über Lernflix</a>
-      <a href="#contact" style="text-align:center" data-toggle="modal" data-target="#contact">Kontakt</a>
-    </div>
+  </div>
+</div>
+<!-- End Feedback Modal -->
+<div class="navba" style="text-align:center">
+  <a href="#home"  data-toggle="modal" data-target="#feedbackModal" style="text-align:center">Feedback</a>
+  <a href="#news" style="text-align:center" data-toggle="modal" data-target=""> Über Lernflix</a>
+  <a href="#contact" style="text-align:center" data-toggle="modal" data-target="#contact">Kontakt</a>
+</div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="contact" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="contact1">Kontakt</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
+<!-- Modal -->
+<div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="contact" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="contact1">Kontakt</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
 
-            <p>Bei generellen Rückfragen zu Lernflix:</p >  <a href = "mailto: carolin.strassman@hs-ruhrwest.de">Carolin Straßmann</a> oder <a href = "mailto: andreas.lingnau@hs-ruhrwest.de">Andreas Lingnau</a>
-            <p style="margin-top:10%">Bei technischen Rückfragen zu Lernflix:</p >  <a href = "mailto: andre.helgert@hs-ruhrwest.de">André Helgert</a>
+        <p>Bei generellen Rückfragen zu Lernflix:</p >  <a href = "mailto: carolin.strassman@hs-ruhrwest.de">Carolin Straßmann</a> oder <a href = "mailto: andreas.lingnau@hs-ruhrwest.de">Andreas Lingnau</a>
+        <p style="margin-top:10%">Bei technischen Rückfragen zu Lernflix:</p >  <a href = "mailto: andre.helgert@hs-ruhrwest.de">André Helgert</a>
 
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 
-          </div>
-        </div>
       </div>
     </div>
-
-
-
+  </div>
+</div>
   </main>
   <!--  Hier statt CDN die .js Dateien runterladen und verlinkung anpassen-->
   <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>

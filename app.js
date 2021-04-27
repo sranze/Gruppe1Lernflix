@@ -192,7 +192,7 @@ io.on('connection', (socket) => {
             const user = getCurrentUser(socket.id)
             if (typeof user !== 'undefined') {
                 console.log("User " + user.userid + " " + user.username + ": " + message + " to room: " + user.roomName + " with id: " + user.roomId);
-                io.to(user.roomId).emit('message', messageFormatter(user.username, filter.clean(message)));
+                io.to(user.roomId).emit('message', messageFormatter(user.username, message));
             }
         });
 
@@ -266,17 +266,29 @@ io.on('connection', (socket) => {
             }
         })
 
-        // TODO: Remove flag from heap - See flags.js (its incomplete)
+        // Removes Flag from Heap
         socket.on('removeFlag', flagInformation => {
             const user = getCurrentUser(socket.id)
-            if (typeof user !== 'undefined') {
-                if (flagInformation !== 'undefined') {
-                    removeFlag(user.roomId, flagInformation)
-                }
-                // Load flags
+            if (typeof flagInformation.videoURL !== 'undefined' && typeof flagInformation.videoTime !== 'undefined' && typeof user !== 'undefined') {
+                // Remove flag
+                removeFlag(user.roomId, flagInformation);
+                // Load/Update flags
                 const flags = loadFlags(user.roomId, flagInformation.videoURL);
                 io.to(user.roomId).emit('updateFlags', flags);
+            } else {
+                var isSuccess = { message: "Ein Fehler ist beim Entfernen der Flagge aufgetreten.", isSuccess: false };
+                io.to(socket.id).emit('error', isSuccess);
             }
         })
+
+        // Feedback
+        socket.on('createFeedback', ({ userid, username, feedbackText, moodleRoom, moodleRoomName }) => {
+            /* var isSuccess;
+             (async() => {
+                 isSuccess = await saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName);
+                 //saveFeedback(moodleUserID, moodleFullName, "Lol ein BeispielText", moodleRoom, moodleContextId);
+             })() */
+            saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName);
+        });
     }
 });
