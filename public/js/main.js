@@ -262,6 +262,7 @@ function playVideo() {
 // Pause video - socket
 socket.on('playVideo', () => {
     videoplayer.play();
+    $(".videoStatus").removeClass("pause");
     var videoInfo = getVideoInfo();
     socket.emit('updateVideoInfo', videoInfo);
 })
@@ -269,6 +270,7 @@ socket.on('playVideo', () => {
 // Play video - socket
 socket.on('pauseVideo', () => {
     videoplayer.pause();
+    $(".videoStatus").addClass("pause");
     var videoInfo = getVideoInfo();
     socket.emit('updateVideoInfo', videoInfo);
 })
