@@ -98,10 +98,12 @@ app.get('/auth', function(req, res) {
     res.sendFile(path.join(__dirname + "/public/html/not_authenticated.html"));
 });
 
+/*
 // Sends user to error site, if get request is sent to 404 pages
 app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname + "/public/html/error_404.html"));
 });
+*/
 
 // Sends user to error site, if get request is sent to 404 pages
 app.get('/logout.html', function(req, res) {
