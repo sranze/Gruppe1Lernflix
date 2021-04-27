@@ -12,6 +12,33 @@
   opacity: 0;
   transition: opacity 0.3s ease-in;
 }
+.videoplayer .videoStatus img {
+  display: none;
+}
+.videoplayer .videoStatus.pause {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+.videoplayer .videoStatus.pause img {
+  display: block;
+  height: auto;
+  z-index: 2;
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
+  width: 15%;
+  margin: auto;
+  max-width: 100px;
+}
+.videoplayer .videoStatus.pause .paused {
+  background-color: #000;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0.8;
+  z-index: 1;
+}
 .videoplayer:hover .videotitle {
   visibility: visible;
   opacity: 0.8;
@@ -161,7 +188,7 @@ input::-moz-focus-outer {
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxP.ttf) format('truetype');
 }
-rgb(33, 37, 41) :root {
+rgb(33, 37, 41):root {
   --dark-color-a: #667aff;
   --dark-color-b: #7386ff;
   --light-color: #e6e9ff;
@@ -195,7 +222,6 @@ a {
 .chat-container {
   max-width: 2100px;
   background: #fff;
-  margin: 5px auto;
   overflow: hidden;
 }
 .chat-container .chat-header {
@@ -224,32 +250,86 @@ a {
   border-radius: 10px;
   max-width: 75%;
   font-size: 13px;
+  position: relative;
+  -webkit-animation: floatBubble 0.5s, fadein 0.5s normal ease-in;
+  animation: floatBubble 0.5s, fadein 0.5s normal ease-in;
 }
-.chat-container .chat-messages .message .meta {
+@-webkit-keyframes floatBubble {
+  0% {
+    top: 10px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+@keyframes floatBubble {
+  0% {
+    top: 10px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fadein {
+  /* Firefox */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes fadein {
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes fadein {
+  /* Opera */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.chat-container .meta {
   opacity: 1;
   font-size: 13px;
   font-weight: bold;
   color: #000;
   margin-bottom: 7px;
 }
-.chat-container .chat-messages .message .meta span {
+.chat-container .meta span {
   color: #000;
   font-weight: 100;
   float: right;
 }
-.chat-container .chat-messages .message.sys {
+.chat-container.sys {
   max-width: 75%;
   background-color: #42b883;
   color: #fff;
 }
-.chat-container .chat-messages .message.sys .meta {
+.chat-container.sys .meta {
   opacity: 1;
   font-size: 13px;
   font-weight: bold;
   color: #000;
   margin-bottom: 7px;
 }
-.chat-container .chat-messages .message.sys .meta span {
+.chat-container.sys .meta span {
   color: #fff;
   font-weight: 100;
   float: right;
