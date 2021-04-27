@@ -192,7 +192,7 @@ io.on('connection', (socket) => {
             const user = getCurrentUser(socket.id)
             if (typeof user !== 'undefined') {
                 console.log("User " + user.userid + " " + user.username + ": " + message + " to room: " + user.roomName + " with id: " + user.roomId);
-                io.to(user.roomId).emit('message', messageFormatter(user.username, message));
+                io.to(user.roomId).emit('message', messageFormatter(user.username, filter.clean(message)));
             }
         });
 
