@@ -1,19 +1,8 @@
-# Server information
 
-Es ist ein Heroku Server (glacial-anchorage-18932). Seite erreichbar unter: https://glacial-anchorage-18932.herokuapp.com/
-
-Derweil solltet Ihr Heroku CLI installieren und lokal testen.
-
-Wichtig: Lokal vorhandene Dateien, Module, Pakete usw. m ü s s e n serverseitig bereitgestellt werden.
-
-# Logs
-
-Hiermit könnt Ihr Logs ansehen, um ggfs. nicht gleichzeitig zu pushen:
-heroku logs --source app --tail
 
 # Environmental Variables (.env)
 
-Um unsere Sensiblen Daten (Datenbank, Moodle Schlüssel etc.) zu sichern, wurden diese Daten in eine .env Datei ausgelagert.
+Um Sensiblen Daten (Datenbank, Moodle Schlüssel etc.) zu sichern, wurden diese Daten in eine .env Datei ausgelagert.
 Diese Datei darf n i c h t in Gitlab gepusht werden, da sonst unsere Anwendungsdaten öffentlich sind.
 
 Deswegen wurde die .env Datei in die .gitignore Datei eingetragen, welche das Pushen der .env Datei verhindert.
@@ -46,22 +35,39 @@ This will help you remove cached index files, and then only add the ones you nee
 2. git add .
 3. git commit -m 'Removing ignored files'
 
-# Vorgehensweise Pull, Commit, Push usw.
-
-Ladet euch wie bisher diese Branch lokal in euer Repo. Legt diese Branch ggfs. lokal an.
-
-Ganz normal 'git add .' danach einen Commit mit message via 'git commit -m "Commit Nachricht"'. 
-Wenn Ihr nun ins Gitlab Repo pushen wollt, könnt Ihr das wie gewohnt tun. 
-
-Wenn Ihr auf dem Server deployen wollt, dann müsst Ihr ggfs. die Remote Branch hinzufügen. 
-Schaut also zuerst, ob die Heroku Branch bereits via 'git remove -v' da ist. 
-Ist dies der Fall, könnt Ihr via 'git checkout -b heroku' in die Remote-Heroku-Branch wechseln. 
-Überprüft das nochmal via 'git branch'.
-Dann müsste der Kopf auf dem Origin von heroku sitzen und Ihr könnt ganz normal 'git push -u origin heroku' durchführen.
 
 # Datenbank
 Es gibt keine kostenfreien MongoDBs mehr für Heroku (wäre sinnvoll gewesen für das npm ltijs-Paket). Daher wird nun eine kostenfreie PostgreSQL-Datenbank gehostet (postgresql-infinite-15588).
 Doku zur PostgreSQL gibt es im CLI via 'heroku addons:docs heroku-postgresql'
+
+moodledatauser:
+
+-firstname (char varying)
+-lastname (char varying)
+-fullname (char varying)
+-email (char varying)
+-userid [PK] (int)
+-profilepicture (char varying)
+-moodleRoom (char varying)
+-timestamp(timestamp without time zone)
+
+rooms:
+
+-lernflixroomid [PK] (int)
+-lernflixroomname (char varying)
+-moodleroomid (int)
+-moodleroomname (char varying)
+-timestamp (timestamp without time zone)
+
+feedbackLernflix:
+
+-id [PK] (int)
+-userid (int)
+-username (char varying)
+-feedbacktext (char varying)
+-moodleroom (char varying)
+-moodleroomname (char varying)
+-timestamp (timestamp without time zone)
 
 # LTI-Protokoll
 Das npm Paket ims-lti wurde implementiert, um die Authentifizierung aus Moodle nach Lernflix zu ermöglichen.
