@@ -13,8 +13,40 @@
     width: 100%;
     opacity: 0;
     transition: opacity 0.3s ease-in;
-
   }
+
+  .videoStatus {
+    img {
+      display: none;
+    }
+
+    &.pause {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+
+      img {
+        display: block;
+        height: auto;
+        z-index: 2;
+        -webkit-filter: invert(100%);
+        filter: invert(100%);
+        width: 15%;
+        margin: auto;
+        max-width: 100px;
+      }
+      .paused {
+        background-color: #000;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        opacity: 0.8;
+        z-index: 1;
+      }
+    }
+  }
+
 
   &:hover .videotitle {
     visibility: visible;
@@ -195,6 +227,7 @@ input::-moz-focus-outer {
 //Iconbox
 .icons {
   padding: 16px 12px;
+
   .icon {
     position: relative;
     float: left;
