@@ -98,11 +98,15 @@ app.get('/auth', function(req, res) {
     res.sendFile(path.join(__dirname + "/public/html/not_authenticated.html"));
 });
 
+// Sends user to logout site
+app.get('/logout.html', function(req, res) {
+    res.sendFile(path.join(__dirname + "/public/html/logout.html"));
+});
+
 // Sends user to error site, if get request is sent to 404 pages
 app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname + "/public/html/error_404.html"));
 });
-
 
 // start server on the specified port and binding host
 server.listen(PORT, '0.0.0.0', function() {
