@@ -24,9 +24,9 @@
     <link rel="stylesheet" href="../assets/icons/font-icons.css">
     <!-- main css-->
     <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../../node_modules/shepherd.js/dist/css/shepherd.css"/>
 
-
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="../../socket.io/socket.io.js"></script>
   <!--
     <script src="../js/popper.js"></script>
     <script src="../js/tippy.js"></script>
@@ -67,7 +67,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Neuen Raum Anlegen</h5>
+                    <h5 class="modal-title">Neuen Raum Anlegen</h5>
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -97,14 +97,14 @@
             <div class="container">
                 <div class="logo">
                     <img src="../assets/illustrations/logo.png">
-                    <a class="navbar-brand d-flex align-items-center">
+                    <a class="navbar-brand d-flex align-items-center" >
                         <strong id="moodleRoomName">Lernflix</strong>
                     </a>
                 </div>
                 <div class="search_room dropdown ">
                     <input class="form-control dropdown-toggle" type="text" placeholder="Suchen sie einen Moodle Raum aus" id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="callJoinRoom()">Raum Beitreten</button>
-                    <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#createRoomModal" data-whatever="@getbootstrap">Raum Anlegen</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="callJoinRoom()" id="raumBeitreten">Raum Beitreten</button>
+                    <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#createRoomModal" data-whatever="@getbootstrap"  id="raumanlegen">Raum Anlegen</button>
                     <div id="rooms" class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     </div>
                 </div>
@@ -215,7 +215,7 @@
 
           <div class="col-md-4 themed-grid-col">
             <a></a>
-            <div class="chat-container">
+            <div class="chat-container" id="chat">
               <header class="chat-header">
                 <h2>Chat</h2>
                 <h2 id="lernflixRoomName">&nbsp;</h2>
@@ -288,7 +288,7 @@
 
         <!-- Flag Modal -->
     <div class="modal fade" id="flagModal" tabindex="-1" role="dialog" aria-labelledby="flagModalLable" aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="flagModalLable"><img id="flagImg" src="../assets/illustrations/flag_black_24dp.svg" alt="A Flag.">Flagge setzen</h5>
@@ -387,9 +387,169 @@
 
         <!-- Navbar Bottom End-->
 
-
-
   </main>
+
+    <script src="../../node_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../../node_modules/shepherd.js/dist/js/shepherd.min.js"></script>
+
+
+    <script>
+
+        const tour = new Shepherd.Tour({
+          defaultStepOptions: {
+            classes: 'shadow-md bg-purple-dark',
+            scrollTo: true
+          }
+        });
+
+tour.addStep({
+  id: 'example-step',
+  text: 'Willkommen bei Lernflix! Bist du das erste mal hier? Dann lass uns doch kurz die Funktionen von Lernflix durchgehen!',
+  attachTo: {
+    element: '.logo',
+    on: 'bottom'
+  },
+  classes: 'logo',
+  buttons: [
+        {
+      text: 'Schließen',
+      action: tour.cancel
+    },
+
+    {
+      text: 'Next',
+      action: tour.next
+    }
+  ]
+});
+
+tour.addStep({
+  id: 'example-step2',
+  text: 'Hier kannst du einen bereits erstellen Raum beitreten. Somit kannst du mit deinen Kommiliton:innen gemeinsam Kursvideos anschauen und chatten!',
+  attachTo: {
+    element: '#raumBeitreten',
+    on: 'bottom'
+  },
+  classes: 'logo',
+  buttons: [
+
+      {
+      text: 'Zurück',
+      action: tour.back
+    },
+
+    {
+      text: 'Next',
+      action: tour.next
+    }
+
+
+
+
+  ]
+});
+
+tour.addStep({
+  id: 'example-step2',
+  text: 'Bei Bedarf kannst du auch selber einen öffentlichen Raum erstellen, und anschließend diesen beitreten.',
+  attachTo: {
+    element: '#raumanlegen',
+    on: 'bottom'
+  },
+  classes: 'logo',
+  buttons: [
+        {
+      text: 'Zurück',
+      action: tour.back
+    },
+    {
+      text: 'Next',
+      action: tour.next
+    }
+  ]
+});
+
+tour.addStep({
+  id: 'example-step2',
+  text: 'Nachdem du einer Gruppe beigetreten bist, kannst du hier ein Video auswählen, welches in deinem Moodlekurs hochgeladen ist. Beim Auswählen der Videos wird dieses synchronisiert bei allen Gruppenteilnehmern abgespielt!',
+  attachTo: {
+    element: '#addVideo',
+    on: 'bottom'
+  },
+  classes: 'logo',
+  buttons: [
+        {
+      text: 'Zurück',
+      action: tour.back
+    },
+    {
+      text: 'Next',
+      action: tour.next
+    }
+  ]
+});
+
+tour.addStep({
+  id: 'example-step2',
+  text: 'Um euch gemeinsam auszutauschen, nutze den Chat. Probiere es doch gleich mal aus!',
+  attachTo: {
+    element: '#chat',
+    on: 'bottom'
+  },
+  classes: 'logo',
+  buttons: [
+        {
+      text: 'Zurück',
+      action: tour.back
+    },
+    {
+      text: 'Next',
+      action: tour.next
+    }
+  ]
+});
+
+tour.addStep({
+  id: 'example-step2',
+  text: 'Wenn du eine Frage hast oder etwas nicht verstehst, erstelle einfach eine Flagge! Diese wird zu dem Videozeitpunkt gespeichert und ist für alle Gruppenteilnehmer sichtbar. Das ermöglicht euch einen gemeinsamen Austausch und eine Diskussion!',
+  attachTo: {
+    element: '#setFlag',
+    on: 'bottom'
+  },
+  classes: 'logo',
+  buttons: [
+        {
+      text: 'Zurück',
+      action: tour.back
+    },
+    {
+      text: 'Next',
+      action: tour.next
+    }
+  ]
+});
+tour.addStep({
+  id: 'example-step2',
+  text: 'Wenn du deine Frage gelöst hast, kannst du deine Flagge einfach entfernen!',
+  attachTo: {
+    element: '#removeFlag',
+    on: 'bottom'
+  },
+  classes: 'logo',
+  buttons: [
+        {
+      text: 'Zurück',
+      action: tour.back
+    },
+    {
+      text: 'Next',
+      action: tour.next
+    }
+  ]
+});
+        tour.start();
+    </script>
+
     <!--  Hier statt CDN die .js Dateien runterladen und verlinkung anpassen-->
     <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
