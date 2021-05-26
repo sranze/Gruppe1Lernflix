@@ -102,8 +102,8 @@
                     </a>
                 </div>
                 <div class="search_room dropdown ">
-                    <input class="form-control dropdown-toggle" type="text" placeholder="Suchen sie einen Moodle Raum aus" id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="callJoinRoom()" id="raumBeitreten">Raum Beitreten</button>
+                    <input class="form-control dropdown-toggle" type="text" placeholder="Suche einen Moodle Raum aus" id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
+                    <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="callJoinRoom()" id="raumBeitreten">Raum Beitreten</button>-->
                     <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#createRoomModal" data-whatever="@getbootstrap"  id="raumanlegen">Raum Anlegen</button>
                     <div id="rooms" class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     </div>
@@ -425,7 +425,7 @@ tour.addStep({
 
 tour.addStep({
   id: 'example-step2',
-  text: 'Hier kannst du einen bereits erstellen Raum beitreten. Somit kannst du mit deinen Kommiliton:innen gemeinsam Kursvideos anschauen und chatten!',
+  text: 'Hier kannst du einen bereits erstellen Raum beitreten. Für den Kurs MMI & GUI Programmierung wurden die Gruppen bereits als Räume angelegt. Somit kannst du mit deinen Kommiliton:innen gemeinsam Kursvideos anschauen und chatten!',
   attachTo: {
     element: '#raumBeitreten',
     on: 'bottom'
