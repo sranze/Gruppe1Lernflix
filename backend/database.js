@@ -70,7 +70,7 @@ async function loadFeedback(feedbackText) {
         var roomLoadDataObject = JSON.parse(roomLoadData);
         var innerArrayLength = roomLoadDataObject[0]["userid"].length;
         for (var i = 0; i < innerArrayLength; i++) {
-            // console.log(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomname"])
+             console.log(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomname"])
             roomsFrontend.push(roomLoadDataObject[0]["userid"][i]["userid"]); // lernflix ids
             roomsFrontend.push(roomLoadDataObject[0]["userid"][i]["username"]); // lernflix roomnames
         }
@@ -101,7 +101,7 @@ async function loadRooms(moodleroomid) {
         var roomLoadDataObject = JSON.parse(roomLoadData);
         var innerArrayLength = roomLoadDataObject[0]["moodleroomname"].length;
         for (var i = 0; i < innerArrayLength; i++) {
-            // console.log(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomname"])
+             console.log(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomname"])
             roomsFrontend.push(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomid"]); // lernflix ids
             roomsFrontend.push(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomname"]); // lernflix roomnames
         }
@@ -135,6 +135,10 @@ async function saveRooms(userid, username, lernflixroomname, moodleroomid, moodl
     var newLernflixRoomId = generateNewLernflixRoomId(999999, allLernflixRoomIds);
 
     const client = newPool();
+
+console.log("test von id" + moodleroomid);
+
+      //  (SELECT email IF(moodleroomid = $4) FROM moodledatauser)
 
     if (allLernflixRoomNames.includes(lernflixroomname)) {
         // TODO: Tell Frontend roomName already exists
