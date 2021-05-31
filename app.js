@@ -62,7 +62,7 @@ app.post("/auth", (req, res) => {
             moodleContextId = moodleData.body.context_id;
 
             // Shows all available session data from Moodle in Server logs
-            console.log("\n\n\nAvailable Data:\n" + JSON.stringify(sessions));j
+            console.log("\n\n\nAvailable Data:\n" + JSON.stringify(sessions));
 
             // Send html Back, if authentication correct
             var sendMe = index.toString().replace("//PARAMS**GO**HERE",
