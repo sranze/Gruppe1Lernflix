@@ -52,36 +52,37 @@ function saveFeedback( userid, username, feedbackText, moodleRoom, moodleRoomNam
     }
 }
 
-async function getAllUsersNotification(firstname, lastname, fullname, email, userid, profilepicture, moodleRoom) {
+async function getAllUsersNotification(userid) {
 
             // Datenbank Heroku Postgres Connection
             var timestamp = new Date();
             const client = newPool();
 
-       try {
-           const results = await client.query(`SELECT userid, json_agg(json_build_object('userid', userid
-                                               , 'firstname' , firstname, 'lastname', lastname, 'fullname', fullname)) AS fullname
-                                               FROM   "moodledatauser"
-                                               GROUP  BY userid`, [userid])
+  try {
+          const results = await client.query(`SELECT userid, json_agg(json_build_object('userid', userid
+                                              , 'email' , email, 'fullname', fullname, 'firstname', firstname)) AS email
+                                              FROM   moodledatauser
+                                              //WHERE moodleroomid =  $1
+                                              GROUP  BY userid`, [userid])
 
-           var roomsFrontend = [];
+          var roomsFrontend = [];
 
-           var roomLoadData = JSON.stringify(results.rows);
-           var roomLoadDataObject = JSON.parse(roomLoadData);
-           var innerArrayLength = roomLoadDataObject[0]["fullname"].length;
-           for (var i = 0; i < innerArrayLength; i++) {
-                console.log(roomLoadDataObject[0]["fullname"][i]["fullname"])
-               roomsFrontend.push(roomLoadDataObject[0]["fullname"][i]["fullname"]); // lernflix ids
-               roomsFrontend.push(roomLoadDataObject[0]["fullname"][i]["lastname"]); // lernflix roomnames
-           }
-           return roomsFrontend;
+          var roomLoadData = JSON.stringify(results.rows);
+          var roomLoadDataObject = JSON.parse(roomLoadData);
+          var innerArrayLength = roomLoadDataObject[0]["email"].length;
+          for (var i = 0; i < innerArrayLength; i++) {
+               console.log(roomLoadDataObject[0]["email"][i]["email"])
+              roomsFrontend.push(roomLoadDataObject[0]["email"][i]["userid"]); // lernflix ids
+              roomsFrontend.push(roomLoadDataObject[0]["email"][i]["email"]); // lernflix roomnames
+          }
+          return roomsFrontend;
 
-       } catch (e) {
-           // TODO: Return an Error message to frontend
-           console.log("Something went wrong " + e);
-       } finally {
-           await client.end();
-       }
+      } catch (e) {
+          // TODO: Return an Error message to frontend
+          console.log("Something went wrong " + e);
+      } finally {
+          await client.end();
+      }
 
 
 }
