@@ -52,7 +52,7 @@ function saveFeedback( userid, username, feedbackText, moodleRoom, moodleRoomNam
     }
 }
 
-function getAllUsersNotification(moodleContextId) {
+async function getAllUsersNotification(moodleContextId) {
 
             // Datenbank Heroku Postgres Connection
             var timestamp = new Date();
@@ -70,7 +70,7 @@ function getAllUsersNotification(moodleContextId) {
            var roomLoadDataObject = JSON.parse(roomLoadData);
            var innerArrayLength = roomLoadDataObject[0]["fullname"].length;
            for (var i = 0; i < innerArrayLength; i++) {
-               // console.log(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomname"])
+                console.log(roomLoadDataObject[0]["fullname"][i]["fullname"])
                roomsFrontend.push(roomLoadDataObject[0]["fullname"][i]["fullname"]); // lernflix ids
                roomsFrontend.push(roomLoadDataObject[0]["fullname"][i]["lastname"]); // lernflix roomnames
            }
