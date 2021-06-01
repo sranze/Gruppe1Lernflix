@@ -68,13 +68,16 @@ async function getAllUsersNotification(userid) {
           var roomsFrontend = [];
 
           var roomLoadData = JSON.stringify(results.rows);
+          console.log(JSON.stringify(results.rows));
           var roomLoadDataObject = JSON.parse(roomLoadData);
+          console.log(roomLoadDataObject);
           var innerArrayLength = roomLoadDataObject[0]["email"].length;
           for (var i = 0; i < innerArrayLength; i++) {
                console.log(roomLoadDataObject[0]["email"][i]["email"])
               roomsFrontend.push(roomLoadDataObject[0]["email"][i]["userid"]); // lernflix ids
               roomsFrontend.push(roomLoadDataObject[0]["email"][i]["email"]); // lernflix roomnames
           }
+          console.log(roomsFrontend);
           return roomsFrontend;
 
       } catch (e) {
