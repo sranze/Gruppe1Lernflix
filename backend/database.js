@@ -84,7 +84,7 @@ function saveFeedback( userid, username, feedbackText, moodleRoom, moodleRoomNam
           // TODO: Return an Error message to frontend
           console.log("Something went wrong " + e);
       } finally {
-          await client.end();
+           client.end();
       }
 
 
