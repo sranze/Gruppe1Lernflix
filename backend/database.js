@@ -52,14 +52,14 @@ function saveFeedback( userid, username, feedbackText, moodleRoom, moodleRoomNam
     }
 }
 
-async function getAllUsersNotification(userid) {
+ function getAllUsersNotification(userid) {
 
             // Datenbank Heroku Postgres Connection
             var timestamp = new Date();
             const client = newPool();
 
   try {
-          const results = await client.query(`SELECT userid, json_agg(json_build_object('userid', userid
+          const results =  client.query(`SELECT userid, json_agg(json_build_object('userid', userid
                                               , 'email' , email, 'fullname', fullname, 'firstname', firstname)) AS email
                                               FROM   moodledatauser
                                               //WHERE moodleroomid =  $1
