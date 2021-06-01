@@ -52,7 +52,7 @@ function saveFeedback( userid, username, feedbackText, moodleRoom, moodleRoomNam
     }
 }
 
-async function getAllUsersNotification(userid) {
+async function getAllUsersNotification(firstname, lastname, fullname, email, userid, profilepicture, moodleRoom) {
 
             // Datenbank Heroku Postgres Connection
             var timestamp = new Date();
