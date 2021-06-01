@@ -28,7 +28,7 @@ function saveUser(firstname, lastname, fullname, email, userid, profilepicture, 
                     console.log(err);
                       var check = client.query(`SELECT email FROM moodledatauser WHERE userid = '24262'`), (err, data){
                         console.log("DATA TEST VON EMAILS AUSGEBEN" + check);
-                      });
+                      };
                 }
             });
             client.end();
