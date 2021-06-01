@@ -26,8 +26,8 @@ function saveUser(firstname, lastname, fullname, email, userid, profilepicture, 
                 if (err) {
                     console.log("USER SCHON VORHANDEN!");
                     console.log(err);
-                      var check = client.query(`SELECT email FROM moodledatauser WHERE userid = '24262'`, function(err, data){
-                        console.log("DATA TEST VON EMAILS AUSGEBEN" + data);
+                      var check = client.query(`SELECT email FROM moodledatauser WHERE userid = '24262'`, (err, data){
+                        console.log("DATA TEST VON EMAILS AUSGEBEN" + check);
                       });
                 }
             });
