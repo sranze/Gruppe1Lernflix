@@ -52,17 +52,17 @@ function saveFeedback( userid, username, feedbackText, moodleRoom, moodleRoomNam
     }
 }
 
-async function getAllUsersNotification(moodleContextId) {
+async function getAllUsersNotification(userid) {
 
             // Datenbank Heroku Postgres Connection
             var timestamp = new Date();
             const client = newPool();
 
        try {
-           const results = await client.query(`SELECT email, json_agg(json_build_object('email', email
+           const results = await client.query(`SELECT userid, json_agg(json_build_object('userid', userid
                                                , 'firstname' , firstname, 'lastname', lastname, 'fullname', fullname)) AS fullname
                                                FROM   "moodledatauser"
-                                               GROUP  BY email`, [email])
+                                               GROUP  BY userid`, [userid])
 
            var roomsFrontend = [];
 
@@ -183,7 +183,7 @@ console.log("test von id" + moodleroomid);
         try {
             await client.query(`INSERT INTO rooms(lernflixroomid, lernflixroomname, moodleroomid, moodleroomname, timestamp) SELECT $1, $2, $3, $4, $5`, [newLernflixRoomId, lernflixroomname, moodleroomid, moodleroomname, timestamp]);
             console.log("Room " + lernflixroomname + " with ID " + newLernflixRoomId + " successfully stored in db");
-            getAllUsersNotification();
+            getAllUsersNotification(userid);
             isSuccess.success = true;
             isSuccess.lernflixroomname = lernflixroomname;
             isSuccess.lernflixroomid = newLernflixRoomId;
