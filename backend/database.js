@@ -183,7 +183,7 @@ console.log("test von id" + moodleroomid);
         try {
             await client.query(`INSERT INTO rooms(lernflixroomid, lernflixroomname, moodleroomid, moodleroomname, timestamp) SELECT $1, $2, $3, $4, $5`, [newLernflixRoomId, lernflixroomname, moodleroomid, moodleroomname, timestamp]);
             console.log("Room " + lernflixroomname + " with ID " + newLernflixRoomId + " successfully stored in db");
-            getAllUsersNotification(userid);
+            //getAllUsersNotification(userid);
             isSuccess.success = true;
             isSuccess.lernflixroomname = lernflixroomname;
             isSuccess.lernflixroomid = newLernflixRoomId;
