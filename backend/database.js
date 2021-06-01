@@ -53,44 +53,6 @@ function saveFeedback( userid, username, feedbackText, moodleRoom, moodleRoomNam
 }
 
 
-async function getAllUsersNotification(userid) {
-
-            // Datenbank Heroku Postgres Connection
-            var timestamp = new Date();
-            const client = newPool();
-
-  try {
-          const results = await client.query(`SELECT userid, json_agg(json_build_object('userid', userid
-                                              , 'email' , email, 'fullname', fullname, 'firstname', firstname)) AS email
-                                              FROM   moodledatauser
-                                              //WHERE moodleroomid =  $1
-                                              GROUP  BY userid`, [userid])
-
-          var roomsFrontend = [];
-
-          var roomLoadData = JSON.stringify(results.rows);
-          console.log(JSON.stringify(results.rows));
-          var roomLoadDataObject = JSON.parse(roomLoadData);
-          console.log(roomLoadDataObject);
-          var innerArrayLength = roomLoadDataObject[0]["email"].length;
-          for (var i = 0; i < innerArrayLength; i++) {
-               console.log(roomLoadDataObject[0]["email"][i]["email"])
-              roomsFrontend.push(roomLoadDataObject[0]["email"][i]["userid"]); // lernflix ids
-              roomsFrontend.push(roomLoadDataObject[0]["email"][i]["email"]); // lernflix roomnames
-          }
-          console.log(roomsFrontend);
-          return roomsFrontend;
-
-      } catch (e) {
-          // TODO: Return an Error message to frontend
-          console.log("Something went wrong " + e);
-      } finally {
-          await client.end();
-      }
-
-
-}
-
 
 // Load all rooms related to moodleRooom
 async function loadFeedback(feedbackText) {
@@ -139,7 +101,7 @@ async function loadRooms(moodleroomid) {
         var roomLoadDataObject = JSON.parse(roomLoadData);
         var innerArrayLength = roomLoadDataObject[0]["moodleroomname"].length;
         for (var i = 0; i < innerArrayLength; i++) {
-             console.log(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomname"])
+            // console.log(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomname"])
             roomsFrontend.push(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomid"]); // lernflix ids
             roomsFrontend.push(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomname"]); // lernflix roomnames
         }
@@ -188,7 +150,6 @@ console.log("test von id" + moodleroomid);
         try {
             await client.query(`INSERT INTO rooms(lernflixroomid, lernflixroomname, moodleroomid, moodleroomname, timestamp) SELECT $1, $2, $3, $4, $5`, [newLernflixRoomId, lernflixroomname, moodleroomid, moodleroomname, timestamp]);
             console.log("Room " + lernflixroomname + " with ID " + newLernflixRoomId + " successfully stored in db");
-            //getAllUsersNotification(userid);
             isSuccess.success = true;
             isSuccess.lernflixroomname = lernflixroomname;
             isSuccess.lernflixroomid = newLernflixRoomId;
@@ -280,6 +241,5 @@ module.exports = {
     loadRooms,
     saveRooms,
     saveFeedback,
-    loadFeedback,
-    getAllUsersNotification
+    loadFeedback
 }
