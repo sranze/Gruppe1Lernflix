@@ -52,6 +52,39 @@ function saveFeedback( userid, username, feedbackText, moodleRoom, moodleRoomNam
     }
 }
 
+function getAllUsersNotification(moodleContextId) {
+
+            // Datenbank Heroku Postgres Connection
+            var timestamp = new Date();
+            const client = newPool();
+
+       try {
+           const results = await client.query(`SELECT email, json_agg(json_build_object('email', email
+                                               , 'firstname' , firstname, 'lastname', lastname, 'fullname', fullname)) AS fullname
+                                               FROM   "moodledatauser"
+                                               GROUP  BY email`, [email])
+
+           var roomsFrontend = [];
+
+           var roomLoadData = JSON.stringify(results.rows);
+           var roomLoadDataObject = JSON.parse(roomLoadData);
+           var innerArrayLength = roomLoadDataObject[0]["fullname"].length;
+           for (var i = 0; i < innerArrayLength; i++) {
+               // console.log(roomLoadDataObject[0]["moodleroomname"][i]["lernflixroomname"])
+               roomsFrontend.push(roomLoadDataObject[0]["fullname"][i]["fullname"]); // lernflix ids
+               roomsFrontend.push(roomLoadDataObject[0]["fullname"][i]["lastname"]); // lernflix roomnames
+           }
+           return roomsFrontend;
+
+       } catch (e) {
+           // TODO: Return an Error message to frontend
+           console.log("Something went wrong " + e);
+       } finally {
+           await client.end();
+       }
+
+
+}
 
 
 // Load all rooms related to moodleRooom
@@ -150,6 +183,7 @@ console.log("test von id" + moodleroomid);
         try {
             await client.query(`INSERT INTO rooms(lernflixroomid, lernflixroomname, moodleroomid, moodleroomname, timestamp) SELECT $1, $2, $3, $4, $5`, [newLernflixRoomId, lernflixroomname, moodleroomid, moodleroomname, timestamp]);
             console.log("Room " + lernflixroomname + " with ID " + newLernflixRoomId + " successfully stored in db");
+            getAllUsersNotification();
             isSuccess.success = true;
             isSuccess.lernflixroomname = lernflixroomname;
             isSuccess.lernflixroomid = newLernflixRoomId;
@@ -241,5 +275,6 @@ module.exports = {
     loadRooms,
     saveRooms,
     saveFeedback,
-    loadFeedback
+    loadFeedback,
+    getAllUsersNotification
 }
