@@ -81,7 +81,7 @@ app.post("/auth", (req, res) => {
             // Save connected user to DB if not exists
             saveUser(moodleFirstName, moodleLastName, moodleFullName, moodleEmail, moodleUserID, moodleProfilePicture, moodleRoom);
             //saveFeedback(moodleUserID, moodleFullName, "Lol ein BeispielText", moodleRoom, moodleContextId);
-            getAllUsersNotification(moodleUserID);
+
             res.setHeader("Content-Type", "text/html");
 
             res.send(sendMe);
@@ -129,10 +129,11 @@ io.on('connection', (socket) => {
         // Load rooms and emit list of rooms to frontend
         (async() => {
             const roomInformation = await loadRooms(moodleRoom);
-
+            const userInformation = await getAllUsersNotification(moodleUserID);
+            console.log("1" + userInformation);
             io.to(socket.id).emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWenn Du einen Raum wechseln möchtest, klicke einfach auf einen anderen.`, roomInformation));
         })()
-
+console.log("2" + userInformation);
         // Join Room
         socket.on('joinRoom', ({ userid, username, roomName, roomId, moodleRoom }) => {
             console.log("User " + username + " " + userid + " joins Room: " + roomName + " " + roomId + " in Moodle Room " + moodleRoom);

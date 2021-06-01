@@ -52,7 +52,7 @@ function saveFeedback( userid, username, feedbackText, moodleRoom, moodleRoomNam
     }
 }
 
-/*
+
 async function getAllUsersNotification(userid) {
 
             // Datenbank Heroku Postgres Connection
@@ -90,7 +90,7 @@ async function getAllUsersNotification(userid) {
 
 
 }
-*/
+
 
 // Load all rooms related to moodleRooom
 async function loadFeedback(feedbackText) {
