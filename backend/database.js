@@ -22,7 +22,7 @@ function saveUser(firstname, lastname, fullname, email, userid, profilepicture, 
             var timestamp = new Date();
             const client = newPool();
 
-            client.query(`INSERT INTO moodledatauser(firstname, lastname, fullname, email, userid, profilepicture, moodleRoom, timestamp) SELECT $1, $2, $3, $4, $5, $6, $7, $8 WHERE NOT EXISTS (SELECT * FROM moodledatauser WHERE userid = "$5" AND moodleRoom = $7)`, ["firstname", "lastname", "fullname", email, "userid", profilepicture, moodleRoom, timestamp], (err, res) => {
+            client.query(`INSERT INTO moodledatauser(firstname, lastname, fullname, email, userid, profilepicture, moodleRoom, timestamp) SELECT $1, $2, $3, $4, $5, $6, $7, $8 WHERE NOT EXISTS (SELECT * FROM moodledatauser WHERE userid = "vbcn" AND moodleRoom = "hgfg")`, ["firstname", "lastname", "fullname", email, "userid", profilepicture, moodleRoom, timestamp], (err, res) => {
                 if (err) {
                     console.log("USER SCHON VORHANDEN!");
                     console.log(err);
