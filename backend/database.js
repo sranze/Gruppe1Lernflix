@@ -241,6 +241,11 @@ function saveProbandencode( userid, probandencode) {
         const client = newPool();
 
         client.query(`INSERT INTO "probandencode"( userid, probandencode) SELECT $1, $2`, [userid, probandencode], (err, res) => {
+
+         isSuccess.success = true;
+
+                    isSuccess.message = "Probandencode " + probandencode + " wurde erfolgreich eingetragen.";
+
             if (err) {
                 console.log("Probandencode kann nicht gespeichert werden");
                 console.log(err);
