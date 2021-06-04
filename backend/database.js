@@ -234,12 +234,27 @@ function saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName
     }
 }
 
+// Datenbank Heroku Postgres Connection
+function saveProbandencode( userid, probandenCode ) {
+    if (typeof userid !== 'undefined') {
+        var timestamp = new Date();
+        const client = newPool();
 
+        client.query(`INSERT INTO "probandencode"( userid, probandencode) SELECT $1, $2`, [userid, probandencode], (err, res) => {
+            if (err) {
+                console.log("Probandencode kann nicht gespeichert werden");
+                console.log(err);
+            }
+        });
+        client.end();
+    }
+}
 
 module.exports = {
     saveUser,
     loadRooms,
     saveRooms,
     saveFeedback,
+    saveProbandencode,
     loadFeedback
 }

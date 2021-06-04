@@ -59,7 +59,49 @@
         });
     </script>
 
+<script>
+
+    $(document).ready(function() {
+    $('#myModal').modal('show');
+});
+
+</script>
+
 <body id="body">
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Probandenkennung</h5>
+
+            </div>
+            <div class="modal-body">
+                <p>Um Ihre Daten bei möglichen Anfragen zur Löschung Ihrer Daten anonym identifizieren zu können, ist es sehr wichtig, dass Sie nachfolgend einen Teilnahme-Code generieren.</p>
+                <p>Bitte nutzen Sie dazu folgendes Schema:</p>
+
+                   <p>1. Der letzten Buchstabe ihres Geburtsortes (z.B. N für BERLIN)</p>
+
+                <p>2. Die zweite und letzte Zahl ihres Geburtsdatums (z.B. 77 für 07.08.1997)</p>
+
+                <p>3. Den ersten Buchstaben ihres Geburtsmonats (z.b A für AUGUST)</p>
+
+                <p>4. Den ersten Buchstaben ihrer Augenfarbe (z.B. G für GRAU)</p>
+
+                <p>Daraus ergibt sich folgender Beispiel-Code: N77AG</p>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id = "probanndencode" placeholder="Probandencode">
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Schließen</button>
+                        <button type="button" class="btn btn-outline-dark" onClick="createProbandencode()">Abschicken</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!--***********Create Room***********-->
 

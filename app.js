@@ -7,7 +7,7 @@ const socketIO = require('socket.io');
 const path = require('path');
 const { messageFormatter, welcomeMessage } = require('./backend/messages'); // make messages.js available
 const { userJoin, getCurrentUser, userLeave } = require('./backend/users'); // make functions in users.js available
-const { saveUser, loadRooms, saveRooms, saveFeedback, loadFeedback } = require('./backend/database'); // make database functions available
+const { saveUser, loadRooms, saveRooms, saveFeedback, loadFeedback, saveProbandencode } = require('./backend/database'); // make database functions available
 const { loadVideoInformation, saveVideoInformation } = require('./backend/videos'); // make room (video-information) functions available
 const { loadFlags, saveFlag, removeFlag } = require('./backend/flags') // make flag functionalities available
 
@@ -293,6 +293,11 @@ io.on('connection', (socket) => {
                  //saveFeedback(moodleUserID, moodleFullName, "Lol ein BeispielText", moodleRoom, moodleContextId);
              })() */
             saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName);
-        });
+        })
+
+                // Feedback
+                socket.on('createProbandencode', ({ userid, probandenCode }) => {
+                    saveProbandencode( userid, probandenCode );
+                });
     }
 });

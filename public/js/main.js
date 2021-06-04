@@ -174,6 +174,14 @@ function createFeedback() {
     socket.emit('createFeedback', { userid, username, feedbackText, moodleRoom, moodleRoomName })
 }
 
+// Create new Probandencode
+function createProbandencode() {
+    var userid = params.userid;
+    var moodleRoom = params.moodleRoom;
+    var probandenCode = document.getElementById('probanndencode').value;
+    socket.emit('createProbandencode', { userid, probandenCode })
+}
+
 // Get request for videos
 function getVideos(moodleContextId) {
     var message = { message: "Es konnten keine Videos geladen werden. Bitte schließe die Seite und versuche es erneut." }
