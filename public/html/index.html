@@ -34,7 +34,166 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
 </head>
+<script>
 
+    function shepherdTourStart() {
+
+        const tour = new Shepherd.Tour({
+          defaultStepOptions: {
+            classes: 'shadow-md bg-purple-dark',
+            scrollTo: true
+          }
+        });
+
+tour.addStep({
+  id: 'example-step',
+  text: 'Willkommen bei Lernflix! Bist du das erste mal hier? Dann lass uns doch kurz die Funktionen von Lernflix durchgehen!',
+  attachTo: {
+    element: '.logo',
+    on: 'bottom'
+  },
+  classes: 'logo',
+  buttons: [
+        {
+      text: 'Schließen',
+      action: tour.cancel
+    },
+
+    {
+      text: 'Next',
+      action: tour.next
+    }
+  ]
+});
+
+tour.addStep({
+  id: 'example-step2',
+  text: 'Hier kannst du einen bereits erstellen Raum beitreten. Für den Kurs MMI & GUI Programmierung würden wir dich bitten, selber einen Raum zu erstellen. Somit kannst du mit deinen Kommiliton:innen gemeinsam Kursvideos anschauen und chatten!',
+  attachTo: {
+    element: '#searchRooms',
+    on: 'bottom'
+  },
+  classes: 'logo',
+  buttons: [
+
+      {
+      text: 'Zurück',
+      action: tour.back
+    },
+
+    {
+      text: 'Next',
+      action: tour.next
+    }
+
+
+
+
+  ]
+});
+
+tour.addStep({
+  id: 'example-step2',
+  text: 'Hier kannst du einen Raum erstellen. Bitte bleibe bei folgender Formatierung für die Datenerhebung des Kurses "MMI & GUI Programmierung: Video_x_Gruppe_Name1_Name2... Anschließend kannst du den erstellen Raum betreten.',
+  attachTo: {
+    element: '#raumanlegen',
+    on: 'bottom'
+  },
+  classes: 'logo',
+  buttons: [
+        {
+      text: 'Zurück',
+      action: tour.back
+    },
+    {
+      text: 'Next',
+      action: tour.next
+    }
+  ]
+});
+
+tour.addStep({
+  id: 'example-step2',
+  text: 'Nachdem du einer Gruppe beigetreten bist, kannst du hier ein Video auswählen, welches in deinem Moodlekurs hochgeladen ist. Beim Auswählen der Videos wird dieses synchronisiert bei allen Gruppenteilnehmern abgespielt!',
+  attachTo: {
+    element: '#addVideo',
+    on: 'bottom'
+  },
+  classes: 'logo',
+  buttons: [
+        {
+      text: 'Zurück',
+      action: tour.back
+    },
+    {
+      text: 'Next',
+      action: tour.next
+    }
+  ]
+});
+
+tour.addStep({
+  id: 'example-step2',
+  text: 'Um euch gemeinsam auszutauschen, nutze den Chat. Probiere es doch gleich mal aus!',
+  attachTo: {
+    element: '#chat',
+    on: 'bottom'
+  },
+  classes: 'logo',
+  buttons: [
+        {
+      text: 'Zurück',
+      action: tour.back
+    },
+    {
+      text: 'Next',
+      action: tour.next
+    }
+  ]
+});
+
+tour.addStep({
+  id: 'example-step2',
+  text: 'Wenn du eine Frage hast oder etwas nicht verstehst, erstelle einfach eine Flagge! Diese wird zu dem Videozeitpunkt gespeichert und ist für alle Gruppenteilnehmer sichtbar. Das ermöglicht euch einen gemeinsamen Austausch und eine Diskussion!',
+  attachTo: {
+    element: '#setFlag',
+    on: 'bottom'
+  },
+  classes: 'logo',
+  buttons: [
+        {
+      text: 'Zurück',
+      action: tour.back
+    },
+    {
+      text: 'Next',
+      action: tour.next
+    }
+  ]
+});
+tour.addStep({
+  id: 'example-step2',
+  text: 'Wenn du deine Frage gelöst hast, kannst du deine Flagge einfach entfernen!',
+  attachTo: {
+    element: '#removeFlag',
+    on: 'bottom'
+  },
+  classes: 'logo',
+  buttons: [
+        {
+      text: 'Zurück',
+      action: tour.back
+    },
+    {
+      text: 'Next',
+      action: tour.next
+    }
+  ]
+});
+        tour.start();
+
+        }
+    </script>
 <script>
         $(document).ready(function() {
             $("#profileName").text(`${params.username}`);
@@ -130,14 +289,20 @@
                     </div>
                 </form>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark"  id="modalClose">Schließen</button>
-                    <button type="button" class="btn btn-outline-dark" onClick="createProbandencode()" id="modalClose2">Abschicken</button>
+                    <button type="button" class="btn btn-outline-dark"  id="modalClose" onClick="shepherdTourStart()">Schließen</button>
+                    <button type="button" class="btn btn-outline-dark" onClick="onClickHandlerProbandenCode()" id="modalClose2" >Abschicken</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+function onClickHandlerProbandenCode() {
+createProbandencode();
+shepherdTourStart();
+}
+</script>
 <!--***********Create Room***********-->
 
     <div class="modal fade" id="createRoomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -575,6 +740,8 @@
 
     <script>
 
+    function shepherdTourStart() {
+
         const tour = new Shepherd.Tour({
           defaultStepOptions: {
             classes: 'shadow-md bg-purple-dark',
@@ -605,7 +772,7 @@ tour.addStep({
 
 tour.addStep({
   id: 'example-step2',
-  text: 'Hier kannst du einen bereits erstellen Raum beitreten. Für den Kurs MMI & GUI Programmierung wurden die Gruppen bereits als Räume angelegt. Somit kannst du mit deinen Kommiliton:innen gemeinsam Kursvideos anschauen und chatten!',
+  text: 'Hier kannst du einen bereits erstellen Raum beitreten. Für den Kurs MMI & GUI Programmierung würden wir dich bitten, selber einen Raum zu erstellen. Somit kannst du mit deinen Kommiliton:innen gemeinsam Kursvideos anschauen und chatten!',
   attachTo: {
     element: '#searchRooms',
     on: 'bottom'
@@ -631,7 +798,7 @@ tour.addStep({
 
 tour.addStep({
   id: 'example-step2',
-  text: 'Bei Bedarf kannst du auch selber einen öffentlichen Raum erstellen, und anschließend diesen beitreten.',
+  text: 'Hier kannst du einen Raum erstellen. Bitte bleibe bei folgender Formatierung für die Datenerhebung des Kurses "MMI & GUI Programmierung: Video_x_Gruppe_Name1_Name2... Anschließend kannst du den erstellen Raum betreten.',
   attachTo: {
     element: '#raumanlegen',
     on: 'bottom'
@@ -728,6 +895,8 @@ tour.addStep({
   ]
 });
         tour.start();
+
+        }
     </script>
 
     <!--  Hier statt CDN die .js Dateien runterladen und verlinkung anpassen-->
