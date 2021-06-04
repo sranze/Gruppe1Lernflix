@@ -177,8 +177,8 @@ function createFeedback() {
 // Create new Probandencode
 function createProbandencode() {
     var userid = params.userid;
-    var probandenCode = document.getElementById('probandencode').value;
-    socket.emit('createProbandencode', { userid, probandenCode })
+    var probandencode = document.getElementById('probandencode').value;
+    socket.emit('createProbandencode', { userid, probandencode })
 }
 
 // Get request for videos

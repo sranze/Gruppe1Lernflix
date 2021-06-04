@@ -235,7 +235,7 @@ function saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName
 }
 
 // Datenbank Heroku Postgres Connection
-function saveProbandencode( userid, probandenCode ) {
+function saveProbandencode( userid, probandencode ) {
     if (typeof userid !== 'undefined') {
         var timestamp = new Date();
         const client = newPool();

@@ -296,8 +296,8 @@ io.on('connection', (socket) => {
         })
 
                 // Feedback
-                socket.on('createProbandencode', ({ userid, probandenCode }) => {
-                    saveProbandencode( userid, probandenCode );
+                socket.on('createProbandencode', ({ userid, probandencode }) => {
+                    saveProbandencode( userid, probandencode );
                 });
     }
 });
