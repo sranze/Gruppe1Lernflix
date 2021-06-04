@@ -287,17 +287,17 @@ io.on('connection', (socket) => {
 
         // Feedback
         socket.on('createFeedback', ({ userid, username, feedbackText, moodleRoom, moodleRoomName }) => {
-            /* var isSuccess;
+             var isSuccess;
              (async() => {
                  isSuccess = await saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName);
                  //saveFeedback(moodleUserID, moodleFullName, "Lol ein BeispielText", moodleRoom, moodleContextId);
-             })() */
+             })()
             saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName);
         })
 
                 // Feedback
-                socket.on('createProbandencode', ({ userid, probandencode }) => {
-                    saveProbandencode( userid, probandencode );
+                socket.on('createProbandencode', ({ userid, probandencode}) => {
+                    saveProbandencode( userid, probandencode);
                 });
     }
 });
