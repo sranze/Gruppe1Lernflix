@@ -67,9 +67,15 @@
 
 </script>
 
+<script>
+
+
+
+</script>
+
 <body id="body">
-<div id="myModal" class="modal fade">
-    <div class="modal-dialog">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Probandenkennung</h5>
@@ -93,11 +99,14 @@
                         <input type="text" class="form-control" id = "probanndencode" placeholder="Probandencode">
                     </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Schließen</button>
-                        <button type="button" class="btn btn-outline-dark" onClick="createProbandencode()">Abschicken</button>
-                    </div>
+
+
                 </form>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal" target="_blank">Schließen</button>
+                    <button type="button" class="btn btn-outline-dark" onClick="createProbandencode()">Abschicken</button>
+                </div>
             </div>
         </div>
     </div>

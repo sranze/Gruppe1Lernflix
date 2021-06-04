@@ -177,7 +177,6 @@ function createFeedback() {
 // Create new Probandencode
 function createProbandencode() {
     var userid = params.userid;
-    var moodleRoom = params.moodleRoom;
     var probandenCode = document.getElementById('probanndencode').value;
     socket.emit('createProbandencode', { userid, probandenCode })
 }
