@@ -262,6 +262,13 @@ tour.addStep({
 
 </script>
 
+<script>
+function onClickHandlerProbandenCode() {
+    createProbandencode();
+    shepherdTourStart();
+}
+</script>
+
 <body id="body">
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="top:17%" >
     <div class="modal-dialog" role="document">
@@ -297,12 +304,7 @@ tour.addStep({
     </div>
 </div>
 
-<script>
-function onClickHandlerProbandenCode() {
-createProbandencode();
-shepherdTourStart();
-}
-</script>
+
 <!--***********Create Room***********-->
 
     <div class="modal fade" id="createRoomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
