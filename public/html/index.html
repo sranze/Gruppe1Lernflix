@@ -62,7 +62,8 @@
 <script>
 
     $(document).ready(function() {
-    $('#myModal').modal('show');
+    $('#myModal').modal('show')
+    $('.modal-backdrop').remove();
 });
 
 </script>
@@ -70,11 +71,27 @@
 <script>
 
 
+    $(function () {
+        $('#modalClose').on('click', function () {
+            $('#myModal').hide();
+        })
+    })
+
+</script>
+
+<script>
+
+
+    $(function () {
+        $('#modalClose2').on('click', function () {
+            $('#myModal').hide();
+        })
+    })
 
 </script>
 
 <body id="body">
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -96,16 +113,12 @@
                 <p>Daraus ergibt sich folgender Beispiel-Code: N77AG</p>
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" id = "probanndencode" placeholder="Probandencode">
+                        <input type="text" class="form-control" id = "probandencode" placeholder="Probandencode">
                     </div>
-
-
-
                 </form>
-
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-dark" data-dismiss="modal" target="_blank">Schließen</button>
-                    <button type="button" class="btn btn-outline-dark" onClick="createProbandencode()">Abschicken</button>
+                    <button type="button" class="btn btn-outline-dark"  id="modalClose">Schließen</button>
+                    <button type="button" class="btn btn-outline-dark" onClick="createProbandencode()" id="modalClose2">Abschicken</button>
                 </div>
             </div>
         </div>
