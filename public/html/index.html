@@ -73,13 +73,35 @@
 
     $(function () {
         $('#modalClose').on('click', function () {
-            $('#myModal').hide();
+                    $('#myModal').delay(100).fadeOut(750);
+
+          setTimeout(function(){
+            $('#myModal').modal("hide");
+          }, 1500);
+
+
         })
     })
 
 </script>
 
+<script>
 
+
+    $(function () {
+        $('#modalClose2').on('click', function () {
+
+        $('#myModal').delay(100).fadeOut(750);
+
+          setTimeout(function(){
+            $('#myModal').modal("hide");
+          }, 1500);
+
+
+        })
+    })
+
+</script>
 
 <body id="body">
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
@@ -109,7 +131,7 @@
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-dark"  id="modalClose">Schließen</button>
-                    <button type="button" class="btn btn-outline-dark" onClick="createProbandencode()" >Abschicken</button>
+                    <button type="button" class="btn btn-outline-dark" onClick="createProbandencode()" id="modalClose2">Abschicken</button>
                 </div>
             </div>
         </div>
