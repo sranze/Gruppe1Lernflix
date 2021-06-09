@@ -123,7 +123,8 @@ async function saveRooms(userid, username, lernflixroomname, moodleroomid, moodl
         message: "",
         lernflixroomname: "",
         lernflixroomid: 1234,
-        moodleroomid: moodleroomid
+        moodleroomid: moodleroomid,
+        moodleroomname: "testlol"
     };
     // TODO: CHECK IF SOMETHING IS UNDEFINED ...
     //Datenbank Heroku Postgres Connection
