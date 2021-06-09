@@ -221,12 +221,28 @@ tour.addStep({
 <script>
 
     $(document).ready(function() {
-    $('#myModal').modal('show' , {backdrop: 'static', keyboard: false});
-
+    $('#myModal').modal('show')
+    $('.modal-backdrop').remove();
 });
 
 </script>
 
+<script>
+
+
+    $(function () {
+        $('#modalClose').on('click', function () {
+                    $('#myModal').delay(100).fadeOut(750);
+
+          setTimeout(function(){
+            $('#myModal').modal("hide");
+          }, 1500);
+
+
+        })
+    })
+
+</script>
 
 <script>
 
@@ -238,7 +254,6 @@ tour.addStep({
 
           setTimeout(function(){
             $('#myModal').modal("hide");
-
           }, 1500);
 
 
@@ -262,7 +277,7 @@ function onClickHandlerProbandenCode() {
                 <h5 class="modal-title">Probandenkennung</h5>
 
             </div>
-            <div class="modal-body" >
+            <div class="modal-body">
                 <p>Um Ihre Daten bei möglichen Anfragen zur Löschung Ihrer Daten anonym identifizieren zu können, ist es sehr wichtig, dass Sie nachfolgend einen Teilnahme-Code generieren.</p>
                 <p>Bitte nutzen Sie dazu folgendes Schema:</p>
 
