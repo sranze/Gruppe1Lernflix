@@ -132,7 +132,7 @@ function showMessage(message) {
 
 };
 
-
+/*
 // Show rooms in DOM
 function showRooms(rooms) {
 if (rooms.length != 'undefined') {
@@ -156,7 +156,7 @@ if (rooms.length != 'undefined') {
     }
     }
 }
-
+*/
 // Create new Room
 function createRoom() {
     var userid = params.userid;
