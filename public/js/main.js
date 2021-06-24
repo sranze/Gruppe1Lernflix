@@ -69,7 +69,7 @@ socket.on('message', message => {
 socket.on('welcome', message => {
     showMessage(message);
 
-    //showRooms(message.rooms);
+    showRooms(message.rooms);
     getVideos(params.moodleContextId);
 });
 
@@ -91,7 +91,7 @@ socket.on('refreshRooms', (messagePayload) => {
         while (rooms.firstChild) {
             rooms.removeChild(rooms.lastChild);
         }
-        //showRooms(messagePayload.roomInformation);
+        showRooms(messagePayload.roomInformation);
     }
 })
 
@@ -132,7 +132,7 @@ function showMessage(message) {
 
 };
 
-/*
+
 // Show rooms in DOM
 function showRooms(rooms) {
 if (rooms.length != 'undefined') {
@@ -156,7 +156,7 @@ if (rooms.length != 'undefined') {
     }
     }
 }
-*/
+
 // Create new Room
 function createRoom() {
     var userid = params.userid;
