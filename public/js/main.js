@@ -69,7 +69,7 @@ socket.on('message', message => {
 socket.on('welcome', message => {
     showMessage(message);
 
-    showRooms(message.rooms);
+    //showRooms(message.rooms);
     getVideos(params.moodleContextId);
 });
 
@@ -91,7 +91,7 @@ socket.on('refreshRooms', (messagePayload) => {
         while (rooms.firstChild) {
             rooms.removeChild(rooms.lastChild);
         }
-        showRooms(messagePayload.roomInformation);
+        //showRooms(messagePayload.roomInformation);
     }
 })
 
