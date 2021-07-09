@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const express = require('express'); // Express as webserverr
 const Filter = require('bad-words');
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const socketIO = require('socket.io');
 const path = require('path');
 const { messageFormatter, welcomeMessage } = require('./backend/messages'); // make messages.js available
