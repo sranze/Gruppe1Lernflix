@@ -22,7 +22,7 @@ function saveUser(firstname, lastname, fullname, email, userid, profilepicture, 
             var timestamp = new Date();
             const client = newPool();
 
-            client.query(`INSERT INTO moodledatauser(firstname, lastname, fullname, email, userid, profilepicture, moodleRoom, timestamp) SELECT $1, $2, $3, $4, $5, $6, $7, $8 `, ["firstname", "lastname", "fullname", "email", userid, profilepicture, moodleRoom, timestamp], (err, res) => {
+            client.query(`INSERT INTO moodledatauser(firstname, lastname, fullname, email, userid, profilepicture, moodleRoom, timestamp) SELECT $1, $2, $3, $4, $5, $6, $7, $8 WHERE NOT EXISTS (SELECT * FROM moodledatauser WHERE userid = $5)`, [firstname, lastname, fullname, email, userid, profilepicture, moodleRoom, timestamp], (err, res) => {
                 if (err) {
                     console.log("USER SCHON VORHANDEN!");
                     console.log(err);
@@ -123,8 +123,7 @@ async function saveRooms(userid, username, lernflixroomname, moodleroomid, moodl
         message: "",
         lernflixroomname: "",
         lernflixroomid: 1234,
-        moodleroomid: moodleroomid,
-        moodleroomname: "testlol"
+        moodleroomid: moodleroomid
     };
     // TODO: CHECK IF SOMETHING IS UNDEFINED ...
     //Datenbank Heroku Postgres Connection
@@ -136,10 +135,6 @@ async function saveRooms(userid, username, lernflixroomname, moodleroomid, moodl
     var newLernflixRoomId = generateNewLernflixRoomId(999999, allLernflixRoomIds);
 
     const client = newPool();
-
-console.log("test von id" + moodleroomid);
-
-       // (SELECT email IF(moodleroomid = $4) FROM moodledatauser)
 
     if (allLernflixRoomNames.includes(lernflixroomname)) {
         // TODO: Tell Frontend roomName already exists
@@ -235,29 +230,12 @@ function saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName
     }
 }
 
-// Datenbank Heroku Postgres Connection
-function saveProbandencode( userid, probandencode) {
-    if (typeof userid !== 'undefined') {
-        var timestamp = new Date();
-        const client = newPool();
 
-        client.query(`INSERT INTO "probandencode"( userid, probandencode) SELECT $1, $2`, [userid, probandencode], (err, res) => {
-
-
-            if (err) {
-                console.log("Probandencode kann nicht gespeichert werden");
-                console.log(err);
-            }
-        });
-        client.end();
-    }
-}
 
 module.exports = {
     saveUser,
     loadRooms,
     saveRooms,
     saveFeedback,
-    saveProbandencode,
     loadFeedback
 }
