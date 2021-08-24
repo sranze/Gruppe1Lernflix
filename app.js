@@ -126,7 +126,7 @@ io.on('connection', (socket) => {
         if (user) console.log(user.username + ' disconnected from room ' + user.roomName + '.');
     } else {
         console.log("User " + moodleFirstName + " " + moodleUserID + ' connected' + "Summary " + socket.client.conn.server.clientsCount); // Log when Client connects to websockets
-        var connectedUser = socket.client.conn.server.clientsCount
+        var connectedUser = socket.client.conn.server.clientsCount;
 
 
 
