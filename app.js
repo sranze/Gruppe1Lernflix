@@ -127,6 +127,12 @@ io.on('connection', (socket) => {
     } else {
         console.log("User " + moodleFirstName + " " + moodleUserID + ' connected'); // Log when Client connects to websockets
 
+
+        io.on('connection', function (socket) {
+            console.log( socket.client.conn.server.clientsCount + " users connected" );
+        });
+
+
         // Load rooms and emit list of rooms to frontend
         (async() => {
             const roomInformation = await loadRooms(moodleRoom);
