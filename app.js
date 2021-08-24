@@ -135,7 +135,7 @@ io.on('connection', (socket) => {
             const roomInformation = await loadRooms(moodleRoom);
 
             io.to(socket.id).emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWähle danach das Video aus.` + socket.client.conn.server.clientsCount, roomInformation));
-            io.to(socket.id).emit('welcome', welcomeMessage('System', `Aktuell sind ` + socket.client.conn.server.clientsCount ` Nutzer:innen online!`, roomInformation));
+            io.to(socket.id).emit('welcome', welcomeMessage('System', `Nutzer:innen gerade online: ` + socket.client.conn.server.clientsCount , roomInformation));
 
         })()
 
