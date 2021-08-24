@@ -135,7 +135,7 @@ function showMessage(message) {
 // Show rooms in DOM
 function showRooms(rooms) {
 
-if (rooms.length != undefined) {
+if (undefined !== rooms.length) {
     var roomName = "PLACEHOLDER";
     var roomId = 1234;
        console.log("0" + rooms.length);
@@ -161,6 +161,7 @@ if (rooms.length != undefined) {
 }
 
     else {
+    console.log("Servus, das Problem wurde gefixt")
     }
 }
 
