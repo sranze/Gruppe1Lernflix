@@ -125,12 +125,9 @@ io.on('connection', (socket) => {
         const user = userLeave(socket.id);
         if (user) console.log(user.username + ' disconnected from room ' + user.roomName + '.');
     } else {
-        console.log("User " + moodleFirstName + " " + moodleUserID + ' connected'); // Log when Client connects to websockets
+        console.log("User " + moodleFirstName + " " + moodleUserID + ' connected' + "Summary " + socket.client.conn.server.clientsCount); // Log when Client connects to websockets
 
 
-        io.on('connection', function (socket) {
-            console.log( socket.client.conn.server.clientsCount + " users connected" );
-        });
 
 
         // Load rooms and emit list of rooms to frontend
