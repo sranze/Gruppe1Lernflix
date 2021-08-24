@@ -136,9 +136,13 @@ function showMessage(message) {
 function showRooms(rooms) {
     var roomName = "PLACEHOLDER";
     var roomId = 1234;
+       console.log("0" + rooms.length);
     for (var i = 0; i < rooms.length; i += 2) {
+    console.log("1" + roomName);
         roomName = rooms[i + 1];
+           console.log("2" + roomName);
         roomId = rooms[i];
+           console.log("3" + roomId);
 
         var button = document.createElement('button');
         var bText = document.createTextNode(roomName);
