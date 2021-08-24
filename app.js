@@ -39,7 +39,7 @@ app.post("*", require("body-parser").urlencoded({ extended: true }));
 
 var moodleFirstName, moodleLastName, moodleFullName, moodleEmail, moodleUserID, moodleProfilePicture, moodleRoom;
 
-res.setHeader("Content-Type", "application/json; charset=utf-8");
+
 
 // OAuth Post
 app.post("/auth", (req, res) => {
