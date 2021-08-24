@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const express = require('express'); // Express as webserverr
-const Filter = require('bad-words');
+//const Filter = require('bad-words');
 const PORT = process.env.PORT;
 const socketIO = require('socket.io');
 const path = require('path');
@@ -16,9 +16,9 @@ const MOODLE_PROFILE_PICTURE2 = process.env.MOODLE_PROFILE_PICTURE2;
 const ANWENDERSCHLUESSEL = process.env.ANWENDERSCHLUESSEL;
 const OEFFENTLICHERSCHLUESSEL = process.env.OEFFENTLICHERSCHLUESSEL;
 
-filter = new Filter();
-const extraFilterWords = require("./extra_words_filter.json");
-filter.addWords(...extraFilterWords);
+//filter = new Filter();
+//const extraFilterWords = require("./extra_words_filter.json");
+//filter.addWords(...extraFilterWords);
 
 var uuid = require("uuid4"); // used for session IDs
 var lti = require("ims-lti"); // used to implement the actual LTI-protocol
@@ -38,6 +38,8 @@ app.use(express.static(__dirname + '/public')); // serve the files out of ./publ
 app.post("*", require("body-parser").urlencoded({ extended: true }));
 
 var moodleFirstName, moodleLastName, moodleFullName, moodleEmail, moodleUserID, moodleProfilePicture, moodleRoom;
+
+res.setHeader("Content-Type", "application/json; charset=utf-8");
 
 // OAuth Post
 app.post("/auth", (req, res) => {
