@@ -132,10 +132,8 @@ function showMessage(message) {
 
 };
 
-
 // Show rooms in DOM
 function showRooms(rooms) {
-if (rooms.length != 'undefined') {
     var roomName = "PLACEHOLDER";
     var roomId = 1234;
     for (var i = 0; i < rooms.length; i += 2) {
@@ -153,7 +151,6 @@ if (rooms.length != 'undefined') {
 
         var src = document.getElementById("rooms");
         src.appendChild(button);
-    }
     }
 }
 
@@ -175,13 +172,6 @@ function createFeedback() {
     var moodleRoomName = params.moodleRoomName;
     var feedbackText = document.getElementById('createFeedbackForLernflix').value;
     socket.emit('createFeedback', { userid, username, feedbackText, moodleRoom, moodleRoomName })
-}
-
-// Create new Probandencode
-function createProbandencode() {
-    var userid = params.userid;
-    var probandencode = document.getElementById('probandencode').value;
-    socket.emit('createProbandencode', { userid, probandencode})
 }
 
 // Get request for videos

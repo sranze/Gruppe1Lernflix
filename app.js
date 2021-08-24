@@ -1,13 +1,13 @@
 require('dotenv').config()
 
 const express = require('express'); // Express as webserverr
-const Filter = require('bad-words');
-const PORT = process.env.PORT || 3000;
+//const Filter = require('bad-words');
+const PORT = process.env.PORT;
 const socketIO = require('socket.io');
 const path = require('path');
 const { messageFormatter, welcomeMessage } = require('./backend/messages'); // make messages.js available
 const { userJoin, getCurrentUser, userLeave } = require('./backend/users'); // make functions in users.js available
-const { saveUser, loadRooms, saveRooms, saveFeedback, loadFeedback, saveProbandencode } = require('./backend/database'); // make database functions available
+const { saveUser, loadRooms, saveRooms, saveFeedback, loadFeedback } = require('./backend/database'); // make database functions available
 const { loadVideoInformation, saveVideoInformation } = require('./backend/videos'); // make room (video-information) functions available
 const { loadFlags, saveFlag, removeFlag } = require('./backend/flags') // make flag functionalities available
 
@@ -16,9 +16,9 @@ const MOODLE_PROFILE_PICTURE2 = process.env.MOODLE_PROFILE_PICTURE2;
 const ANWENDERSCHLUESSEL = process.env.ANWENDERSCHLUESSEL;
 const OEFFENTLICHERSCHLUESSEL = process.env.OEFFENTLICHERSCHLUESSEL;
 
-filter = new Filter();
-const extraFilterWords = require("./extra_words_filter.json");
-filter.addWords(...extraFilterWords);
+//filter = new Filter();
+//const extraFilterWords = require("./extra_words_filter.json");
+//filter.addWords(...extraFilterWords);
 
 var uuid = require("uuid4"); // used for session IDs
 var lti = require("ims-lti"); // used to implement the actual LTI-protocol
@@ -38,6 +38,8 @@ app.use(express.static(__dirname + '/public')); // serve the files out of ./publ
 app.post("*", require("body-parser").urlencoded({ extended: true }));
 
 var moodleFirstName, moodleLastName, moodleFullName, moodleEmail, moodleUserID, moodleProfilePicture, moodleRoom;
+
+res.setHeader("Content-Type", "application/json; charset=utf-8");
 
 // OAuth Post
 app.post("/auth", (req, res) => {
@@ -62,7 +64,7 @@ app.post("/auth", (req, res) => {
             moodleContextId = moodleData.body.context_id;
 
             // Shows all available session data from Moodle in Server logs
-            console.log("\n\n\nAvailable Data:\n" + JSON.stringify(sessions));
+            //console.log("\n\n\nAvailable Data:\n" + JSON.stringify(sessions));j
 
             // Send html Back, if authentication correct
             var sendMe = index.toString().replace("//PARAMS**GO**HERE",
@@ -287,17 +289,12 @@ io.on('connection', (socket) => {
 
         // Feedback
         socket.on('createFeedback', ({ userid, username, feedbackText, moodleRoom, moodleRoomName }) => {
-             var isSuccess;
+            /* var isSuccess;
              (async() => {
                  isSuccess = await saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName);
                  //saveFeedback(moodleUserID, moodleFullName, "Lol ein BeispielText", moodleRoom, moodleContextId);
-             })()
+             })() */
             saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName);
-        })
-
-                // Feedback
-                socket.on('createProbandencode', ({ userid, probandencode}) => {
-                    saveProbandencode( userid, probandencode);
-                });
+        });
     }
 });
