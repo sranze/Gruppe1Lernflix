@@ -135,7 +135,7 @@ function showMessage(message) {
 // Show rooms in DOM
 function showRooms(rooms) {
 
-if (rooms.length != 0) {
+if (rooms.length != undefined) {
     var roomName = "PLACEHOLDER";
     var roomId = 1234;
        console.log("0" + rooms.length);
