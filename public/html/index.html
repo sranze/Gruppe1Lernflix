@@ -102,8 +102,8 @@
                     </a>
                 </div>
                 <div class="search_room dropdown ">
-                    <input class="form-control dropdown-toggle" type="text" placeholder="Suchen sie einen Moodle Raum aus" id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" >
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="selectRoom()" id="roomSelect">Raum Beitreten</button>
+                    <input class="form-control dropdown-toggle" type="text" placeholder="Suchen sie einen Moodle Raum aus" id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
+                    <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="selectRoom()" id="roomSelect">Raum Beitreten</button>-->
                     <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#createRoomModal" data-whatever="@getbootstrap">Raum Anlegen</button>
                     <div id="rooms" class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     </div>
@@ -168,7 +168,7 @@
               <button id="pause" class="btn btn-outline-dark" onclick="pauseVideo()">Pause</button>
               <button id="setFlag" class="btn btn-primary" data-toggle="modal" data-target="#flagModal" onclick="loadFlagModal()">Flagge Setzen</button>
               <button id="removeFlag" class="btn btn-primary" data-toggle="modal" data-target="#removeFlagModal" onclick="loadRemoveFlagModal()">Flagge entfernen</button>
-              <button id="addVideo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#listvideos">Video auswählen</button>
+              <button disabled id="addVideo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#listvideos">Video auswählen</button>
 
               <div class="popup_content" id="pop_cont">
                 <input type="text">
@@ -367,9 +367,9 @@
 
 <script>
 
-    addVideo.disabled = true;
 
-if(document.getElementById("roomSelect").clicked == true){
+
+if(document.getElementById("selectRoom").clicked == true){
     addVideo.disabled = false;
 }
 </script>
