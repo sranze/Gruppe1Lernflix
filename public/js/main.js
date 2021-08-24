@@ -134,8 +134,8 @@ function showMessage(message) {
 
 // Show rooms in DOM
 function showRooms(rooms) {
-console.log("0i" + rooms.length);
-if (undefined !== rooms.length) {
+console.log("0i" + safetyCheckRoom);
+if (safetyCheckRoom !== 1) {
     var roomName = "PLACEHOLDER";
     var roomId = 1234;
        console.log("0" + rooms.length);
@@ -173,6 +173,8 @@ function createRoom() {
     var moodleRoomName = params.moodleRoomName;
     var newLernflixRoomName = document.getElementById('createRoomInputTextField').value;
     socket.emit('createRoom', { userid, username, newLernflixRoomName, moodleRoom, moodleRoomName })
+
+    var safetyCheckRoom = 1;
 }
 
 // Create new Feedback
