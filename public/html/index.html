@@ -102,8 +102,8 @@
                     </a>
                 </div>
                 <div class="search_room dropdown ">
-                    <input class="form-control dropdown-toggle" type="text" placeholder="Suchen sie einen Moodle Raum aus" id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="callJoinRoom()">Raum Beitreten</button>
+                    <input class="form-control dropdown-toggle" type="text" placeholder="Suchen sie einen Moodle Raum aus" id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" >
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="selectRoom()" id="roomSelect">Raum Beitreten</button>
                     <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#createRoomModal" data-whatever="@getbootstrap">Raum Anlegen</button>
                     <div id="rooms" class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     </div>
@@ -369,9 +369,10 @@
 
     addVideo.disabled = true;
 
-if (selectRoom() !== undefined)
-    addVideo.disabled = false;
+if(document.getElementbyId("roomSelect").clicked == true){
 
+    addVideo.disabled = false;
+}
 </script>
 
   </main>
