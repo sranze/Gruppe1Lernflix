@@ -127,14 +127,15 @@ io.on('connection', (socket) => {
     } else {
         console.log("User " + moodleFirstName + " " + moodleUserID + ' connected' + "Summary " + socket.client.conn.server.clientsCount); // Log when Client connects to websockets
 
-        $("#connectedUser").text(socket.client.conn.server.clientsCount);
+
 
 
         // Load rooms and emit list of rooms to frontend
         (async() => {
             const roomInformation = await loadRooms(moodleRoom);
 
-            io.to(socket.id).emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWenn Du einen Raum wechseln möchtest, klicke einfach auf einen anderen.`, roomInformation));
+            io.to(socket.id).emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWähle danach das Video aus.`, roomInformation));
+            io.to(socket.id).emit('welcome', welcomeMessage('System', `Es sind aktuell ` socket.client.conn.server.clientsCount ` User online!`, roomInformation));
         })()
 
         // Join Room
