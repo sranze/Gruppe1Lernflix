@@ -134,6 +134,8 @@ function showMessage(message) {
 
 // Show rooms in DOM
 function showRooms(rooms) {
+
+if (rooms.length != 0) {
     var roomName = "PLACEHOLDER";
     var roomId = 1234;
        console.log("0" + rooms.length);
@@ -155,6 +157,10 @@ function showRooms(rooms) {
 
         var src = document.getElementById("rooms");
         src.appendChild(button);
+    }
+}
+
+    else {
     }
 }
 
