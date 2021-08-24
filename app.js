@@ -214,6 +214,7 @@ io.on('connection', (socket) => {
 
         // Change Video
         socket.on('changeVideo', url => {
+
             const user = getCurrentUser(socket.id)
             if (typeof user !== 'undefined') {
                 console.log("Changing Video in Room w/ ID " + user.roomId + " Video with URL " + url)
