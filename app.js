@@ -199,7 +199,7 @@ io.on('connection', (socket) => {
             if (typeof user !== 'undefined') {
                 console.log("User " + user.userid + " " + user.username + ": " + message + " to room: " + user.roomName + " with id: " + user.roomId);
                 //io.to(user.roomId).emit('message', messageFormatter(user.username, filter.clean(message)));
-                io.to(user.roomId).emit('message', messageFormatter(user.username));
+                io.to(user.roomId).emit('message', messageFormatter(user.username, message));
             }
         });
 
