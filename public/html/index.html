@@ -233,7 +233,7 @@
                     <div class="row">
                       <!--                      <input class="col-xl-9 col-lg-8 col-md-12 " id="msg" type="text" placeholder="Nachricht eingeben" required autocomplete="off" />-->
                       <textarea form="chat-form" rows="2" cols="50" class="col-xl-9 col-lg-8 col-md-12 " id="msg" placeholder="Nachricht eingeben" required autocomplete="off" style="resize: none;"></textarea>
-                      <button class="col-xl-3 col-lg-4 col-md-12  btn btn-outline-dark">Send</button>
+                      <button class="col-xl-3 col-lg-4 col-md-12  btn btn-outline-dark" id="send">Send</button>
                     </div>
                   </div>
                 </form>
@@ -378,6 +378,18 @@ event.preventDefault();
 
 
 </script>
+
+        <script>
+
+    $(document).ready(function(){
+    $('#msg').keypress(function(e){
+      if(e.keyCode==13)
+      $('#send').click();
+    });
+});
+
+</script>
+
 
   </main>
     <!--  Hier statt CDN die .js Dateien runterladen und verlinkung anpassen-->
