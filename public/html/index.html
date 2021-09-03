@@ -102,8 +102,8 @@
                     </a>
                 </div>
                 <div class="search_room dropdown ">
-                    <input class="form-control dropdown-toggle" type="text" placeholder="Suchen sie einen Moodle Raum aus" id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="callJoinRoom()">Raum Beitreten</button>
+                    <input class="form-control dropdown-toggle" type="text" placeholder="Hier klicken, um Raum für Videos auszusuchen" id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
+                    <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="selectRoom()" id="roomSelect">Raum Beitreten</button>-->
                     <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#createRoomModal" data-whatever="@getbootstrap">Raum Anlegen</button>
                     <div id="rooms" class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     </div>
@@ -168,12 +168,14 @@
               <button id="pause" class="btn btn-outline-dark" onclick="pauseVideo()">Pause</button>
               <button id="setFlag" class="btn btn-primary" data-toggle="modal" data-target="#flagModal" onclick="loadFlagModal()">Flagge Setzen</button>
               <button id="removeFlag" class="btn btn-primary" data-toggle="modal" data-target="#removeFlagModal" onclick="loadRemoveFlagModal()">Flagge entfernen</button>
-              <button id="addVideo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#listvideos">Video auswählen</button>
+              <button  disabled = "disabled" id="addVideo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#listvideos">Video auswählen</button>
 
               <div class="popup_content" id="pop_cont">
                 <input type="text">
                 <button id="" onclick="flagVideo()" type="button" class="btn btn-primary btn-sm">Small button</button>
               </div>
+
+
 
 
                 <!-- TODO: Functionality has to be implemented -->
@@ -231,7 +233,7 @@
                     <div class="row">
                       <!--                      <input class="col-xl-9 col-lg-8 col-md-12 " id="msg" type="text" placeholder="Nachricht eingeben" required autocomplete="off" />-->
                       <textarea form="chat-form" rows="2" cols="50" class="col-xl-9 col-lg-8 col-md-12 " id="msg" placeholder="Nachricht eingeben" required autocomplete="off" style="resize: none;"></textarea>
-                      <button class="col-xl-3 col-lg-4 col-md-12  btn btn-outline-dark">Send</button>
+                      <button class="col-xl-3 col-lg-4 col-md-12  btn btn-outline-dark" id="send">Send</button>
                     </div>
                   </div>
                 </form>
@@ -361,10 +363,33 @@
   <a href="#home"  data-toggle="modal" data-target="#feedbackModal" style="text-align:center">Feedback</a>
   <a href="#news" style="text-align:center" data-toggle="modal" data-target=""> Über Lernflix</a>
   <a href="#contact" style="text-align:center" data-toggle="modal" data-target="#contact">Kontakt</a>
+    <a href="faq.html" style="text-align:center" >FAQ</a>
 </div>
 
         <!-- Navbar Bottom End-->
 
+<script>
+
+
+
+document.getElementById("searchRooms").onclick = function(event){
+event.preventDefault();
+  document.getElementById("addVideo").disabled = false;
+}
+
+
+</script>
+
+        <script>
+
+    $(document).ready(function(){
+    $('#msg').keypress(function(e){
+      if(e.keyCode==13)
+      $('#send').click();
+    });
+});
+
+</script>
 
 
   </main>

@@ -134,11 +134,17 @@ function showMessage(message) {
 
 // Show rooms in DOM
 function showRooms(rooms) {
+console.log("0i" + rooms);
+if (rooms !== undefined) {
     var roomName = "PLACEHOLDER";
     var roomId = 1234;
+       console.log("0" + rooms.length);
     for (var i = 0; i < rooms.length; i += 2) {
+    console.log("1" + roomName);
         roomName = rooms[i + 1];
+           console.log("2" + roomName);
         roomId = rooms[i];
+           console.log("3" + roomId);
 
         var button = document.createElement('button');
         var bText = document.createTextNode(roomName);
@@ -154,6 +160,11 @@ function showRooms(rooms) {
     }
 }
 
+    else {
+    console.log("Servus, das Problem wurde gefixt")
+    }
+}
+
 // Create new Room
 function createRoom() {
     var userid = params.userid;
@@ -162,6 +173,8 @@ function createRoom() {
     var moodleRoomName = params.moodleRoomName;
     var newLernflixRoomName = document.getElementById('createRoomInputTextField').value;
     socket.emit('createRoom', { userid, username, newLernflixRoomName, moodleRoom, moodleRoomName })
+
+    var safetyCheckRoom = 1;
 }
 
 // Create new Feedback

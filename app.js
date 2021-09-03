@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 const express = require('express'); // Express as webserverr
-const Filter = require('bad-words');
+//const Filter = require('bad-words');
 const PORT = process.env.PORT;
 const socketIO = require('socket.io');
 const path = require('path');
@@ -16,9 +16,9 @@ const MOODLE_PROFILE_PICTURE2 = process.env.MOODLE_PROFILE_PICTURE2;
 const ANWENDERSCHLUESSEL = process.env.ANWENDERSCHLUESSEL;
 const OEFFENTLICHERSCHLUESSEL = process.env.OEFFENTLICHERSCHLUESSEL;
 
-filter = new Filter();
-const extraFilterWords = require("./extra_words_filter.json");
-filter.addWords(...extraFilterWords);
+//filter = new Filter();
+//const extraFilterWords = require("./extra_words_filter.json");
+//filter.addWords(...extraFilterWords);
 
 var uuid = require("uuid4"); // used for session IDs
 var lti = require("ims-lti"); // used to implement the actual LTI-protocol
@@ -38,6 +38,8 @@ app.use(express.static(__dirname + '/public')); // serve the files out of ./publ
 app.post("*", require("body-parser").urlencoded({ extended: true }));
 
 var moodleFirstName, moodleLastName, moodleFullName, moodleEmail, moodleUserID, moodleProfilePicture, moodleRoom;
+
+
 
 // OAuth Post
 app.post("/auth", (req, res) => {
@@ -123,13 +125,18 @@ io.on('connection', (socket) => {
         const user = userLeave(socket.id);
         if (user) console.log(user.username + ' disconnected from room ' + user.roomName + '.');
     } else {
-        console.log("User " + moodleFirstName + " " + moodleUserID + ' connected'); // Log when Client connects to websockets
+        console.log("User " + moodleFirstName + " " + moodleUserID + ' connected' + "Summary " + socket.client.conn.server.clientsCount); // Log when Client connects to websockets
+
+
+
 
         // Load rooms and emit list of rooms to frontend
         (async() => {
             const roomInformation = await loadRooms(moodleRoom);
 
-            io.to(socket.id).emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWenn Du einen Raum wechseln möchtest, klicke einfach auf einen anderen.`, roomInformation));
+            io.to(socket.id).emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWähle danach das Video aus.` + socket.client.conn.server.clientsCount, roomInformation));
+            io.to(socket.id).emit('welcome', welcomeMessage('System', `Nutzer:innen gerade online: ` + socket.client.conn.server.clientsCount , roomInformation));
+
         })()
 
         // Join Room
@@ -196,7 +203,8 @@ io.on('connection', (socket) => {
             const user = getCurrentUser(socket.id)
             if (typeof user !== 'undefined') {
                 console.log("User " + user.userid + " " + user.username + ": " + message + " to room: " + user.roomName + " with id: " + user.roomId);
-                io.to(user.roomId).emit('message', messageFormatter(user.username, filter.clean(message)));
+                //io.to(user.roomId).emit('message', messageFormatter(user.username, filter.clean(message)));
+                io.to(user.roomId).emit('message', messageFormatter(user.username, message));
             }
         });
 
@@ -211,6 +219,7 @@ io.on('connection', (socket) => {
 
         // Change Video
         socket.on('changeVideo', url => {
+
             const user = getCurrentUser(socket.id)
             if (typeof user !== 'undefined') {
                 console.log("Changing Video in Room w/ ID " + user.roomId + " Video with URL " + url)
