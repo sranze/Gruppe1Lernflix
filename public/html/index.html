@@ -14,7 +14,7 @@
 
     <!-- Jquery.js -->
     <script src="../assets/jquery/jquery.js"></script>
-
+    <script src="https://unpkg.com/bowser@2.7.0/es5.js"></script>
     <!-- Bootstrap core CSS / JS -->
     <link rel="stylesheet" href="../css/bootstrap.css">
     <script src="../assets/bootstrap/bootstrap.js"></script>
@@ -369,27 +369,36 @@
         <!-- Navbar Bottom End-->
 
 <script>
-
-
-
-document.getElementById("searchRooms").onclick = function(event){
-event.preventDefault();
-  document.getElementById("addVideo").disabled = false;
-}
-
-
+        document.getElementById("searchRooms").onclick = function(event){
+        event.preventDefault();
+          document.getElementById("addVideo").disabled = false;
+        }
 </script>
 
-        <script>
 
-    $(document).ready(function(){
-    $('#msg').keypress(function(e){
-      if(e.keyCode==13)
-      $('#send').click();
-    });
-});
+<script>
 
+var result = bowser.getParser(window.navigator.userAgent);
+console.log(result);
+document.write("You are using " + result.parsedResult.browser.name +
+               " v" + result.parsedResult.browser.version +
+               " on " + result.parsedResult.os.name);
+
+
+
+         console.log("Used Browser: " + result.parsedResult.browser.name);
+         document.write("Used Browser: " + result.parsedResult.browser.name);
+
+
+         if (result.parsedResult.browser.name == "Chrome" || "Firefox" || "Microsoft Edge" || "Opera" ) {
+            document.write("");
+        }
+         else {
+            alert("Ihr Browser wird aktuell NICHT unterstützt. Bitte verwenden Sie einen der folgenden Browser: Chrome, Firefox, Microsoft Edge oder Opera");
+            }
 </script>
+
+
 
 
   </main>
@@ -398,6 +407,7 @@ event.preventDefault();
     <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 
   <script src="../js/main.js"></script>
+
 </body>
 
 </html>
