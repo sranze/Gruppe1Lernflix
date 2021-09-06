@@ -375,6 +375,17 @@
         }
 </script>
 
+<script>
+
+    $(document).ready(function(){
+    $('#msg').keypress(function(e){
+      if(e.keyCode==13)
+      $('#send').click();
+    });
+});
+
+</script>
+
 
 <script>
 
