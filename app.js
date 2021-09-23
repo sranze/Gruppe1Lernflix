@@ -100,6 +100,11 @@ app.get('/auth', function(req, res) {
     res.sendFile(path.join(__dirname + "/public/html/not_authenticated.html"));
 });
 
+// Sends user to not authenticated site, if get request to /auth is sent
+app.get('/faq.html', function(req, res) {
+    res.sendFile(path.join(__dirname + "/public/html/faq.html"));
+});
+
 // Sends user to logout site
 app.get('/logout.html', function(req, res) {
     res.sendFile(path.join(__dirname + "/public/html/logout.html"));
