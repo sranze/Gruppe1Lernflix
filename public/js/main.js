@@ -11,7 +11,7 @@ const videoplayer = document.getElementById('videoplayer');
 const videoplayerSeekslider = document.getElementById('seekslider');
 let videoplayerTimeText = document.getElementById('videoplayerTimeText');
 
-const roomsShown = false;
+let roomsShown = false;
 
 const flagImg = new Image();
 flagImg.src = "../assets/illustrations/flag_black_24dp.svg";
