@@ -11,6 +11,8 @@ const videoplayer = document.getElementById('videoplayer');
 const videoplayerSeekslider = document.getElementById('seekslider');
 let videoplayerTimeText = document.getElementById('videoplayerTimeText');
 
+const roomsShown = false;
+
 const flagImg = new Image();
 flagImg.src = "../assets/illustrations/flag_black_24dp.svg";
 
@@ -68,8 +70,12 @@ socket.on('message', message => {
 // Welcome message
 socket.on('welcome', message => {
     showMessage(message);
-console.log("Ich gehe in die welcome Funktion rein");
+
+if (roomsShown == false) {
     showRooms(message.rooms);
+    }
+    roomsShown = true;
+
     getVideos(params.moodleContextId);
 });
 
