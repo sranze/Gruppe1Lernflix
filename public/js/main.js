@@ -68,7 +68,7 @@ socket.on('message', message => {
 // Welcome message
 socket.on('welcome', message => {
     showMessage(message);
-
+console.log("Ich gehe in die welcome Funktion rein");
     showRooms(message.rooms);
     getVideos(params.moodleContextId);
 });
@@ -91,6 +91,7 @@ socket.on('refreshRooms', (messagePayload) => {
         while (rooms.firstChild) {
             rooms.removeChild(rooms.lastChild);
         }
+        console.log("Ich gehe in die refreshRooms Funktion rein");
         showRooms(messagePayload.roomInformation);
     }
 })
