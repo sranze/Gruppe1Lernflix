@@ -106,7 +106,7 @@ socket.on('refreshRooms', (messagePayload) => {
 })
 
 // Enable Chat
-socket.on('enableChat', message => {
+socket.on('enableOnJoin', message => {
     document.getElementById("msg").disabled = false;
     document.getElementById("addVideo").disabled = false;
   
