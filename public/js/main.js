@@ -108,6 +108,8 @@ socket.on('refreshRooms', (messagePayload) => {
 // Enable Chat
 socket.on('enableChat', message => {
     document.getElementById("msg").disabled = false;
+    document.getElementById("addVideo").disabled = false;
+  
 });
 
 // Submit/Send message
