@@ -107,7 +107,7 @@ socket.on('refreshRooms', (messagePayload) => {
 
 // Enable Chat
 socket.on('enableChat', message => {
-    alert("test");
+    document.getElementById("msg").disabled = false;
 });
 
 // Submit/Send message
