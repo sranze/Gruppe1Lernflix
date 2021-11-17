@@ -150,6 +150,8 @@ io.on('connection', (socket) => {
             const user = userJoin(socket.id, userid, username, roomName, roomId, moodleRoom); // Get current userid, name and room
 
             socket.join(roomId); // Join the actual room
+            socket.emit('enableChat'); //enable Chat after joining a room.
+          
             socket.emit('message', messageFormatter('System', ('Hallo, ' + user.username + "! Du bist Raum " + user.roomName + " beigetreten."))); // Greet User | Welcome message to room
             socket.broadcast.to(user.roomId).emit('message', messageFormatter('System', (user.username + " ist dem Raum " + user.roomName + " beigetreten."))); // Broadcast when a user connects to room
             // Get currently playing Video-Info and tell client

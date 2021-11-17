@@ -84,6 +84,9 @@ socket.on('createRoomSuccess', message => {
     createSystemNotification(message, true);
 });
 
+
+
+
 // Log error messages
 socket.on('error', message => {
     createSystemNotification(message, message.success);
@@ -101,6 +104,11 @@ socket.on('refreshRooms', (messagePayload) => {
         showRooms(messagePayload.roomInformation);
     }
 })
+
+// Enable Chat
+socket.on('enableChat', message => {
+    alert("test");
+});
 
 // Submit/Send message
 chatForm.addEventListener('submit', (e) => {
