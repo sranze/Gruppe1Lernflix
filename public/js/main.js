@@ -109,6 +109,7 @@ socket.on('refreshRooms', (messagePayload) => {
 socket.on('enableOnJoin', message => {
     document.getElementById("msg").disabled = false;
     document.getElementById("addVideo").disabled = false;
+    document.getElementById("videoControls").style.display = "inherit";
   
 });
 

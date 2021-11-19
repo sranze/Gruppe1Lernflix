@@ -2,381 +2,345 @@
 <html lang="en">
 
 <head>
-    <script>
-        //PARAMS**GO**HERE
-    </script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Lernflix web application - streaming LMS videos together">
-    <meta name="generator" content="Hugo 0.80.0">
-    <title>Lernflix</title>
+  <script>
+    //PARAMS**GO**HERE
+  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Lernflix web application - streaming LMS videos together">
+  <meta name="generator" content="Hugo 0.80.0">
+  <title>Lernflix</title>
 
 
-    <!-- Jquery.js -->
-    <script src="../assets/jquery/jquery.js"></script>
-    <script src="https://unpkg.com/bowser@2.7.0/es5.js"></script>
-    <!-- Bootstrap core CSS / JS -->
-    <link rel="stylesheet" href="../css/bootstrap.css">
-    <script src="../assets/bootstrap/bootstrap.js"></script>
-    <!-- icon bar css-->
-    <link rel="stylesheet" href="../assets/icons/icon-bar.css">
-    <!-- font-icons css-->
-    <link rel="stylesheet" href="../assets/icons/font-icons.css">
-    <!-- main css-->
-    <link rel="stylesheet" href="../css/main.css">
+  <!-- Jquery.js -->
+  <script src="../assets/jquery/jquery.js"></script>
+  <script src="https://unpkg.com/bowser@2.7.0/es5.js"></script>
+  <!-- Bootstrap core CSS / JS -->
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <script src="../assets/bootstrap/bootstrap.js"></script>
+  <!-- icon bar css-->
+  <link rel="stylesheet" href="../assets/icons/icon-bar.css">
+  <!-- font-icons css-->
+  <link rel="stylesheet" href="../assets/icons/font-icons.css">
+  <!-- main css-->
+  <link rel="stylesheet" href="../css/main.css">
 
 
-    <script src="/socket.io/socket.io.js"></script>
-    <!--
+  <script src="/socket.io/socket.io.js"></script>
+  <!--
       <script src="../js/popper.js"></script>
       <script src="../js/tippy.js"></script>
     -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
 
 </head>
 
 <script>
-        $(document).ready(function() {
-            $("#profileName").text(`${params.username}`);
-            $("#profileImg").attr("src", `${params.url_picture}`);
-            $("#moodleRoomName").text(`${params.moodleRoomName}`);
+  $(document).ready(function() {
+    $("#profileName").text(`${params.username}`);
+    $("#profileImg").attr("src", `${params.url_picture}`);
+    $("#moodleRoomName").text(`${params.moodleRoomName}`);
 
-        });
-    </script>
+  });
+</script>
 
 
 <!-- Search function -->
 <script>
-        $(document).ready(function() {
-            $("#searchRooms").on("keyup", function() {
-                var tests = $("#rooms").children().css("display") == "none"
-                console.log(tests);
-                var value = $(this).val().toLowerCase();
-                $("#rooms button").filter(function() {
-                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-                });
-            });
-        });
-    </script>
+  $(document).ready(function() {
+    $("#searchRooms").on("keyup", function() {
+      var tests = $("#rooms").children().css("display") == "none"
+      console.log(tests);
+      var value = $(this).val().toLowerCase();
+      $("#rooms button").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+</script>
 
 <body id="body">
 
-<!--***********Create Room***********-->
+  <!--***********Create Room***********-->
 
-<div class="modal fade" id="createRoomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="createRoomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Neuen Raum Anlegen</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Raumname:</label>
-                        <input class="form-control" type="text" placeholder="Bitte Raumnamen eingeben" id="createRoomInputTextField">
-                    </div>
-                </form>
-                <div id="error">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Schließen</button>
-                <button type="button" class="btn btn-outline-dark" onClick="createRoom()">Raum anlegen</button>
-            </div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Neuen Raum Anlegen</h5>
+          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-group">
+              <label for="recipient-name" class="col-form-label">Raumname:</label>
+              <input class="form-control" type="text" placeholder="Bitte Raumnamen eingeben" id="createRoomInputTextField">
+            </div>
+          </form>
+          <div id="error">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Schließen</button>
+          <button type="button" class="btn btn-outline-dark" onClick="createRoom()">Raum anlegen</button>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<!--***********Create Room End***********-->
+  <!--***********Create Room End***********-->
 
-<!--***********Join Room***********-->
+  <!--***********Join Room***********-->
 
-<header>
+  <header>
     <div class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
-        <div class="container">
-            <div class="logo">
-                <img src="../assets/illustrations/logo.png">
-                <a class="navbar-brand d-flex align-items-center">
-                    <strong id="moodleRoomName">Lernflix</strong>
-                </a>
-            </div>
-            <div class="search_room dropdown ">
-                <input class="form-control dropdown-toggle" type="text" placeholder="Hier klicken, um Raum für Videos auszusuchen" id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
-                <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="selectRoom()" id="roomSelect">Raum Beitreten</button>-->
-                <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#createRoomModal" data-whatever="@getbootstrap">Raum Anlegen</button>
-                <div id="rooms" class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                </div>
-            </div>
-            <div class="profileInfo">
-                <img id="profileImg" src="../assets/illustrations/error404_2.png" />
-                <div class="">
-                    <p id="profileName">&nbsp;</p>
-                    <a href="logout.html">
-                        <p>Logout</p>
-                    </a>
-                </div>
-            </div>
+      <div class="container">
+        <div class="logo">
+          <img src="../assets/illustrations/logo.png">
+          <a class="navbar-brand d-flex align-items-center">
+            <strong id="moodleRoomName">Lernflix</strong>
+          </a>
         </div>
+        <div class="search_room dropdown ">
+          <input class="form-control dropdown-toggle" type="text" placeholder="Hier klicken, um Raum für Videos auszusuchen" id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
+          <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="selectRoom()" id="roomSelect">Raum Beitreten</button>-->
+          <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#createRoomModal" data-whatever="@getbootstrap">Raum Anlegen</button>
+          <div id="rooms" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          </div>
+        </div>
+        <div class="profileInfo">
+          <img id="profileImg" src="../assets/illustrations/error404_2.png" />
+          <div class="">
+            <p id="profileName">&nbsp;</p>
+            <a href="logout.html">
+              <p>Logout</p>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-</header>
+  </header>
 
-<!--***********Join Room End***********-->
+  <!--***********Join Room End***********-->
 
-<!--***********Video Player***********-->
+  <!--***********Video Player***********-->
 
-<main>
+  <main>
     <section>
-        <div class="py-2 container">
-            <div class="row py-lg-5">
-                <div class="col-md-8 themed-grid-col">
-                    <div class="videoplayer">
-                        <div class="videoStatus">
-                            <div class="paused">
-                            </div>
-                            <img src="../assets/illustrations/video_pause.png" alt="pause" /></div>
-                        <div class="videotitle">
-                            <h2>Video Title</h2>
-                        </div>
-                        <video width="854" height="480" class="vid-fluid" id="videoplayer" src="" controls="false">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <div>
-                        <!-- TODO: REMOVE BORDER LATER -->
-                        <div id="tooltipFlag"></div>
-                        <canvas id="flagsCanvas" width="1" height="1" style="border:1px solid #000000;"></canvas>
-                    </div>
-
-
-
-                    <div class="row">
-                        <div class="range-slider col-lg-10">
-                            <input id="seekslider" class="range-slider__range" type="range" value="0" min="0" max="100" style="height:30px">
-                            <span id="videoplayerTimeText" class="range-slider__value" style="position:absolute">0:00/0:00</span>
-                        </div>
-                        <div class="volumeControl col-lg-2">
-                            <input class="range-slider__range" type="range" min="0" max="100" step="1" oninput="setVolume(this.value)" onchange="setVolume(this.value)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="13.5" height="16" viewBox="0 0 13.5 16">
-                                <path id="ic_volume_down_24px" d="M18.5,12A4.5,4.5,0,0,0,16,7.97v8.05A4.474,4.474,0,0,0,18.5,12ZM5,9v6H9l5,5V4L9,9Z" transform="translate(-5 -4)" />
-                            </svg>
-                        </div>
-                    </div>
-
-                    <div class="playercontrol col-md-12 py-1">
-                        <button id="start" type="button" class="btn btn-outline-dark" onclick="playVideo()">Play</button>
-                        <button id="pause" class="btn btn-outline-dark" onclick="pauseVideo()">Pause</button>
-                        <button id="setFlag" class="btn btn-primary" data-toggle="modal" data-target="#flagModal" onclick="loadFlagModal()">Flagge Setzen</button>
-                        <button id="removeFlag" class="btn btn-primary" data-toggle="modal" data-target="#removeFlagModal" onclick="loadRemoveFlagModal()">Flagge entfernen</button>
-                        <button  disabled id="addVideo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#listvideos">Video auswählen</button>
-
-                        <div class="popup_content" id="pop_cont">
-                            <input type="text">
-                            <button id="" onclick="flagVideo()" type="button" class="btn btn-primary btn-sm">Small button</button>
-                        </div>
-
-
-
-
-                        <!-- TODO: Functionality has to be implemented -->
-                        <!--<div class="icons container py-3">
-                          <div class="row" style="border: 2px solid #000;padding: 5px 0px;">
-
-                            <div class="icon col-2">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="17.59" height="13.41" viewBox="0 0 17.59 13.41">
-                                <path id="ic_check_24px" d="M9,16.17,4.83,12,3.41,13.41,9,19,21,7,19.59,5.59Z" transform="translate(-3.41 -5.59)" />
-                              </svg>
-
-                            </div>
-                            <div class="icon col-2"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14">
-                                <path id="ic_close_24px" d="M19,6.41,17.59,5,12,10.59,6.41,5,5,6.41,10.59,12,5,17.59,6.41,19,12,13.41,17.59,19,19,17.59,13.41,12Z" transform="translate(-5 -5)" />
-                              </svg>
-                            </div>
-                            <div class="icon col-2">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20">
-                                <path id="ic_thumb_up_24px" d="M1,21H5V9H1ZM23,10a2.006,2.006,0,0,0-2-2H14.69l.95-4.57.03-.32a1.505,1.505,0,0,0-.44-1.06L14.17,1,7.59,7.59A1.955,1.955,0,0,0,7,9V19a2.006,2.006,0,0,0,2,2h9a1.987,1.987,0,0,0,1.84-1.22l3.02-7.05A1.976,1.976,0,0,0,23,12V10.09l-.01-.01Z" transform="translate(-1 -1)" />
-                              </svg>
-                            </div>
-                            <div class="icon col-2"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20">
-                                <path id="ic_thumb_down_24px" d="M15,3H6A1.987,1.987,0,0,0,4.16,4.22L1.14,11.27A1.976,1.976,0,0,0,1,12v1.91l.01.01L1,14a2.006,2.006,0,0,0,2,2H9.31l-.95,4.57-.03.32a1.505,1.505,0,0,0,.44,1.06L9.83,23l6.59-6.59A1.987,1.987,0,0,0,17,15V5A2.006,2.006,0,0,0,15,3Zm4,0V15h4V3Z" transform="translate(-1 -3)" />
-                              </svg>
-                            </div>
-                            <div class="icon col-2"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="21" viewBox="0 0 18 21">
-                                <path id="ic_timer_24px" d="M15,1H9V3h6ZM11,14h2V8H11Zm8.03-6.61,1.42-1.42a11.048,11.048,0,0,0-1.41-1.41L17.62,5.98a9,9,0,1,0,1.41,1.41ZM12,20a7,7,0,1,1,7-7A6.995,6.995,0,0,1,12,20Z" transform="translate(-3 -1)" />
-                              </svg>
-                            </div>
-                            <div class="icon col-2"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="16" viewBox="0 0 22 16">
-                                <path id="ic_cached_24px" d="M19,8l-4,4h3a6,6,0,0,1-6,6,5.87,5.87,0,0,1-2.8-.7L7.74,18.76A7.986,7.986,0,0,0,20,12h3ZM6,12a6,6,0,0,1,6-6,5.87,5.87,0,0,1,2.8.7l1.46-1.46A7.986,7.986,0,0,0,4,12H1l4,4,4-4Z" transform="translate(-1 -4)" />
-                              </svg>
-                            </div>
-                          </div>
-                        </div> -->
-                    </div>
+      <div class="py-2 container">
+        <div class="row py-lg-5">
+          <div class="col-md-8 themed-grid-col">
+            <div class="videoplayer">
+              <div class="videoStatus">
+                <div class="paused">
                 </div>
-
-
-                <div class="col-md-4 themed-grid-col">
-                    <a></a>
-                    <div class="chat-container">
-                        <header class="chat-header">
-                            <h2>Chat</h2>
-                            <h2 id="lernflixRoomName">&nbsp;</h2>
-                        </header>
-                        <main class="chat-main">
-
-                            <div class="chat-messages">
-                            </div>
-                        </main>
-                        <div class="chat-form-container">
-                            <form id="chat-form">
-                                <div class="container">
-                                    <div class="row">
-                                        <!--                      <input class="col-xl-9 col-lg-8 col-md-12 " id="msg" type="text" placeholder="Nachricht eingeben" required autocomplete="off" />-->
-                                        <textarea form="chat-form" rows="2" cols="50" class="col-xl-9 col-lg-8 col-md-12 " id="msg" placeholder="Nachricht eingeben" required autocomplete="off" style="resize: none;" disabled></textarea>
-                                        <button class="col-xl-3 col-lg-4 col-md-12  btn btn-outline-dark" id="send">Send</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+                <img src="../assets/illustrations/video_pause.png" alt="pause" />
+              </div>
+              <div class="videotitle">
+                <h2>Video Title</h2>
+              </div>
+              <video width="854" height="480" class="vid-fluid" id="videoplayer" src="" controls="false">
+                Your browser does not support the video tag.
+              </video>
             </div>
-        </div>
+            
+            <div id="videoControls">
+              <!-- TODO: REMOVE BORDER LATER -->
+              <div>
+                <div id="tooltipFlag"></div>
+                <canvas id="flagsCanvas" width="1" height="1" style="border:1px solid #000000;"></canvas>
+              </div>
 
+              <div class="row">
+                <div class="range-slider col-lg-10">
+                  <input id="seekslider" class="range-slider__range" type="range" value="0" min="0" max="100" style="height:30px">
+                  <span id="videoplayerTimeText" class="range-slider__value" style="position:absolute">0:00/0:00</span>
+                </div>
+                <div class="volumeControl col-lg-2">
+                  <input class="range-slider__range" type="range" min="0" max="100" step="1" oninput="setVolume(this.value)" onchange="setVolume(this.value)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="13.5" height="16" viewBox="0 0 13.5 16">
+                    <path id="ic_volume_down_24px" d="M18.5,12A4.5,4.5,0,0,0,16,7.97v8.05A4.474,4.474,0,0,0,18.5,12ZM5,9v6H9l5,5V4L9,9Z" transform="translate(-5 -4)" />
+                  </svg>
+                </div>
+              </div>
+
+              <div class="playercontrol col-md-12 py-1">
+                <button id="start" type="button" class="btn btn-outline-dark" onclick="playVideo()">Play</button>
+                <button id="pause" class="btn btn-outline-dark" onclick="pauseVideo()">Pause</button>
+                <button id="setFlag" class="btn btn-primary" data-toggle="modal" data-target="#flagModal" onclick="loadFlagModal()">Flagge Setzen</button>
+                <button id="removeFlag" class="btn btn-primary" data-toggle="modal" data-target="#removeFlagModal" onclick="loadRemoveFlagModal()">Flagge entfernen</button>
+                <button disabled id="addVideo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#listvideos">Video auswählen</button>
+
+                <div class="popup_content" id="pop_cont">
+                  <input type="text">
+                  <button id="" onclick="flagVideo()" type="button" class="btn btn-primary btn-sm">Small button</button>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-md-4 themed-grid-col">
+              <a></a>
+              <div class="chat-container">
+                <header class="chat-header">
+                  <h2>Chat</h2>
+                  <h2 id="lernflixRoomName">&nbsp;</h2>
+                </header>
+                <main class="chat-main">
+
+                  <div class="chat-messages">
+                  </div>
+                </main>
+                <div class="chat-form-container">
+                  <form id="chat-form">
+                    <div class="container">
+                      <div class="row">
+                        <!--                      <input class="col-xl-9 col-lg-8 col-md-12 " id="msg" type="text" placeholder="Nachricht eingeben" required autocomplete="off" />-->
+                        <textarea form="chat-form" rows="2" cols="50" class="col-xl-9 col-lg-8 col-md-12 " id="msg" placeholder="Nachricht eingeben" required autocomplete="off" style="resize: none;" disabled></textarea>
+                        <button class="col-xl-3 col-lg-4 col-md-12  btn btn-outline-dark" id="send">Send</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Modal Video Selection -->
     <div class="modal fade" id="listvideos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Alle Videos</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body container">
-                    <div class="row">
-                        <div class="col-12 videolist">
-                            <button type="button" data-dismiss="modal" class="btn btn-secondary" onclick="changeVideo(`https://opencast-engage.hs-rw.de/static/mh_default_org/engage-player/26316efa-efa8-4906-b9c4-2ef5d1a613a3/17fe9ed6-72f1-4024-848b-85af5104e30d/_.mp4`)">Video 1 - Hasen</button>
-                            <button type="button" data-dismiss="modal" class="btn btn-secondary" onclick="changeVideo(`https://opencast-engage.hs-rw.de/static/mh_default_org/api/8531fc76-4876-4113-b36a-d47e822ceb70/03a1670b-d5ca-41f6-8a29-7ca5a387efac/_.mp4`)">Video 2 - Python</button>
-                        </div>
-                    </div>
-                </div>
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Alle Videos</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body container">
+            <div class="row">
+              <div class="col-12 videolist">
+                <button type="button" data-dismiss="modal" class="btn btn-secondary" onclick="changeVideo(`https://opencast-engage.hs-rw.de/static/mh_default_org/engage-player/26316efa-efa8-4906-b9c4-2ef5d1a613a3/17fe9ed6-72f1-4024-848b-85af5104e30d/_.mp4`)">Video 1 - Hasen</button>
+                <button type="button" data-dismiss="modal" class="btn btn-secondary" onclick="changeVideo(`https://opencast-engage.hs-rw.de/static/mh_default_org/api/8531fc76-4876-4113-b36a-d47e822ceb70/03a1670b-d5ca-41f6-8a29-7ca5a387efac/_.mp4`)">Video 2 - Python</button>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
     <!--Modal Video Selection End-->
 
     <!-- Flag Modal -->
     <div class="modal fade" id="flagModal" tabindex="-1" role="dialog" aria-labelledby="flagModalLable" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="flagModalLable"><img id="flagImg" src="../assets/illustrations/flag_black_24dp.svg" alt="A Flag.">Flagge setzen</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div id="videoPreview" style="display: inline-block; top: 4px; position: relative ;border: dotted 1px #ccc; padding: 2px;"></div>
-                    <br>
-                    <label>Bemerkung:</label>
-                    <textarea name="flagAnnotationName" placeholder="Teile Deine Bemerkung mit anderen" class="form-control" id="flagAnnotation" rows="2"></textarea>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addFlag()">Speichern</button>
-                </div>
-            </div>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="flagModalLable"><img id="flagImg" src="../assets/illustrations/flag_black_24dp.svg" alt="A Flag.">Flagge setzen</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="videoPreview" style="display: inline-block; top: 4px; position: relative ;border: dotted 1px #ccc; padding: 2px;"></div>
+            <br>
+            <label>Bemerkung:</label>
+            <textarea name="flagAnnotationName" placeholder="Teile Deine Bemerkung mit anderen" class="form-control" id="flagAnnotation" rows="2"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addFlag()">Speichern</button>
+          </div>
         </div>
+      </div>
     </div>
     <!-- Flag Modal End-->
 
 
     <!-- Remove Flag Modal -->
     <div class="modal fade" id="removeFlagModal" tabindex="-1" role="dialog" aria-labelledby="removeFlagModalLable" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="removeFlagModalLable"><img src="../assets/illustrations/flag_black_24dp.svg" alt="A Flag.">Flagge entfernen</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div id="flagListing" style="display: inline-block; top: 4px; position: relative ;"></div>
-                    <br>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
-                </div>
-            </div>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="removeFlagModalLable"><img src="../assets/illustrations/flag_black_24dp.svg" alt="A Flag.">Flagge entfernen</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div id="flagListing" style="display: inline-block; top: 4px; position: relative ;"></div>
+            <br>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Schließen</button>
+          </div>
         </div>
+      </div>
     </div>
     <!-- Remove Flag Modal End-->
 
 
     <!-- Feedback Modal -->
     <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="flagModalLable" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="feedbackModalLable"><img src="../assets/illustrations/afd4i-yydke.svg" alt="A Flag."> Du hast Anregungen oder ein Feedback?</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="feedbackModalLable"><img src="../assets/illustrations/afd4i-yydke.svg" alt="A Flag."> Du hast Anregungen oder ein Feedback?</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
 
-                    <br>
-                    <label>Dein Feedback:</label>
-                    <input class="form-control" type="text" placeholder="Bitte Feedback eingeben" id="createFeedbackForLernflix">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-                    <button type="button" class="btn btn-primary" onclick="createFeedback()" data-dismiss="modal">Abschicken</button>
-                </div>
-            </div>
+            <br>
+            <label>Dein Feedback:</label>
+            <input class="form-control" type="text" placeholder="Bitte Feedback eingeben" id="createFeedbackForLernflix">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+            <button type="button" class="btn btn-primary" onclick="createFeedback()" data-dismiss="modal">Abschicken</button>
+          </div>
         </div>
+      </div>
     </div>
     <!-- End Feedback Modal -->
 
     <!-- About Lernflix-->
     <div class="modal fade" id="about" tabindex="-1" role="dialog" aria-labelledby="contact" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="about1">About</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Lernflix ist eine Moodle Integration, die Studierenden ermöglicht, gemeinsam Vorlesungsvideos zu schauen und zu erarbeiten.<br><br>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="about1">About</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Lernflix ist eine Moodle Integration, die Studierenden ermöglicht, gemeinsam Vorlesungsvideos zu schauen und zu erarbeiten.<br><br>
 
-                        Einmal im Moodle Kurs integriert, kann jedes hochgeladene Video aus dem Kurs direkt in Lernflix angeschaut werden. Dazu können Studierende einen eigenen Raum eröffnen, dem ihre Kommiliton*innen beitreten können. Das Vorlesungsvideo läuft innerhalb des Raumes für alle Studierenden gleich ab, Pausen und Wiedergaben werden zwischen allen Zuschauenden im Raum synchronisiert.
-                        Die Teilnehmer*innen im Raum haben die Möglichkeit, im Chat Fragen zum Video zu besprechen und zu diskutieren.
-                        Wenn es Stellen im Vorlesungsvideo gibt, die später noch einmal besprochen werden sollen, weil sie z.B. besonders wichtig oder noch unklar waren, kann mit einer sogenannten Flagge ein Lesezeichen gesetzt werden.<br><br>
+              Einmal im Moodle Kurs integriert, kann jedes hochgeladene Video aus dem Kurs direkt in Lernflix angeschaut werden. Dazu können Studierende einen eigenen Raum eröffnen, dem ihre Kommiliton*innen beitreten können. Das Vorlesungsvideo läuft innerhalb des Raumes für alle Studierenden gleich ab, Pausen und Wiedergaben werden zwischen allen Zuschauenden im Raum synchronisiert.
+              Die Teilnehmer*innen im Raum haben die Möglichkeit, im Chat Fragen zum Video zu besprechen und zu diskutieren.
+              Wenn es Stellen im Vorlesungsvideo gibt, die später noch einmal besprochen werden sollen, weil sie z.B. besonders wichtig oder noch unklar waren, kann mit einer sogenannten Flagge ein Lesezeichen gesetzt werden.<br><br>
 
-                        Lernflix befindet sich noch im Entwicklungsprozess. Weitere Funktionen sollen folgen.
-                    </p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
+              Lernflix befindet sich noch im Entwicklungsprozess. Weitere Funktionen sollen folgen.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
         </div>
+      </div>
     </div>
 
 
     <!-- Modal Contact-->
     <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="contact" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="contact1">Kontakt</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p>Bei generellen Rückfragen zu Lernflix:</p >  <a href = "mailto: lernflix@hs-ruhrwest.de">Lernflix E-Mail </a>(lernflix@hs-ruhrwest.de)
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="contact1">Kontakt</h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p>Bei generellen Rückfragen zu Lernflix:</p> <a href="mailto: lernflix@hs-ruhrwest.de">Lernflix E-Mail </a>(lernflix@hs-ruhrwest.de)
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Modal Contact End-->
@@ -384,57 +348,53 @@
     <!-- Navbar Bottom-->
 
     <div class="navba" style="text-align:center">
-        <a href="#home"  data-toggle="modal" data-target="#feedbackModal" style="text-align:center">Feedback</a>
-        <a href="#news" style="text-align:center" data-toggle="modal" data-target="#about"> Über Lernflix</a>
-        <a href="#contact" style="text-align:center" data-toggle="modal" data-target="#contact">Kontakt</a>
-        <a href="https://faq-lernflix.herokuapp.com/" style="text-align:center" >FAQ</a>
+      <a href="#home" data-toggle="modal" data-target="#feedbackModal" style="text-align:center">Feedback</a>
+      <a href="#news" style="text-align:center" data-toggle="modal" data-target="#about"> Über Lernflix</a>
+      <a href="#contact" style="text-align:center" data-toggle="modal" data-target="#contact">Kontakt</a>
+      <a href="https://faq-lernflix.herokuapp.com/" style="text-align:center">FAQ</a>
     </div>
 
     <!-- Navbar Bottom End-->
 
     <script>
-
-    $(document).ready(function(){
-    $('#msg').keypress(function(e){
-      if(e.keyCode==13)
-      $('#send').click();
-    });
-});
-
-</script>
+      $(document).ready(function() {
+        $('#msg').keypress(function(e) {
+          if (e.keyCode == 13)
+            $('#send').click();
+        });
+      });
+    </script>
 
 
     <script>
-
-var result = bowser.getParser(window.navigator.userAgent);
-console.log(result);
-document.write("You are using " + result.parsedResult.browser.name +
-               " v" + result.parsedResult.browser.version +
-               " on " + result.parsedResult.os.name);
-
+      var result = bowser.getParser(window.navigator.userAgent);
+      console.log(result);
+      document.write("You are using " + result.parsedResult.browser.name +
+        " v" + result.parsedResult.browser.version +
+        " on " + result.parsedResult.os.name);
 
 
-         console.log("Used Browser: " + result.parsedResult.browser.name);
-         document.write("Used Browser: " + result.parsedResult.browser.name);
+
+      console.log("Used Browser: " + result.parsedResult.browser.name);
+      document.write("Used Browser: " + result.parsedResult.browser.name);
 
 
-         if (result.parsedResult.browser.name == "Chrome" || "Firefox" || "Microsoft Edge" || "Opera" ) {
-            document.write("");
-        }
-         else {
-            alert("Ihr Browser wird aktuell NICHT unterstützt. Bitte verwenden Sie einen der folgenden Browser: Chrome, Firefox, Microsoft Edge oder Opera");
-            }
-</script>
+      if (result.parsedResult.browser.name == "Chrome" || "Firefox" || "Microsoft Edge" || "Opera") {
+        document.write("");
+      } else {
+        alert("Ihr Browser wird aktuell NICHT unterstützt. Bitte verwenden Sie einen der folgenden Browser: Chrome, Firefox, Microsoft Edge oder Opera");
+      }
+    </script>
 
 
 
 
-</main>
-<!--  Hier statt CDN die .js Dateien runterladen und verlinkung anpassen-->
-<script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
-<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+  </main>
+  <!--  Hier statt CDN die .js Dateien runterladen und verlinkung anpassen-->
+  <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
 
-<script src="../js/main.js"></script>
+  <script src="../js/main.js"></script>
 
 </body>
 
