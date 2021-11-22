@@ -303,8 +303,8 @@ socket.on('loadNewVideo', url => {
 $(document).ready(function () {
 
   document.querySelector(".videolist > button").addEventListener("click", function () {
-    alert("test");
-    console.log(this.textcontent);
+    var videotitle= this.innerHTML
+    document.getElementsById("title").innerHTML = videotitle;
   });
 
 })
