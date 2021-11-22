@@ -2,7 +2,6 @@
 .videoplayer {
   position: relative;
 }
-
 .videoplayer .videotitle {
   visibility: hidden;
   background-color: #000;
@@ -13,18 +12,15 @@
   opacity: 0;
   transition: opacity 0.3s ease-in;
 }
-
 .videoplayer .videoStatus img {
   display: none;
 }
-
 .videoplayer .videoStatus.pause {
   display: flex;
   height: 100%;
   width: 100%;
   position: absolute;
 }
-
 .videoplayer .videoStatus.pause img {
   display: block;
   height: auto;
@@ -35,7 +31,6 @@
   margin: auto;
   max-width: 100px;
 }
-
 .videoplayer .videoStatus.pause .paused {
   background-color: #000;
   position: absolute;
@@ -44,12 +39,10 @@
   opacity: 0.8;
   z-index: 1;
 }
-
 .videoplayer:hover .videotitle {
   visibility: visible;
   opacity: 0.8;
 }
-
 .videoplayer:hover .videotitle h2 {
   margin: 0;
   padding: 10px 10px;
@@ -57,70 +50,52 @@
   color: #fff;
   visibility: visible;
 }
-
 .vid-fluid {
   width: 100%;
   height: auto;
 }
-
 .videoElement {
   display: inline-flex;
   cursor: pointer;
 }
-
 .videoElement:focus {
   opacity: 1;
 }
-
 .videolist {
   display: block;
 }
-
 .videoThumbnail {
   max-width: 100px;
   height: auto;
 }
-
 .videoTitle {
   font-size: 16px;
 }
-
 .fadein {
   opacity: 0.8;
   transition: 0.3s ease;
 }
-
 .fadein:hover {
   opacity: 1;
   transition: 0.3s ease;
 }
-
-#videoControls {
-  display: none;
-}
-
 .playercontrol button {
   background-color: #42b883;
   color: white;
 }
-
 .volumeControl {
   margin-top: 5px;
 }
-
 .volumeControl svg {
   margin-left: 5px;
   position: absolute;
 }
-
 .volumeControl input {
   width: 100px;
 }
-
 .volumeControl input.range-slider__range:focus::-webkit-slider-thumb {
   box-shadow: none;
 }
-
 .range-slider__range {
   -webkit-appearance: none;
   width: calc(100% - 100px);
@@ -131,7 +106,6 @@
   padding: 0;
   margin: 0;
 }
-
 .range-slider__range::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
@@ -143,15 +117,12 @@
   -webkit-transition: background 0.15s ease-in-out;
   transition: background 0.15s ease-in-out;
 }
-
 .range-slider__range::-webkit-slider-thumb:hover {
   background: #1abc9c;
 }
-
 .range-slider__range:active::-webkit-slider-thumb {
   background: #1abc9c;
 }
-
 .range-slider__range::-moz-range-thumb {
   width: 20px;
   height: 20px;
@@ -162,19 +133,15 @@
   -moz-transition: background 0.15s ease-in-out;
   transition: background 0.15s ease-in-out;
 }
-
 .range-slider__range::-moz-range-thumb:hover {
   background: #1abc9c;
 }
-
 .range-slider__range:active::-moz-range-thumb {
   background: #1abc9c;
 }
-
 .range-slider__range:focus::-webkit-slider-thumb {
   box-shadow: 0 0 0 3px #fff, 0 0 0 6px #1abc9c;
 }
-
 .range-slider__value {
   display: inline-block;
   position: relative;
@@ -187,7 +154,6 @@
   padding: 5px 10px;
   margin-left: 8px;
 }
-
 .range-slider__value:after {
   position: absolute;
   top: 8px;
@@ -199,35 +165,29 @@
   border-bottom: 7px solid transparent;
   content: "";
 }
-
 ::-moz-range-track {
   background: #d7dcdf;
   border: 0;
 }
-
 input::-moz-focus-inner,
 input::-moz-focus-outer {
   border: 0;
 }
-
 .icons {
   padding: 16px 12px;
 }
-
 .icons .icon {
   position: relative;
   float: left;
   padding: 0px 20px;
 }
-
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url(https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxP.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/roboto/v29/KFOmCnqEu92Fr1Mu4mxP.ttf) format('truetype');
 }
-
 rgb(33, 37, 41):root {
   --dark-color-a: #667aff;
   --dark-color-b: #7386ff;
@@ -235,26 +195,21 @@ rgb(33, 37, 41):root {
   --success-color: #5cb85c;
   --error-color: #d9534f;
 }
-
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
-
 body {
   font-family: 'Roboto', sans-serif;
   font-size: 12px;
 }
-
 ul {
   list-style: none;
 }
-
 a {
   text-decoration: none;
 }
-
 .btn {
   cursor: pointer;
   padding: 5px 15px;
@@ -263,14 +218,12 @@ a {
   border: 0;
   font-size: 17px;
 }
-
 /* Chat Page */
 .chat-container {
   max-width: 2100px;
   background: #fff;
   overflow: hidden;
 }
-
 .chat-container .chat-header {
   background: #4d5965;
   color: #fff;
@@ -281,18 +234,15 @@ a {
   align-items: center;
   justify-content: space-between;
 }
-
 .chat-container .chat-header #lernflixRoomName {
   font-size: 16px;
 }
-
 .chat-container .chat-messages {
   padding: 5px;
   max-height: 500px;
   max-width: 500px;
   overflow-y: scroll;
 }
-
 .chat-container .chat-messages .message {
   padding: 10px;
   margin-bottom: 10px;
@@ -304,73 +254,57 @@ a {
   -webkit-animation: floatBubble 0.5s, fadein 0.5s normal ease-in;
   animation: floatBubble 0.5s, fadein 0.5s normal ease-in;
 }
-
 @-webkit-keyframes floatBubble {
   0% {
     top: 10px;
   }
-
   100% {
     top: 0px;
   }
 }
-
 @keyframes floatBubble {
   0% {
     top: 10px;
   }
-
   100% {
     top: 0px;
   }
 }
-
 @keyframes fadein {
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
 }
-
 @-moz-keyframes fadein {
-
   /* Firefox */
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
 }
-
 @-webkit-keyframes fadein {
-
   /* Safari and Chrome */
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
 }
-
 @-o-keyframes fadein {
-
   /* Opera */
   from {
     opacity: 0;
   }
-
   to {
     opacity: 1;
   }
 }
-
 .chat-container .meta {
   opacity: 1;
   font-size: 13px;
@@ -378,19 +312,16 @@ a {
   color: #000;
   margin-bottom: 7px;
 }
-
 .chat-container .meta span {
   color: #000;
   font-weight: 100;
   float: right;
 }
-
 .chat-container.sys {
   max-width: 75%;
   background-color: #42b883;
   color: #fff;
 }
-
 .chat-container.sys .meta {
   opacity: 1;
   font-size: 13px;
@@ -398,71 +329,60 @@ a {
   color: #000;
   margin-bottom: 7px;
 }
-
 .chat-container.sys .meta span {
   color: #fff;
   font-weight: 100;
   float: right;
   opacity: 0.7;
 }
-
-.grid-container-chat {
+.chat-form-container {
   padding: 20px 30px;
   background-color: #4d5965;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-
-
-.grid-container-chat form textarea[type='text'] {
+.chat-form-container form {
+  display: flex;
+}
+.chat-form-container form textarea[type='text'] {
   font-size: 16px;
   padding: 5px;
   flex: 1;
   margin: 10px 15px 10px 0px;
 }
-
-.test-chat {
-  display: grid;
-  grid-template-columns: auto auto;
-  align-items: center;
-  grid-column-gap: 15px
-}
-
-#msg {
-  resize: none;
-  width: 100%;
-}
-
-#send {}
-
-.grid-container-chat form button {
+.chat-form-container form button {
   background-color: lightslategray;
   color: #fff;
   margin: 10px 0px;
 }
-
-.grid-container-chat form button a {
+.chat-form-container form button a {
   color: #fff;
 }
-
-.grid-container-chat form button:hover {
+.chat-form-container form button:hover {
   background-color: #42b883;
 }
-
 @media (max-width: 700px) {
   .chat-main {
     display: block;
   }
-
   .chat-sidebar {
     display: none;
   }
 }
-
 .popup_content {
   display: none;
 }
-
+.playercontrol {
+  margin: 10px 0px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(155px, 2fr));
+  grid-row-gap: 10px;
+  grid-column-gap: 15px;
+  justify-content: flex-start;
+}
+.playercontrol button {
+  white-space: nowrap;
+}
 /* Style the navigation bar */
 .navbar {
   width: 100%;
@@ -470,67 +390,54 @@ a {
   overflow: visible;
   height: 56px;
 }
-
 .navbar .container {
   width: 100%;
 }
-
 .navbar .container .logo {
   display: inline-flex;
 }
-
 .navbar .container .logo img {
   width: 40px;
   height: auto;
   margin-right: 15px;
 }
-
 .navbar .container .search_room {
   width: 50%;
   display: inline-flex;
 }
-
 .navbar .container .search_room > button {
   margin-left: 20px;
   background-color: #368252;
   color: #fff;
   white-space: nowrap;
 }
-
 .navbar .container .search_room #rooms {
   background-color: #f3f3f3;
 }
-
 .navbar .container .search_room #rooms button:active {
   color: #fff;
   background-color: #fefefe;
 }
-
 .navbar .container .search_room #rooms button:hover {
   color: #fff;
   background-color: #212529;
 }
-
 .navbar .container .profileInfo {
   display: flex;
 }
-
 .navbar .container .profileInfo img {
   width: 32px;
   height: 32px;
 }
-
 .navbar .container .profileInfo p {
   font-size: 12px;
   color: #fff;
   margin: 0 0 0 15px;
 }
-
 .navbar .container .profileInfo a {
   text-decoration: underline;
   color: #fff;
 }
-
 /* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
 @media screen and (max-width: 500px) {
   .navbar a {
@@ -538,7 +445,6 @@ a {
     display: block;
   }
 }
-
 /* Place the navbar at the bottom of the page, and make it stick */
 .navba {
   background-color: #333;
@@ -547,7 +453,6 @@ a {
   bottom: 0;
   width: 100%;
 }
-
 /* Style the links inside the navigation bar */
 .navba a {
   float: center;
@@ -558,13 +463,11 @@ a {
   text-decoration: none;
   font-size: 14px;
 }
-
 /* Change the color of links on hover */
 .navba a:hover {
   background-color: #ddd;
   color: black;
 }
-
 /* Add a color to the active/current link */
 .navba a.active {
   background-color: #4CAF50;
