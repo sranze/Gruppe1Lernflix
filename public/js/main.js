@@ -304,7 +304,7 @@ $(document).ready(function () {
 
   document.querySelector(".videolist > button").addEventListener("click", function () {
     var videotitle= this.innerHTML
-    document.getElementsById("title").innerHTML = videotitle;
+    document.getElementById("title").innerHTML = videotitle;
   });
 
 })
