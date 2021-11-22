@@ -106,15 +106,15 @@
           <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick="selectRoom()" id="roomSelect">Raum Beitreten</button>-->
           <button type="button" class="btn btn-outline-success my-2 my-sm-0" data-toggle="modal" data-target="#createRoomModal" data-whatever="@getbootstrap">Raum Anlegen</button>
           <div id="rooms" class="dropdown-menu" aria-labelledby="dropdownMenu1">
-          <button id="131773" class="btn btn-primary">Search</button>
-          <button id="131773" class="btn btn-primary">Okan</button>
-          <button id="131773" class="btn btn-primary">Anna </button>
-          <button id="131773" class="btn btn-primary">Joe </button>
-          <button id="131773" class="btn btn-primary">Foe </button>
-          <button id="131773" class="btn btn-primary">Test </button>
-          <button id="131773" class="btn btn-primary">Search for me </button>
-          <button id="131773" class="btn btn-primary">Test this </button>
-          <button id="131773" class="btn btn-primary">no! </button>
+            <button id="131773" class="btn btn-primary">Search</button>
+            <button id="131773" class="btn btn-primary">Okan</button>
+            <button id="131773" class="btn btn-primary">Anna </button>
+            <button id="131773" class="btn btn-primary">Joe </button>
+            <button id="131773" class="btn btn-primary">Foe </button>
+            <button id="131773" class="btn btn-primary">Test </button>
+            <button id="131773" class="btn btn-primary">Search for me </button>
+            <button id="131773" class="btn btn-primary">Test this </button>
+            <button id="131773" class="btn btn-primary">no! </button>
           </div>
         </div>
         <div class="profileInfo">
@@ -193,25 +193,27 @@
           <div class="col-md-4 themed-grid-col">
             <a></a>
             <div class="chat-container">
+
+
               <header class="chat-header">
                 <h2>Chat</h2>
                 <h2 id="lernflixRoomName">&nbsp;</h2>
               </header>
+
+
               <main class="chat-main">
                 <div class="chat-messages"></div>
               </main>
-
-              <div class="grid-container-chat">
-                <form id="chat-form">
-                 <div class="test-chat">
-                   
-                  <div>
-                    <textarea form="chat-form" rows="2" id="msg" placeholder="Nachricht eingeben" required autocomplete="off" disabled></textarea>
+              <div class="chat-form-container">
+                <form>
+                    <div class="chat-grid-container">
+                      <textarea type="text" form="chat-form" rows="2" id="msg" placeholder="Nachricht eingeben" required="" autocomplete="off" resize="none;"></textarea>
+                      <button class="col-xl-3 col-lg-4 col-md-12  btn btn-outline-dark" id="send">Send</button>
                   </div>
-                  <button class="btn btn-outline-dark" id="send">Send</button>
-                 </div>
                 </form>
               </div>
+
+
             </div>
           </div>
         </div>

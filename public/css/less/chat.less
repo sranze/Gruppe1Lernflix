@@ -152,8 +152,6 @@ a {
 
   }
 
-
-
   .meta {
     opacity: 1;
     font-size: 13px;
@@ -222,19 +220,24 @@ a {
   border-bottom-right-radius: 5px;
 
   form {
-    display: flex;
-
+    
+    .chat-grid-container{
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-column-gap: 15px;
+    align-items: flex-end;
+    }
+    
     textarea[type='text'] {
       font-size: 16px;
       padding: 5px;
-      flex: 1;
-      margin: 10px 15px 10px 0px;
+      resize: none;
     }
 
     button {
       background-color: lightslategray;
       color: #fff;
-      margin: 10px 0px;
+      width: 100%;
 
       a {
         color: #fff;

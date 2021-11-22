@@ -341,19 +341,21 @@ a {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-.chat-form-container form {
-  display: flex;
+.chat-form-container form .chat-grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-column-gap: 15px;
+  align-items: flex-end;
 }
 .chat-form-container form textarea[type='text'] {
   font-size: 16px;
   padding: 5px;
-  flex: 1;
-  margin: 10px 15px 10px 0px;
+  resize: none;
 }
 .chat-form-container form button {
   background-color: lightslategray;
   color: #fff;
-  margin: 10px 0px;
+  width: 100%;
 }
 .chat-form-container form button a {
   color: #fff;
