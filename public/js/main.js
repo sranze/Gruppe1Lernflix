@@ -302,7 +302,7 @@ socket.on('loadNewVideo', url => {
 
 $(document).ready(function () {
 
-  document.querySelector(".videolist button").addEventListener("click", function () {
+  document.querySelectorAll(".videolist button").addEventListener("click", function () {
     var videotitle= this.innerHTML
     document.getElementById("title").innerHTML = videotitle;
   });
