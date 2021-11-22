@@ -302,10 +302,16 @@ socket.on('loadNewVideo', url => {
 
 $(document).ready(function () {
 
-  document.querySelectorAll(".videolist button").addEventListener("click", function () {
-    var videotitle= this.innerHTML
+  $( ".videolist > button" ).click(function() {
+    alert(this);
+    var videotitle  = this.innerHTML;
     document.getElementById("title").innerHTML = videotitle;
-  });
+});
+  
+//  document.querySelectorAll(".videolist button").addEventListener("click", function () {
+//    var videotitle= this.innerHTML
+//    document.getElementById("title").innerHTML = videotitle;
+//  });
 
 })
 
