@@ -280,6 +280,13 @@ socket.on('loadNewVideo', url => {
     }
 })
 
+$(document).ready(function(){
+  alert("test");
+})
+document.addEventListener("DOMContentLoaded",function(event){
+  alert("test");
+})
+
 // Pause video - html listener
 function pauseVideo() {
     socket.emit('pauseVideo');
