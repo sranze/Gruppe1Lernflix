@@ -300,18 +300,12 @@ socket.on('loadNewVideo', url => {
   }
 })
 
+//Change Video Title
 $(document).ready(function () {
-
   $( ".videolist > button" ).click(function() {
-    alert(this);
     var videotitle  = this.innerHTML;
     document.getElementById("title").innerHTML = videotitle;
 });
-  
-//  document.querySelectorAll(".videolist button").addEventListener("click", function () {
-//    var videotitle= this.innerHTML
-//    document.getElementById("title").innerHTML = videotitle;
-//  });
 
 })
 
