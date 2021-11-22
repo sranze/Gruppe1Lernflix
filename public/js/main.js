@@ -298,6 +298,7 @@ socket.on('loadNewVideo', url => {
     var videoInfo = getVideoInfo();
     socket.emit('updateVideoInfo', videoInfo);
   }
+  $(".videoStatus").removeClass("pause");
 })
 
 //Change Video Title
