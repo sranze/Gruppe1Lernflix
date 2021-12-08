@@ -181,8 +181,23 @@ function showRooms(rooms) {
         joinRoom(this.childNodes[0].nodeValue, this.id);
       };
 
+      
+var myvar = '<div class="listItem">'+
+'                <button id="'+rooms[i]+'" class="btn btn-primary">'+
+'                  '+bText+''+
+'                  <div id="userInRoom">'+
+'                    <span class="countUser">3</span>'+
+'                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="15.111" viewBox="0 0 17 15.111">'+
+'                      <path id="Icon_metro-users" data-name="Icon metro-users" d="M13.9,16.515v-.779a4.218,4.218,0,0,0,1.889-3.51c0-2.347,0-4.25-2.833-4.25s-2.833,1.9-2.833,4.25a4.218,4.218,0,0,0,1.889,3.51v.779c-3.2.262-5.667,1.836-5.667,3.739H19.571c0-1.9-2.463-3.477-5.667-3.739Zm-6.5.365a8.973,8.973,0,0,1,2.948-1.187,5.328,5.328,0,0,1-.6-.871,5.408,5.408,0,0,1-.686-2.6,8.386,8.386,0,0,1,.452-3.45,3.075,3.075,0,0,1,2.35-1.763c-.25-1.129-.914-1.87-2.683-1.87-2.833,0-2.833,1.9-2.833,4.25A4.218,4.218,0,0,0,8.238,12.9v.779c-3.2.262-5.667,1.836-5.667,3.739H6.689a6.05,6.05,0,0,1,.711-.541Z" transform="translate(-2.571 -5.143)" />'+
+'                    </svg>'+
+''+
+'                  </div>'+
+'                </button>'+
+'              </div>';
+	
+
       var src = document.getElementById("rooms");
-      src.appendChild(button);
+      src.appendChild(myvar);
     }
   } else {
     console.log("Servus, das Problem wurde gefixt")
