@@ -182,7 +182,7 @@ function showRooms(rooms) {
       };
 
       
-var myvar = '<div class="listItem">'+
+var listitem = '<div class="listItem">'+
 '                <button id="'+rooms[i]+'" class="btn btn-primary">'+
 '                  '+bText+''+
 '                  <div id="userInRoom">'+
@@ -195,11 +195,9 @@ var myvar = '<div class="listItem">'+
 '                </button>'+
 '              </div>';
 	
-      var test = '<div class="listItem"></div>'
-
       var src = document.getElementById("rooms");
 //      src.appendChild(test);
-      src.insertAdjacentHTML('beforeend',test);
+      src.insertAdjacentHTML('beforeend',listitem);
     }
   } else {
     console.log("Servus, das Problem wurde gefixt")
