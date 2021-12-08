@@ -195,9 +195,10 @@ var myvar = '<div class="listItem">'+
 '                </button>'+
 '              </div>';
 	
+      var test = '<div class="listItem"></div>'
 
       var src = document.getElementById("rooms");
-      src.appendChild(myvar);
+      src.appendChild(test);
     }
   } else {
     console.log("Servus, das Problem wurde gefixt")
