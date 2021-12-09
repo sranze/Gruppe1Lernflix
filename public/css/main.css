@@ -396,6 +396,7 @@ a {
 }
 .navbar .container .logo {
   display: inline-flex;
+  justify-content: flex-start;
 }
 .navbar .container .logo img {
   width: 40px;
@@ -446,6 +447,7 @@ a {
 .navbar .container .profileInfo {
   display: inline-flex;
   align-items: center;
+  justify-content: flex-end;
 }
 .navbar .container .profileInfo img {
   width: 32px;

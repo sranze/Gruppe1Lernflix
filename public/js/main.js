@@ -178,7 +178,7 @@ function showRooms(rooms) {
       button.setAttribute('class', 'btn btn-primary')
 
       button.onclick = function () {
-        joinRoom(this.childNodes[0].nodeValue, this.id);
+        joinRoom(this.childNodes[1].nodeValue, this.id);
       };
 
       
