@@ -184,7 +184,7 @@ function showRooms(rooms) {
       
 var listitem = '<div class="listItem">'+
 '                <button id="'+rooms[i]+'" class="btn btn-primary">'+
-'                  '+bText+''+
+'                  '+roomName+''+
 '                  <div id="userInRoom">'+
 '                    <span class="countUser">3</span>'+
 '                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="15.111" viewBox="0 0 17 15.111">'+
