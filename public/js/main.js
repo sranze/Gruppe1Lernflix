@@ -193,10 +193,12 @@ if (rooms !== undefined) {
         button.appendChild(bText);
         button.setAttribute('class', 'btn btn-primary')
         button.onclick = function() { joinRoom(this.childNodes[0].nodeValue, this.id); };
-
+        
+      list.append(button)
+      
         var src = document.getElementById("rooms");
         src.appendChild(list)
-        list.appendChild(button)
+
       
     }
 }
