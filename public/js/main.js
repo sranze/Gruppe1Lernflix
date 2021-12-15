@@ -194,7 +194,7 @@ if (rooms !== undefined) {
         button.setAttribute('class', 'btn btn-primary')
         button.onclick = function() { joinRoom(this.childNodes[0].nodeValue, this.id); };
         
-      list.append(button)
+        list.appendChild(button)
       
         var src = document.getElementById("rooms");
         src.appendChild(list)
