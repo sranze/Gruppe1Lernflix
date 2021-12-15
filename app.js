@@ -149,7 +149,7 @@ io.on('connection', (socket) => {
             console.log("User " + username + " " + userid + " joins Room: " + roomName + " " + roomId + " in Moodle Room " + moodleRoom);
             const user = userJoin(socket.id, userid, username, roomName, roomId, moodleRoom); // Get current userid, name and room
 
-            socket.join(roomId); // Join the actual room
+            socket.join(roomId); // Join the room
           
             socket.emit('enableOnJoin'); //enable Chat after joining a room.
           

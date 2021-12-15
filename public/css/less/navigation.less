@@ -5,9 +5,12 @@
   width: 100%;
   height: 56px;
 
-  .container {
+  .navcontainer {
     display: grid;
     grid-template-columns: auto auto auto;
+    width: 100%;
+    margin:0 2rem;
+    align-items: center;
 
     .logo {
       display: inline-flex;
@@ -33,6 +36,7 @@
 
       .dropdown-menu {
         width: 100%;
+        max-width: 400px;
 
         #rooms {
           display: flex;
@@ -46,6 +50,8 @@
               display: inline-flex;
               justify-content: space-between;
               width: 100%;
+              height: 50px;
+              align-items: center;
 
               &:hover {
                 background-color: #212238;
