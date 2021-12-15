@@ -371,6 +371,9 @@ a {
     display: none;
   }
 }
+#videoElements {
+  display: none;
+}
 .popup_content {
   display: none;
 }

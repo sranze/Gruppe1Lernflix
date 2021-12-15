@@ -116,6 +116,7 @@ socket.on('enableOnJoin', message => {
   document.getElementById("msg").disabled = false;
   document.getElementById("addVideo").disabled = false;
   document.getElementById("videoControls").style.display = "inherit";
+  document.getElementById("videoElements").sytle.display = "inherit";
 
 });
 

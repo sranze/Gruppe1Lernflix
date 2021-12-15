@@ -145,7 +145,7 @@ io.on('connection', (socket) => {
         })()
 
         // Join Room
-        socket.on('joinRoom', ({ userid, username, roomName, roomId, moodleRoom }) => {
+        socket.on('joinRoom', ({ userid, username, roomName, roomId, moodleRoom}) => {
             console.log("User " + username + " " + userid + " joins Room: " + roomName + " " + roomId + " in Moodle Room " + moodleRoom);
             const user = userJoin(socket.id, userid, username, roomName, roomId, moodleRoom); // Get current userid, name and room
 
