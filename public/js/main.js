@@ -173,9 +173,6 @@ function showRooms(rooms) {
       roomId = rooms[i];
       console.log("3" + roomId);
       
-      console.log("C1:"+socket.client.conn.server.clientsCount)
-      console.log("C2:"+rooms.clientsCount)
-      
       
       var userInRoom = 
 '                  <div id="userInRoom">'+
