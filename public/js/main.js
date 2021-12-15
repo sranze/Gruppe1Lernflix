@@ -172,38 +172,38 @@ function showMessage(message) {
 
 // Show rooms in DOM
 function showRooms(rooms) {
-console.log("0i" + rooms);
-if (rooms !== undefined) {
+  console.log("0i" + rooms);
+  if (rooms !== undefined) {
     var roomName = "PLACEHOLDER";
     var roomId = 1234;
-       console.log("0" + rooms.length);
+    console.log("0" + rooms.length);
     for (var i = 0; i < rooms.length; i += 2) {
-    console.log("1" + roomName);
-        roomName = rooms[i + 1];
-           console.log("2" + roomName);
-        roomId = rooms[i];
-           console.log("3" + roomId);
-        var listItem = document.createElement('div');
-        var button = document.createElement('button');
-        var bText = document.createTextNode(roomName);
-      
-        list.setAttribute('class',"listItem")
-      
-        button.setAttribute('id', rooms[i]);
-        button.appendChild(bText);
-        button.setAttribute('class', 'btn btn-primary')
-        button.onclick = function() { joinRoom(this.childNodes[0].nodeValue, this.id); };
-        
-        list.appendChild(button)
-      
-        var src = document.getElementById("rooms");
-        src.appendChild(list)
-    }
-}
+      console.log("1" + roomName);
+      roomName = rooms[i + 1];
+      console.log("2" + roomName);
+      roomId = rooms[i];
+      console.log("3" + roomId);
 
-    else {
-    console.log("Servus, das Problem wurde gefixt")
+      var listItem = document.createElement("div");
+      listItem.setAttribute("class", "listItem")
+
+      var button = document.createElement('button');
+      button.setAttribute('id', rooms[i]);
+      var bText = document.createTextNode(roomName);
+      button.appendChild(bText);
+      button.setAttribute('class', 'btn btn-primary')
+      button.onclick = function () {
+        joinRoom(this.childNodes[0].nodeValue, this.id);
+      };
+
+      listItem.appendChild(button)
+
+      var src = document.getElementById("rooms");
+      src.appendChild(listItem)
     }
+  } else {
+    console.log("Servus, das Problem wurde gefixt")
+  }
 }
 
 // Create new Room
@@ -320,10 +320,10 @@ socket.on('loadNewVideo', url => {
 
 //Change Video Title
 $(document).ready(function () {
-  $( ".videolist > button" ).click(function() {
-    var videotitle  = this.innerHTML;
+  $(".videolist > button").click(function () {
+    var videotitle = this.innerHTML;
     document.getElementById("title").innerHTML = videotitle;
-});
+  });
 
 })
 
