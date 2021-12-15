@@ -172,6 +172,7 @@ function showRooms(rooms) {
       console.log("2" + roomName);
       roomId = rooms[i];
       console.log("3" + roomId);
+
       
       
       var userInRoom = 
