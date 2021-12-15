@@ -183,18 +183,21 @@ if (rooms !== undefined) {
            console.log("2" + roomName);
         roomId = rooms[i];
            console.log("3" + roomId);
-
+        var listItem = document.createElement('div');
         var button = document.createElement('button');
         var bText = document.createTextNode(roomName);
-
+      
+        list.setAttribute('class',"listItem")
+      
         button.setAttribute('id', rooms[i]);
         button.appendChild(bText);
         button.setAttribute('class', 'btn btn-primary')
-
         button.onclick = function() { joinRoom(this.childNodes[0].nodeValue, this.id); };
 
         var src = document.getElementById("rooms");
-        src.appendChild(button);
+        src.appendChild(list)
+        list.appendChild(button)
+      
     }
 }
 
