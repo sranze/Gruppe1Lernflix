@@ -250,7 +250,7 @@ function getVideos(moodleContextId) {
 
 //Join room über Button
 function callJoinRoom() {
-  var selectedRoom = $("listItem > button.selected");
+  var selectedRoom = $(".listItem > button.selected");
   var roomName = selectedRoom.text();
   var roomID = selectedRoom.attr("id")
   if (roomName == "") {
