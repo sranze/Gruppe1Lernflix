@@ -198,8 +198,6 @@ if (rooms !== undefined) {
       
         var src = document.getElementById("rooms");
         src.appendChild(list)
-
-      
     }
 }
 
