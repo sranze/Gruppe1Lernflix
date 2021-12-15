@@ -156,31 +156,6 @@ function showMessage(message) {
 
 };
 
-// Show rooms in DOM
-function showRooms(rooms) {
-  console.log("0i" + rooms);
-  if (rooms !== undefined) {
-    var roomName = "PLACEHOLDER";
-    var roomId = 1234;
-    console.log("0" + rooms.length);
-    for (var i = 0; i < rooms.length; i += 2) {
-      console.log("Roomname" + roomName);
-      console.log("RoomID: " + roomId);
-      roomName = rooms[i + 1];
-      roomId = rooms[i];
-
-      var button = document.createElement('button');
-      var bText = document.createTextNode(roomName);
-      
-      button.setAttribute('id', rooms[i]);
-      button.appendChild(bText);
-      button.setAttribute('class', 'btn btn-primary')
-
-      button.onclick = function () {
-        joinRoom(this.childNodes[1].nodeValue, this.id);
-      };
-
-      
 //var listitem = '<div class="listItem">'+
 //'                <button id="'+rooms[i]+'" class="btn btn-primary">'+
 //'                  '+roomName+''+
@@ -193,14 +168,39 @@ function showRooms(rooms) {
 //'                  </div>'+
 //'                </button>'+
 //'              </div>';
-	
-      var src = document.getElementById("rooms");
-      src.appendChild(button);
-//      src.insertAdjacentHTML('beforeend',listitem);
+
+
+// Show rooms in DOM
+function showRooms(rooms) {
+console.log("0i" + rooms);
+if (rooms !== undefined) {
+    var roomName = "PLACEHOLDER";
+    var roomId = 1234;
+       console.log("0" + rooms.length);
+    for (var i = 0; i < rooms.length; i += 2) {
+    console.log("1" + roomName);
+        roomName = rooms[i + 1];
+           console.log("2" + roomName);
+        roomId = rooms[i];
+           console.log("3" + roomId);
+
+        var button = document.createElement('button');
+        var bText = document.createTextNode(roomName);
+
+        button.setAttribute('id', rooms[i]);
+        button.appendChild(bText);
+        button.setAttribute('class', 'btn btn-primary')
+
+        button.onclick = function() { joinRoom(this.childNodes[0].nodeValue, this.id); };
+
+        var src = document.getElementById("rooms");
+        src.appendChild(button);
     }
-  } else {
+}
+
+    else {
     console.log("Servus, das Problem wurde gefixt")
-  }
+    }
 }
 
 // Create new Room
