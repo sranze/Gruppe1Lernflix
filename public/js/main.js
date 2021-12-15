@@ -195,7 +195,7 @@ function showRooms(rooms) {
 //'              </div>';
 	
       var src = document.getElementById("rooms");
-      src.appendChild(test);
+      src.appendChild(button);
 //      src.insertAdjacentHTML('beforeend',listitem);
     }
   } else {
