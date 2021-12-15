@@ -194,7 +194,7 @@ function showRooms(rooms) {
         joinRoom(this.childNodes[0].nodeValue, this.id);
       };
       
-      button.insertAdjacentHTML(userInRoom)
+      button.appendChild(userInRoom)
       listItem.appendChild(button)
 
       var src = document.getElementById("rooms");
