@@ -251,19 +251,23 @@ rgb(33, 37, 41):root {
 .chat-container .chat-header #lernflixRoomName {
   font-size: 16px;
 }
-.chat-container .chat-messages {
-  padding: 5px;
-  max-height: 500px;
-  max-width: 500px;
-  overflow-y: scroll;
-}
-.chat-container .chat-messages .message {
+.chat-container .chat-messages .system-message {
   padding: 10px;
-  margin-bottom: 10px;
-  background-color: white;
-  border-radius: 10px;
-  max-width: 75%;
+  border-radius: 5px;
+  position: relative;
+  -webkit-animation: floatBubble 0.5s, fadein 0.5s normal ease-in;
+  animation: floatBubble 0.5s, fadein 0.5s normal ease-in;
+}
+.chat-container .chat-messages .system-message .meta {
+  color: #fff;
+  margin-bottom: 5px;
+  font-size: 16px;
+}
+.chat-container .chat-messages .system-message .text {
+  color: #fff;
   font-size: 13px;
+}
+.chat-container .chat-messages .user-message {
   position: relative;
   -webkit-animation: floatBubble 0.5s, fadein 0.5s normal ease-in;
   animation: floatBubble 0.5s, fadein 0.5s normal ease-in;
