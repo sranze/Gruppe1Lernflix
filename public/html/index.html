@@ -18,15 +18,14 @@
   <!-- Bootstrap core CSS / JS -->
   <link rel="stylesheet" href="../css/bootstrap.css">
   <script src="../assets/bootstrap/bootstrap.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
   <!-- icon bar css-->
   <link rel="stylesheet" href="../assets/icons/icon-bar.css">
   <!-- font-icons css-->
   <link rel="stylesheet" href="../assets/icons/font-icons.css">
   <!-- main css-->
   <link rel="stylesheet" href="../css/main.css">
-  
-<!--  REMOVE IF CSS is done -->
-<!--  <link rel="stylesheet" href="../css/less/navigation.css">-->
+
 
 
   <script src="/socket.io/socket.io.js"></script>
@@ -34,7 +33,7 @@
       <script src="../js/popper.js"></script>
       <script src="../js/tippy.js"></script>
     -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+
 
 </head>
 
@@ -52,8 +51,7 @@
 <script>
   $(document).ready(function() {
     $("#searchRooms").on("keyup", function() {
-      var tests = $("#rooms").children().css("display") == "none"
-      console.log(tests);
+
       var value = $(this).val().toLowerCase();
       $("#rooms button").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
@@ -64,59 +62,34 @@
 
 <body id="body">
 
-  <!--***********Create Room***********-->
 
-  <div class="modal fade" id="createRoomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Neuen Raum Anlegen</h5>
-          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form>
-            <div class="form-group">
-              <label for="recipient-name" class="col-form-label">Raumname:</label>
-              <input class="form-control" type="text" placeholder="Bitte Raumnamen eingeben" id="createRoomInputTextField">
-            </div>
-          </form>
-          <div id="error">
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Schließen</button>
-          <button type="button" class="btn btn-outline-dark" onClick="createRoom()">Raum anlegen</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--***********Create Room End***********-->
 
   <!--***********Join Room***********-->
 
   <header>
-    <div class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
+    <div class="navbar navbar-expand-md navbar-dark shadow-sm">
       <div class="navcontainer">
 
         <!--       LEFT-->
         <div class="logo">
           <img src="../assets/illustrations/logo.png">
           <a class="navbar-brand d-flex align-items-center">
-            <strong id="moodleRoomName">Lernflix</strong>
+            <strong id="moodleRoomName">VLearn</strong>
           </a>
         </div>
 
 
         <!--       MIDDLE-->
         <div class="room">
-          <button class="btn openDropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: white">
+
+          <button class="btn openDropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Raum suchen
           </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 
+          <button type="button" class="btn" data-toggle="modal" data-target="#createRoomModal" data-whatever="@getbootstrap">Raum Anlegen</button>
+
+          <div class="dropdown-menu searchRoom" aria-labelledby="dropdownMenuButton">
             <input class="form-control dropdown-toggle" type="text" placeholder="Raum Suchen" id="searchRooms" data-bs-toggle="dropdown" aria-expanded="false" onclick="selectRoom()">
-
             <!--List of all Rooms-->
             <div id="rooms" class="dropdownMenuButton roomButtons" aria-labelledby="dropdownMenuButton">
 
@@ -128,30 +101,62 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="15.111" viewBox="0 0 17 15.111">
                       <path id="Icon_metro-users" data-name="Icon metro-users" d="M13.9,16.515v-.779a4.218,4.218,0,0,0,1.889-3.51c0-2.347,0-4.25-2.833-4.25s-2.833,1.9-2.833,4.25a4.218,4.218,0,0,0,1.889,3.51v.779c-3.2.262-5.667,1.836-5.667,3.739H19.571c0-1.9-2.463-3.477-5.667-3.739Zm-6.5.365a8.973,8.973,0,0,1,2.948-1.187,5.328,5.328,0,0,1-.6-.871,5.408,5.408,0,0,1-.686-2.6,8.386,8.386,0,0,1,.452-3.45,3.075,3.075,0,0,1,2.35-1.763c-.25-1.129-.914-1.87-2.683-1.87-2.833,0-2.833,1.9-2.833,4.25A4.218,4.218,0,0,0,8.238,12.9v.779c-3.2.262-5.667,1.836-5.667,3.739H6.689a6.05,6.05,0,0,1,.711-.541Z" transform="translate(-2.571 -5.143)" />
                     </svg>
-
                   </div>
                 </button>
               </div>
 
               <div class="listItem">
                 <button id="131773" class="btn btn-primary">
-                  Search
+                  Okan
                   <div id="userInRoom">
                     <span class="countUser">3</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="15.111" viewBox="0 0 17 15.111">
                       <path id="Icon_metro-users" data-name="Icon metro-users" d="M13.9,16.515v-.779a4.218,4.218,0,0,0,1.889-3.51c0-2.347,0-4.25-2.833-4.25s-2.833,1.9-2.833,4.25a4.218,4.218,0,0,0,1.889,3.51v.779c-3.2.262-5.667,1.836-5.667,3.739H19.571c0-1.9-2.463-3.477-5.667-3.739Zm-6.5.365a8.973,8.973,0,0,1,2.948-1.187,5.328,5.328,0,0,1-.6-.871,5.408,5.408,0,0,1-.686-2.6,8.386,8.386,0,0,1,.452-3.45,3.075,3.075,0,0,1,2.35-1.763c-.25-1.129-.914-1.87-2.683-1.87-2.833,0-2.833,1.9-2.833,4.25A4.218,4.218,0,0,0,8.238,12.9v.779c-3.2.262-5.667,1.836-5.667,3.739H6.689a6.05,6.05,0,0,1,.711-.541Z" transform="translate(-2.571 -5.143)" />
                     </svg>
-
                   </div>
                 </button>
               </div>
 
+              <div class="listItem">
+                <button id="131773" class="btn btn-primary">
+                  Andre
+                  <div id="userInRoom">
+                    <span class="countUser">3</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="15.111" viewBox="0 0 17 15.111">
+                      <path id="Icon_metro-users" data-name="Icon metro-users" d="M13.9,16.515v-.779a4.218,4.218,0,0,0,1.889-3.51c0-2.347,0-4.25-2.833-4.25s-2.833,1.9-2.833,4.25a4.218,4.218,0,0,0,1.889,3.51v.779c-3.2.262-5.667,1.836-5.667,3.739H19.571c0-1.9-2.463-3.477-5.667-3.739Zm-6.5.365a8.973,8.973,0,0,1,2.948-1.187,5.328,5.328,0,0,1-.6-.871,5.408,5.408,0,0,1-.686-2.6,8.386,8.386,0,0,1,.452-3.45,3.075,3.075,0,0,1,2.35-1.763c-.25-1.129-.914-1.87-2.683-1.87-2.833,0-2.833,1.9-2.833,4.25A4.218,4.218,0,0,0,8.238,12.9v.779c-3.2.262-5.667,1.836-5.667,3.739H6.689a6.05,6.05,0,0,1,.711-.541Z" transform="translate(-2.571 -5.143)" />
+                    </svg>
+                  </div>
+                </button>
+              </div>
 
             </div>
-
-
           </div>
-          <button type="button" class="btn" data-toggle="modal" data-target="#createRoomModal" data-whatever="@getbootstrap" style="background-color: white;">Raum Anlegen</button>
+
+          <div class="modal fade" id="createRoomModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Neuen Raum Anlegen</h5>
+                  <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Raumname:</label>
+                      <input class="form-control" type="text" placeholder="Bitte Raumnamen eingeben" id="createRoomInputTextField">
+                    </div>
+                  </form>
+                  <div id="error">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn" data-dismiss="modal">Schließen</button>
+                  <button type="button" class="btn" onClick="createRoom()">Raum anlegen</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
 
@@ -184,68 +189,96 @@
       <div class="py-2 container">
         <div class="row py-lg-5">
           <div class="col-md-8 themed-grid-col">
-            <div class="videoplayer">
-              <div class="videoStatus">
-                <div class="paused">
+
+            <div class="videoContent">
+              <div class="videoplayer">
+                <div class="videoStatus">
+                  <div class="paused">
+                  </div>
+                  <img src="../assets/illustrations/video_pause.png" alt="pause" />
                 </div>
-                <img src="../assets/illustrations/video_pause.png" alt="pause" />
+                <div class="videotitle">
+                  <h2 id="title">Video Title</h2>
+                </div>
+                <video width="854" height="480" class="vid-fluid" id="videoplayer" src="" controls="false">
+                  Your browser does not support the video tag.
+                </video>
               </div>
-              <div class="videotitle">
-                <h2 id="title">Video Title</h2>
+
+              <div id="videoControls">
+                <!-- TODO: REMOVE BORDER LATER -->
+                <div id="videoElements">
+                  <div id="tooltipFlag"></div>
+                  <canvas id="flagsCanvas" width="1" height="1" style="border:1px solid #000000;"></canvas>
+
+                  <div class="row">
+                    <div class="range-slider col-lg-10">
+                      <input id="seekslider" class="range-slider__range" type="range" value="0" min="0" max="100" style="height:30px">
+                      <span id="videoplayerTimeText" class="range-slider__value" style="position:absolute">0:00/0:00</span>
+                    </div>
+                    <div class="volumeControl col-lg-2">
+                      <input class="range-slider__range" type="range" min="0" max="100" step="1" oninput="setVolume(this.value)" onchange="setVolume(this.value)">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="13.5" height="16" viewBox="0 0 13.5 16">
+                        <path id="ic_volume_down_24px" d="M18.5,12A4.5,4.5,0,0,0,16,7.97v8.05A4.474,4.474,0,0,0,18.5,12ZM5,9v6H9l5,5V4L9,9Z" transform="translate(-5 -4)" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div class="playercontrol">
+                    <button id="start" type="button" class="btn" onclick="playVideo()">Play</button>
+                    <button id="pause" class="btn " onclick="pauseVideo()">Pause</button>
+                    <button id="setFlag" class="btn " data-toggle="modal" data-target="#flagModal" onclick="loadFlagModal()">Flagge Setzen</button>
+                    <button id="removeFlag" class="btn" data-toggle="modal" data-target="#removeFlagModal" onclick="loadRemoveFlagModal()">Flagge entfernen</button>
+                    <button disabled id="addVideo" type="button" class="btn" data-toggle="modal" data-target="#listvideos">Video auswählen</button>
+
+                    <div class="popup_content" id="pop_cont">
+                      <input type="text">
+                      <button id="" onclick="flagVideo()" type="button" class="btn btn-primary btn-sm">Small button</button>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <video width="854" height="480" class="vid-fluid" id="videoplayer" src="" controls="false">
-                Your browser does not support the video tag.
-              </video>
             </div>
 
-            <div id="videoControls">
-
-              <!-- TODO: REMOVE BORDER LATER -->
-              <div id="videoElements">
-                <div id="tooltipFlag"></div>
-                <canvas id="flagsCanvas" width="1" height="1" style="border:1px solid #000000;"></canvas>
-              
-              <div class="row">
-                <div class="range-slider col-lg-10">
-                  <input id="seekslider" class="range-slider__range" type="range" value="0" min="0" max="100" style="height:30px">
-                  <span id="videoplayerTimeText" class="range-slider__value" style="position:absolute">0:00/0:00</span>
-                </div>
-                <div class="volumeControl col-lg-2">
-                  <input class="range-slider__range" type="range" min="0" max="100" step="1" oninput="setVolume(this.value)" onchange="setVolume(this.value)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="13.5" height="16" viewBox="0 0 13.5 16">
-                    <path id="ic_volume_down_24px" d="M18.5,12A4.5,4.5,0,0,0,16,7.97v8.05A4.474,4.474,0,0,0,18.5,12ZM5,9v6H9l5,5V4L9,9Z" transform="translate(-5 -4)" />
-                  </svg>
-                </div>
-              </div>
-
-              <div class="playercontrol">
-                <button id="start" type="button" class="btn btn-outline-dark" onclick="playVideo()">Play</button>
-                <button id="pause" class="btn btn-outline-dark" onclick="pauseVideo()">Pause</button>
-                <button id="setFlag" class="btn btn-primary" data-toggle="modal" data-target="#flagModal" onclick="loadFlagModal()">Flagge Setzen</button>
-                <button id="removeFlag" class="btn btn-primary" data-toggle="modal" data-target="#removeFlagModal" onclick="loadRemoveFlagModal()">Flagge entfernen</button>
-                <button disabled id="addVideo" type="button" class="btn btn-primary" data-toggle="modal" data-target="#listvideos">Video auswählen</button>
-
-                <div class="popup_content" id="pop_cont">
-                  <input type="text">
-                  <button id="" onclick="flagVideo()" type="button" class="btn btn-primary btn-sm">Small button</button>
-                </div>
-              </div>
-              </div>
-            </div>
           </div>
 
 
           <div class="col-md-4 themed-grid-col">
             <a></a>
             <div class="chat-container">
-              <header class="chat-header">
+              <div class="chat-header">
                 <h2>Chat</h2>
-                <h2 id="lernflixRoomName">&nbsp;</h2>
-              </header>
+                <p>Online: 3</p>
+<!--                <h2 id="lernflixRoomName">&nbsp;</h2>-->
+              </div>
 
 
               <main class="chat-main">
-                <div class="chat-messages"></div>
+                <div class="chat-messages">
+                  <div class="message" style="background: rgb(248, 245, 241);">
+                    <p class="meta">System <span>2.2.22 23:55</span></p>
+                    <p class="text">
+                      Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.
+                      Wähle danach das Video aus.1
+                    </p>
+                  </div>
+
+                  <div class="message">
+                    <p class="meta">Okan <span>2.2.22 23:56</span></p>
+                    <p class="text">
+                      asd
+                    </p>
+                  </div>
+
+                  <div class="message">
+                    <p class="meta">Okan <span>2.2.22 23:56</span></p>
+                    <p class="text">
+                      asd
+                    </p>
+                  </div>
+
+
+                </div>
               </main>
               <div class="chat-form-container">
                 <form id="chat-form">
@@ -450,6 +483,4 @@
 
   <script src="../js/main.js"></script>
 
-</body>
-
-</html>
+</body></html>
