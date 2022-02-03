@@ -272,7 +272,8 @@ rgb(33, 37, 41):root {
   font-size: 13px;
 }
 .chat-container .chat-messages .user-message {
-  background-image: linear-gradient(-90deg, #8771ab 0%, #7e69c5 100%);
+  background: #8771ab;
+  background: linear-gradient(90deg, #8771ab 0%, #7e69c5 100%);
   position: relative;
   -webkit-animation: floatBubble 0.5s, fadein 0.5s normal ease-in;
   animation: floatBubble 0.5s, fadein 0.5s normal ease-in;
