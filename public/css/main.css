@@ -253,11 +253,11 @@ rgb(33, 37, 41):root {
 }
 .chat-container .chat-messages > div {
   margin-bottom: 15px;
-}
-.chat-container .chat-messages .system-message {
   padding: 10px;
   border-radius: 5px;
   font-family: 'Roboto';
+}
+.chat-container .chat-messages .system-message {
   position: relative;
   -webkit-animation: floatBubble 0.5s, fadein 0.5s normal ease-in;
   animation: floatBubble 0.5s, fadein 0.5s normal ease-in;
