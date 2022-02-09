@@ -19,8 +19,8 @@ flagImg.src = "../assets/illustrations/Icon feather-flag.svg";
 // Canvas (flags) 
 let flagCanvas = document.getElementById('flagsCanvas');
 let flagCanvasctx = flagCanvas.getContext("2d")
-flagCanvas.width = videoplayerSeekslider.offsetWidth;
-flagCanvas.height = videoplayerSeekslider.offsetHeight + 20;
+flagCanvas.width = videoplayer.offsetWidth;
+flagCanvas.height = 25;
 let flagsPositions = [],
   tippyFlagTooltips = [];
 
