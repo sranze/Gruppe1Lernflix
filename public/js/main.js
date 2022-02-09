@@ -14,7 +14,7 @@ let videoplayerTimeText = document.getElementById('videoplayerTimeText');
 let roomsShown = false;
 
 const flagImg = new Image();
-flagImg.src = "../assets/illustrations/flag_black_24dp.svg";
+flagImg.src = "../assets/illustrations/Icon feather-flag.svg";
 
 // Canvas (flags) 
 let flagCanvas = document.getElementById('flagsCanvas');
