@@ -247,6 +247,7 @@ rgb(33, 37, 41):root {
   align-items: baseline;
   color: #000;
   font-family: 'Roboto', sans-serif;
+  font-weight: 300;
 }
 .chat-container .chat-header #lernflixRoomName {
   font-size: 16px;
@@ -267,6 +268,9 @@ rgb(33, 37, 41):root {
   margin-bottom: 5px;
   font-size: 16px;
 }
+.chat-container .chat-messages .system-message .meta span {
+  color: #fff;
+}
 .chat-container .chat-messages .system-message .text {
   color: #fff;
   font-size: 13px;
@@ -282,6 +286,9 @@ rgb(33, 37, 41):root {
   color: #fff;
   margin-bottom: 5px;
   font-size: 16px;
+}
+.chat-container .chat-messages .user-message .meta span {
+  color: #fff;
 }
 .chat-container .chat-messages .user-message .text {
   color: #fff;
