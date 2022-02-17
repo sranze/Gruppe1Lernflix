@@ -379,9 +379,7 @@ rgb(33, 37, 41):root {
   opacity: 0.7;
 }
 .chat-form-container {
-  padding: 20px 30px;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  padding: 20px 0px;
 }
 .chat-form-container form .chat-grid-container {
   display: grid;
@@ -393,6 +391,8 @@ rgb(33, 37, 41):root {
   font-size: 16px;
   padding: 5px;
   resize: none;
+  border-radius: 5px;
+  height: 3rem;
 }
 .chat-form-container form button {
   background-color: lightslategray;
