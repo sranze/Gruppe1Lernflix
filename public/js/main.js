@@ -195,7 +195,7 @@ function showRooms(rooms) {
       button.setAttribute('id', rooms[i]);
       var bText = document.createTextNode(roomName);
       button.appendChild(bText);
-      button.setAttribute('class', 'btn btn-primary')
+      button.setAttribute('class', 'btn')
       button.onclick = function () {
         joinRoom(this.childNodes[0].nodeValue, this.id);
       };
