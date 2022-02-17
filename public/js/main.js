@@ -476,6 +476,7 @@ function drawFlags(videoplayerInformation, flags) {
   let flagCanvasctx = flagCanvas.getContext("2d")
   let videoplayerSeekslider = document.getElementById('seekslider');
   flagCanvasctx.clearRect(0, 0, flagCanvas.width, flagCanvas.height);
+  // vorher videoplayerSeekslider
   var oneSecondLength = videoplayerSeekslider.offsetWidth / videoplayerInformation.duration;
   var positionOnCanvas = 0;
   flagsPositions = [];
