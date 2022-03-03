@@ -434,6 +434,17 @@ function getVideoInfo() {
   return videoObject;
 }
 
+//makes Flags responsive
+  function resize(){    
+    $("#flagsCanvas").outerHeight($(window).height()-$("#flagsCanvas").offset().top- Math.abs($("#flagsCanvas").outerHeight(true) - $("#flagsCanvas").outerHeight()));
+  }
+  $(document).ready(function(){
+    resize();
+    $(window).on("resize", function(){                      
+        resize();
+    });
+  });
+
 // Adds flag
 function addFlag() {
   let roomID = lernflixRoomID;
