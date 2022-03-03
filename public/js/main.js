@@ -435,15 +435,15 @@ function getVideoInfo() {
 }
 
 //makes Flags responsive
-  function resize(){    
-    $("#flagsCanvas").outerWidth($(window).width()-$("#flagsCanvas").offset().top- Math.abs($("#flagsCanvas").outerWidth(true) - $("#flagsCanvas").outerWidth()));
-  }
-  $(document).ready(function(){
-    resize();
-    $(window).on("resize", function(){                      
-        resize();
-    });
-  });
+//  function resize(){    
+//    $("#flagsCanvas").outerWidth($(window).width()-$("#flagsCanvas").offset().top- Math.abs($("#flagsCanvas").outerWidth(true) - $("#flagsCanvas").outerWidth()));
+//  }
+//  $(document).ready(function(){
+//    resize();
+//    $(window).on("resize", function(){                      
+//        resize();
+//    });
+//  });
 
 // Adds flag
 function addFlag() {
