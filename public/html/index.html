@@ -178,19 +178,23 @@
                   <canvas id="flagsCanvas" width="1" height="1" style="border:1px solid #000000;"></canvas>
 
                   <div class="row">
-                    <div class="range-slider col-lg-10">
+                    <div class="range-slider">
                       <input id="seekslider" class="range-slider__range" type="range" value="0" min="0" max="100" style="height:30px">
-                      <span id="videoplayerTimeText" class="range-slider__value" style="position:absolute">0:00/0:00</span>
+                      <span id="videoplayerTimeText" class="range-slider__value">0:00/0:00</span>
                     </div>
-                    <div class="volumeControl col-lg-2">
+                  </div>
+
+                  <div class="row range-slider-attributes">
+                    <div class="volumeControl">
                       <input class="range-slider__range" type="range" min="0" max="100" step="1" oninput="setVolume(this.value)" onchange="setVolume(this.value)">
                       <svg xmlns="http://www.w3.org/2000/svg" width="13.5" height="16" viewBox="0 0 13.5 16">
                         <path id="ic_volume_down_24px" d="M18.5,12A4.5,4.5,0,0,0,16,7.97v8.05A4.474,4.474,0,0,0,18.5,12ZM5,9v6H9l5,5V4L9,9Z" transform="translate(-5 -4)" />
                       </svg>
                     </div>
+                    
                   </div>
-
                   <div class="playercontrol">
+
                     <button id="start" type="button" class="btn" onclick="playVideo()">Play</button>
                     <button id="pause" class="btn " onclick="pauseVideo()">Pause</button>
                     <button id="setFlag" class="btn " data-toggle="modal" data-target="#flagModal" onclick="loadFlagModal()">Flagge Setzen</button>
@@ -227,10 +231,10 @@
                 <form id="chat-form">
                   <div class="chat-grid-container">
                     <textarea type="text" form="chat-form" rows="2" id="msg" placeholder="Nachricht eingeben" required="" autocomplete="off" resize="none;" disabled></textarea>
-           
+
                     <button class="col-xl-3 col-lg-4 col-md-12  btn btn-outline-dark" id="send">
 
-                      <svg  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="20.559" viewBox="0 0 23 20.559">
+                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="20.559" viewBox="0 0 23 20.559">
                         <defs>
                           <filter id="Send_icon" x="0" y="0" width="23" height="20.559" filterUnits="userSpaceOnUse">
                             <feOffset dy="3" input="SourceAlpha" />
