@@ -395,15 +395,17 @@ rgb(33, 37, 41):root {
   height: 3rem;
 }
 .chat-form-container form button {
-  background-color: lightslategray;
-  color: #fff;
+  background-color: #fff;
   width: 100%;
 }
 .chat-form-container form button a {
   color: #fff;
 }
 .chat-form-container form button:hover {
-  background-color: #42b883;
+  background-color: #5C4289;
+}
+.chat-form-container form button:hover svg {
+  fill: #fff;
 }
 @media (max-width: 700px) {
   .chat-main {

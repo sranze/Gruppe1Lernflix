@@ -39,8 +39,8 @@ rgb(33, 37, 41):root {
   }
 
   .chat-messages {
-    
-    & > div{
+
+    & > div {
       margin-bottom: 15px;
       padding: 10px;
       border-radius: 5px;
@@ -53,7 +53,8 @@ rgb(33, 37, 41):root {
         color: #fff;
         margin-bottom: 5px;
         font-size: 16px;
-         & span{
+
+        & span {
           color: #fff;
         }
       }
@@ -73,15 +74,15 @@ rgb(33, 37, 41):root {
     }
 
     .user-message {
-      background: rgb(135,113,171);
-      background: linear-gradient(90deg, rgba(135,113,171,1) 0%, rgba(126,105,197,1) 100%);
+      background: rgb(135, 113, 171);
+      background: linear-gradient(90deg, rgba(135, 113, 171, 1) 0%, rgba(126, 105, 197, 1) 100%);
 
       .meta {
         color: #fff;
         margin-bottom: 5px;
         font-size: 16px;
-      
-        & span{
+
+        & span {
           color: #fff;
         }
       }
@@ -90,7 +91,7 @@ rgb(33, 37, 41):root {
         color: #fff;
         font-size: 13px;
       }
-      
+
       //Animation
       position: relative;
       -webkit-animation: floatBubble 0.5s,
@@ -222,12 +223,11 @@ rgb(33, 37, 41):root {
       padding: 5px;
       resize: none;
       border-radius: 5px;
-      height: 3rem;  
+      height: 3rem;
     }
 
     button {
-      background-color: lightslategray;
-      color: #fff;
+      background-color: #fff;
       width: 100%;
 
       a {
@@ -235,7 +235,11 @@ rgb(33, 37, 41):root {
       }
 
       &:hover {
-        background-color: #42b883;
+        background-color: @purple;
+        
+        svg{
+          fill: #fff;
+        }
       }
     }
   }

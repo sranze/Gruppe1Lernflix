@@ -151,6 +151,9 @@
     <section>
       <div class="py-2 container">
         <div class="row py-lg-5">
+         <h2>
+           <strong id="moodleRoomName">Lernflix - Entwicklungsraum</strong>
+         </h2>
           <div class="col-md-8 themed-grid-col">
 
             <div class="videoContent">
@@ -212,7 +215,7 @@
               <div class="chat-header">
                 <h2>Chat</h2>
                 <p>Online: 3</p>
-<!--                <h2 id="lernflixRoomName">&nbsp;</h2>-->
+                <!--                <h2 id="lernflixRoomName">&nbsp;</h2>-->
               </div>
 
 
@@ -224,7 +227,24 @@
                 <form id="chat-form">
                   <div class="chat-grid-container">
                     <textarea type="text" form="chat-form" rows="2" id="msg" placeholder="Nachricht eingeben" required="" autocomplete="off" resize="none;" disabled></textarea>
-                    <button class="col-xl-3 col-lg-4 col-md-12  btn btn-outline-dark" id="send">Send</button>
+                    <button class="col-xl-3 col-lg-4 col-md-12  btn btn-outline-dark" id="send">
+                      
+                       <svg id="sendsvg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="20.559" viewBox="0 0 23 20.559">
+                        <defs>
+                          <filter id="Send_icon" x="0" y="0" width="23" height="20.559" filterUnits="userSpaceOnUse">
+                            <feOffset dy="3" input="SourceAlpha" />
+                            <feGaussianBlur stdDeviation="1" result="blur" />
+                            <feFlood flood-opacity="0.161" />
+                            <feComposite operator="in" in2="blur" />
+                            <feComposite in="SourceGraphic" />
+                          </filter>
+                        </defs>
+                        <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Send_icon)">
+                          <path id="Send_icon-2" data-name="Send icon" d="M3.008,19.059,20,11.78,3.008,4.5,3,10.162,15.143,11.78,3,13.4Z" transform="translate(0 -4.5)" fill="#3d1874" />
+                        </g>
+                      </svg>
+                      
+                    </button>
                   </div>
                 </form>
               </div>
@@ -423,4 +443,6 @@
 
   <script src="../js/main.js"></script>
 
-</body></html>
+</body>
+
+</html>
