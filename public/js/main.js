@@ -436,7 +436,7 @@ function getVideoInfo() {
 
 //makes Flags responsive
   function resize(){    
-    $("#flagsCanvas").outerHeight($(window).height()-$("#flagsCanvas").offset().top- Math.abs($("#flagsCanvas").outerHeight(true) - $("#flagsCanvas").outerHeight()));
+    $("#flagsCanvas").outerWidth($(window).width()-$("#flagsCanvas").offset().top- Math.abs($("#flagsCanvas").outerWidth(true) - $("#flagsCanvas").outerWidth()));
   }
   $(document).ready(function(){
     resize();
