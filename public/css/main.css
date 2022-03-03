@@ -92,7 +92,7 @@ body {
 }
 #videoElements canvas {
   background-color: #212238;
-  border: 1px solid red;
+  width: 100%;
 }
 .popup_content {
   display: none;
