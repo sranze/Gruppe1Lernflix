@@ -74,7 +74,7 @@
         <div class="logo">
           <img src="../assets/illustrations/logo.png">
           <a class="navbar-brand d-flex align-items-center">
-            <strong id="moodleRoomName">VLearn</strong>
+            <strong id="logoName">VLearn</strong>
           </a>
         </div>
 
@@ -151,9 +151,9 @@
     <section>
       <div class="py-2 container">
         <div class="row py-lg-5">
-         <h2>
-           <strong id="moodleRoomName">Lernflix - Entwicklungsraum</strong>
-         </h2>
+          <h2>
+            <span id="moodleRoomName">Lernflix - Entwicklungsraum</span>
+          </h2>
           <div class="col-md-8 themed-grid-col">
 
             <div class="videoContent">
@@ -227,9 +227,10 @@
                 <form id="chat-form">
                   <div class="chat-grid-container">
                     <textarea type="text" form="chat-form" rows="2" id="msg" placeholder="Nachricht eingeben" required="" autocomplete="off" resize="none;" disabled></textarea>
+           
                     <button class="col-xl-3 col-lg-4 col-md-12  btn btn-outline-dark" id="send">
-                      
-                       <svg id="sendsvg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="20.559" viewBox="0 0 23 20.559">
+
+                      <svg  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="23" height="20.559" viewBox="0 0 23 20.559">
                         <defs>
                           <filter id="Send_icon" x="0" y="0" width="23" height="20.559" filterUnits="userSpaceOnUse">
                             <feOffset dy="3" input="SourceAlpha" />
@@ -240,11 +241,12 @@
                           </filter>
                         </defs>
                         <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Send_icon)">
-                          <path id="Send_icon-2" data-name="Send icon" d="M3.008,19.059,20,11.78,3.008,4.5,3,10.162,15.143,11.78,3,13.4Z" transform="translate(0 -4.5)" fill="#3d1874" />
+                          <path id="sendsvg" data-name="Send icon" d="M3.008,19.059,20,11.78,3.008,4.5,3,10.162,15.143,11.78,3,13.4Z" transform="translate(0 -4.5)" fill="#3d1874" />
                         </g>
                       </svg>
-                      
+
                     </button>
+
                   </div>
                 </form>
               </div>
@@ -275,7 +277,7 @@
         </div>
       </div>
     </div>
-    <!--Modal Video Selection End-->
+
 
     <!-- Flag Modal -->
     <div class="modal right fade" id="flagModal" tabindex="-1" role="dialog" aria-labelledby="flagModalLable" aria-hidden="true">
@@ -299,8 +301,6 @@
         </div>
       </div>
     </div>
-    <!-- Flag Modal End-->
-
 
     <!-- Remove Flag Modal -->
     <div class="modal fade" id="removeFlagModal" tabindex="-1" role="dialog" aria-labelledby="removeFlagModalLable" aria-hidden="true">
@@ -320,8 +320,6 @@
         </div>
       </div>
     </div>
-    <!-- Remove Flag Modal End-->
-
 
     <!-- Feedback Modal -->
     <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="flagModalLable" aria-hidden="true">
@@ -344,7 +342,6 @@
         </div>
       </div>
     </div>
-    <!-- End Feedback Modal -->
 
     <!-- About Lernflix-->
     <div class="modal fade" id="about" tabindex="-1" role="dialog" aria-labelledby="contact" aria-hidden="true">
@@ -371,7 +368,6 @@
       </div>
     </div>
 
-
     <!-- Modal Contact-->
     <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="contact" aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -390,10 +386,8 @@
       </div>
     </div>
 
-    <!-- Modal Contact End-->
 
     <!-- Navbar Bottom-->
-
     <div class="navba" style="text-align:center">
       <a href="#home" data-toggle="modal" data-target="#feedbackModal" style="text-align:center">Feedback</a>
       <a href="#news" style="text-align:center" data-toggle="modal" data-target="#about"> Über Lernflix</a>
@@ -401,7 +395,6 @@
       <a href="https://faq-lernflix.herokuapp.com/" style="text-align:center">FAQ</a>
     </div>
 
-    <!-- Navbar Bottom End-->
 
     <script>
       $(document).ready(function() {

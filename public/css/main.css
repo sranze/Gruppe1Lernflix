@@ -5,6 +5,11 @@ html {
 body {
   background-color: #ECECEC;
 }
+#moodleRoomName {
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.1ch;
+  font-weight: 500;
+}
 .videoplayer {
   position: relative;
 }
@@ -105,13 +110,14 @@ body {
   color: #fff;
   -webkit-box-shadow: 0px 5px 20px 0px #B5B5B5;
   box-shadow: 0px 5px 20px 0px #B5B5B5;
+  transition: 0.3s ease-out;
 }
 .playercontrol button:hover {
   background-color: #7655b3;
   color: #fff;
   -webkit-box-shadow: 0px 5px 20px 0px rgba(118, 85, 179, 0.41);
   box-shadow: 0px 5px 20px 0px rgba(118, 85, 179, 0.5);
-  transition: 0.3s;
+  transition: 0.3s ease-out;
 }
 .volumeControl {
   margin-top: 5px;
@@ -214,6 +220,13 @@ input::-moz-focus-outer {
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/roboto/v29/KFOkCnqEu92Fr1MmgWxP.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
   font-weight: 300;
   font-display: swap;
   src: url(https://fonts.gstatic.com/s/roboto/v29/KFOlCnqEu92Fr1MmSU5vAw.ttf) format('truetype');
@@ -248,6 +261,9 @@ rgb(33, 37, 41):root {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+}
+.chat-container .chat-header h2,
+.chat-container .chat-header p {
   color: #000;
   font-family: 'Roboto', sans-serif;
   font-weight: 300;
@@ -381,31 +397,31 @@ rgb(33, 37, 41):root {
 .chat-form-container {
   padding: 20px 0px;
 }
-.chat-form-container form .chat-grid-container {
+.chat-form-container #chat-form .chat-grid-container {
   display: grid;
   grid-template-columns: auto auto;
   grid-column-gap: 15px;
   align-items: flex-end;
 }
-.chat-form-container form textarea[type='text'] {
+.chat-form-container #chat-form textarea[type='text'] {
   font-size: 16px;
   padding: 5px;
   resize: none;
   border-radius: 5px;
   height: 3rem;
 }
-.chat-form-container form button {
-  background-color: #fff;
+.chat-form-container #chat-form button#send {
+  background-color: transparent;
   width: 100%;
+  transition: 0.3s ease-out;
 }
-.chat-form-container form button a {
-  color: #fff;
-}
-.chat-form-container form button:hover {
+.chat-form-container #chat-form button#send:hover {
   background-color: #5C4289;
+  transition: 0.3s ease-out;
 }
-.chat-form-container form button:hover svg {
+.chat-form-container #chat-form button#send:hover #sendsvg {
   fill: #fff;
+  transition: 0.4s ease-out;
 }
 @media (max-width: 700px) {
   .chat-main {

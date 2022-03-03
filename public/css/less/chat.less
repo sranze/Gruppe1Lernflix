@@ -1,6 +1,6 @@
 //main: _main.less
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap');
 
 
 
@@ -29,10 +29,11 @@ rgb(33, 37, 41):root {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    h2,p{
     color: #000;
     font-family: 'Roboto', sans-serif;
     font-weight: 300;
-
+    }
     #lernflixRoomName {
       font-size: 16px;
     }
@@ -206,11 +207,10 @@ rgb(33, 37, 41):root {
   }
 }
 
-
 .chat-form-container {
   padding: 20px 0px;
 
-  form {
+  #chat-form {
     .chat-grid-container {
       display: grid;
       grid-template-columns: auto auto;
@@ -226,24 +226,28 @@ rgb(33, 37, 41):root {
       height: 3rem;
     }
 
-    button {
-      background-color: #fff;
+    button#send {
+      background-color: transparent;
       width: 100%;
+      transition: 0.3s ease-out;
 
-      a {
-        color: #fff;
-      }
+
 
       &:hover {
         background-color: @purple;
-        
-        svg{
+        transition: 0.3s ease-out;
+
+        #sendsvg {
           fill: #fff;
+          transition: 0.4s ease-out;
+          
         }
       }
+
     }
   }
 }
+
 
 @media (max-width: 700px) {
   .chat-main {
