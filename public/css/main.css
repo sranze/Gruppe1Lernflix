@@ -160,10 +160,10 @@ body {
   transition: background 0.15s ease-in-out;
 }
 .range-slider__range::-webkit-slider-thumb:hover {
-  background: #1abc9c;
+  background: #5C4289;
 }
 .range-slider__range:active::-webkit-slider-thumb {
-  background: #1abc9c;
+  background: #5C4289;
 }
 .range-slider__range::-moz-range-thumb {
   width: 20px;
