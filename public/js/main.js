@@ -1,6 +1,7 @@
 // Chat references
 const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
+const chatSend = document.getElementById('send');
 
 // Websocket
 const socket = io(); // New socket object
@@ -121,7 +122,7 @@ socket.on('enableOnJoin', message => {
 });
 
 // Submit/Send message
-chatForm.addEventListener('submit', (e) => {
+chatSend.addEventListener('click', (e) => {
   e.preventDefault(); // Stop default submission to file
 
   const message = e.target.elements.msg.value; // Get message value (string)
