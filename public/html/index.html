@@ -405,6 +405,8 @@
         $('#msg').keypress(function(e) {
           if (e.keyCode == 13 && e.shiftKey){
             e.preventDefault();
+            alert("it works!")
+            $('#msg').append("\n\r")
           } else if(e.keyCode == 13){
             $('#send').click();
           }
