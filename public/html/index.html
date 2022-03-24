@@ -403,8 +403,11 @@
     <script>
       $(document).ready(function() {
         $('#msg').keypress(function(e) {
-          if (e.keyCode == 13 && e.shiftKey)
+          if (e.keyCode == 13 && e.shiftKey){
             e.preventDefault();
+          } else if(e.keyCode == 13){
+            $('#send').click();
+          }
         });
       });
     </script>
