@@ -127,8 +127,7 @@ chatForm.addEventListener('submit', (e) => {
   const message = e.target.elements.msg.value; // Get message value (string)
 
   socket.emit('chatMessage', message); // Emit message to backend
-
-  document.getElementById('msg').value = ''; // Clear input textfield
+  document.getElementById('msg').value = ''// Clear input textfield
   document.getElementById('msg').focus(); // Focus on latest message
 });
 

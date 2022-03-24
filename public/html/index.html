@@ -401,20 +401,10 @@
 
 
     <script>
-      
-      async function sendClick(){
-        $('#send').click();
-      }
       $(document).ready(function() {
-
         $('#msg').keypress(function(e) {
-          if (e.which == 13 && !e.shiftKey){
-            sendClick().then($('#msg').val("");)
-          } else if (e.which == 13 && e.shiftKey){
-            $('#msg').append("\n");
-          }
-            
-          )
+          if (e.keyCode == 13)
+            $('#send').click();
         });
       });
     </script>
