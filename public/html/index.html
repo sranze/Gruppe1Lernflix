@@ -401,12 +401,15 @@
 
 
     <script>
+      
+      async function sendClick(){
+        $('#send').click();
+      }
       $(document).ready(function() {
-        
+
         $('#msg').keypress(function(e) {
           if (e.which == 13 && !e.shiftKey){
-            $('#send').click();
-            $('#msg').val("");
+            sendClick().then($('#msg').val("");)
           } else if (e.which == 13 && e.shiftKey){
             $('#msg').append("\n");
           }
