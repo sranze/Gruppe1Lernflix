@@ -402,9 +402,12 @@
 
     <script>
       $(document).ready(function() {
+        
         $('#msg').keypress(function(e) {
-          if (e.which == 13)
+          if (e.which == 13 && !e.shiftKey){
             $('#send').click();
+
+          }
         });
       });
     </script>
