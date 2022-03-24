@@ -151,7 +151,6 @@
     <section>
       <div class="py-2 container">
         <div class="row py-lg-5">
-         <a href="https://opencast-engage.hs-rw.de/search/episode.json?limit=18&offset=0&q=14482&">This is a test</a>
           <h2>
             <span id="moodleRoomName">Lernflix - Entwicklungsraum</span>
           </h2>
@@ -404,31 +403,10 @@
     <script>
       $(document).ready(function() {
         $('#msg').keypress(function(e) {
-          if (e.keyCode == 13)
+          if (e.which == 13)
             $('#send').click();
         });
       });
-    </script>
-
-
-    <script>
-      var result = bowser.getParser(window.navigator.userAgent);
-      console.log(result);
-      document.write("You are using " + result.parsedResult.browser.name +
-        " v" + result.parsedResult.browser.version +
-        " on " + result.parsedResult.os.name);
-
-
-
-      console.log("Used Browser: " + result.parsedResult.browser.name);
-      document.write("Used Browser: " + result.parsedResult.browser.name);
-
-
-      if (result.parsedResult.browser.name == "Chrome" || "Firefox" || "Microsoft Edge" || "Opera") {
-        document.write("");
-      } else {
-        alert("Ihr Browser wird aktuell NICHT unterstützt. Bitte verwenden Sie einen der folgenden Browser: Chrome, Firefox, Microsoft Edge oder Opera");
-      }
     </script>
 
 
