@@ -405,6 +405,7 @@
         $('#msg').keypress(function(e) {
           if (e.keyCode == 13)
             $('#send').click();
+          document.getElementById('msg').value = "";
         });
       });
     </script>
