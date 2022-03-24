@@ -1,7 +1,6 @@
 // Chat references
 const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
-const chatSend = document.getElementById('send');
 
 // Websocket
 const socket = io(); // New socket object
@@ -122,13 +121,14 @@ socket.on('enableOnJoin', message => {
 });
 
 // Submit/Send message
-chatSend.addEventListener('click', (e) => {
+chatForm.addEventListener('submit', (e) => {
   e.preventDefault(); // Stop default submission to file
 
   const message = e.target.elements.msg.value; // Get message value (string)
 
   socket.emit('chatMessage', message); // Emit message to backend
-  document.getElementById('msg').value = ''// Clear input textfield
+
+  document.getElementById('msg').value = ''; // Clear input textfield
   document.getElementById('msg').focus(); // Focus on latest message
 });
 
