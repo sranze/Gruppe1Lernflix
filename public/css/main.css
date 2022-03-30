@@ -573,7 +573,7 @@ rgb(33, 37, 41):root {
     padding: 10px;
     font-size: 14px;
   }
-  .navbar .navcontainer .room .profileInfo img {
+  .navbar .navcontainer .profileInfo #profileImg {
     display: none;
   }
 }

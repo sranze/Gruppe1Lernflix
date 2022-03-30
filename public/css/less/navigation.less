@@ -177,31 +177,33 @@
   }
 }
 
-    //  remove profile pic at 500px
-    @media screen and (max-width: 500px) {
-      .navbar {
-        .navcontainer {
-          .logo {
-            display: none;
-          }
-          
-          .room{
-            display: grid;
-            grid-gap: 5px;
-            grid-template-columns: auto auto;
-            
-            button{
-              padding: 10px;
-              font-size: 14px;
-            }
-            
-            .profileInfo{
-              img{
-                display: none;
-              }
-              
-            }
-          }
+//  remove profile pic at 500px
+@media screen and (max-width: 500px) {
+  .navbar {
+    .navcontainer {
+      .logo {
+        display: none;
+      }
+
+      .room {
+        display: grid;
+        grid-gap: 5px;
+        grid-template-columns: auto auto;
+
+        button {
+          padding: 10px;
+          font-size: 14px;
+        }
+
+
+
+      }
+
+      .profileInfo {
+        #profileImg {
+          display: none;
         }
       }
     }
+  }
+}
