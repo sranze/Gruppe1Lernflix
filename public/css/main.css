@@ -564,6 +564,15 @@ rgb(33, 37, 41):root {
   .navbar .navcontainer .logo {
     display: none;
   }
+  .navbar .navcontainer .room {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: auto auto;
+  }
+  .navbar .navcontainer .room button {
+    padding: 10px;
+    font-size: 14px;
+  }
 }
 /* Place the navbar at the bottom of the page, and make it stick */
 .navba {
