@@ -573,6 +573,9 @@ rgb(33, 37, 41):root {
     padding: 10px;
     font-size: 14px;
   }
+  .navbar .navcontainer .room .profileInfo img {
+    display: none;
+  }
 }
 /* Place the navbar at the bottom of the page, and make it stick */
 .navba {
