@@ -8,7 +8,8 @@
 
 .navbar {
   width: 100%;
-  height: 56px;
+  min-height: 56px;
+  height: auto;
   background-color: @purple;
 
   .navcontainer {
@@ -166,10 +167,20 @@
   }
 }
 
-/* Add responsiveness - will automatically display the navbar vertically instead of horizontally on screens less than 500 pixels */
+/* removes Logo at 600px width */
+@media screen and (max-width: 600px) {
+.navbar {
+  .navcontainer {
+    .logo{
+      display: none;
+    }
+}
+  
+//  remove profile pic at 500px
 @media screen and (max-width: 500px) {
-  .navbar a {
-    float: none;
-    display: block;
-  }
+.navbar {
+  .navcontainer {
+    .logo{
+      display: none;
+    }
 }
