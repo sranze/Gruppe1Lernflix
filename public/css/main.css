@@ -239,6 +239,34 @@ input.range-slider__range[type='range']::-ms-fill-upper,
 input.range-slider__range[type='range']:focus::-ms-fill-upper {
   background-color: #9a905d;
 }
+#flagModal input,
+#removeFlagModal input {
+  color: #000;
+  font-size: 1rem;
+}
+#flagModal input:focus,
+#removeFlagModal input:focus {
+  background-color: #fff;
+  border-color: #fff;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(92, 66, 137, 0.25);
+}
+#flagModal .modal-dialog .modal-footer > button,
+#removeFlagModal .modal-dialog .modal-footer > button {
+  background-color: #5C4289;
+  color: #fff;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+#flagModal .modal-dialog .modal-footer > button:hover,
+#removeFlagModal .modal-dialog .modal-footer > button:hover {
+  background-color: #8660C7;
+}
+#flagModal .modal-dialog .modal-content svg,
+#removeFlagModal .modal-dialog .modal-content svg {
+  width: 15px;
+  height: auto;
+}
 .icons {
   padding: 16px 12px;
 }

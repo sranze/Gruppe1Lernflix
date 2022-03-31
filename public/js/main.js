@@ -446,13 +446,14 @@ function getVideoInfo() {
 //  });
 
 // Adds flag
-function addFlag() {
+function addFlag(flagID) {
   let roomID = lernflixRoomID;
   let videoTime = videoplayer.currentTime;
   let annotation = document.getElementById('flagAnnotation').value;
   let videoURL = videoplayer.src;
   let creatorID = params.userid;
   let creatorUsername = params.username;
+  let flagID = 1;
   let flagInformation = {
     roomID: roomID,
     creatorID: creatorID,
@@ -460,6 +461,7 @@ function addFlag() {
     videoURL: videoURL,
     annotation: annotation,
     creatorUsername: creatorUsername,
+    flagID: flagID;
   }
   if (flagInformation.roomID === 'undefined' || flagInformation.creatorID === 'undefined' || flagInformation.videoTime === 'undefined' || flagInformation.videoURL === 'undefined' || flagInformation.annotation === 'undefined' || flagInformation.creatorUsername === 'undefined') {
     createSystemNotification("Fehler beim Hinzufügen einer Flagge. Bitte später erneut versuchen.", false);
@@ -483,6 +485,7 @@ socket.on('createFlags', flags => {
 
 // Draws Flags on canvas and creates tooltip-instances
 function drawFlags(videoplayerInformation, flags) {
+  console.log(flags.flagID)
   let flagCanvas = document.getElementById('flagsCanvas');
   let flagCanvasctx = flagCanvas.getContext("2d")
   let videoplayerSeekslider = document.getElementById('seekslider');

@@ -180,15 +180,15 @@
                   <div class="row">
                     <div class="range-slider">
                       <input id="seekslider" class="range-slider__range" type="range" value="0" min="0" max="100">
-                                        <div class="row range-slider-attributes">
-                    <div class="volumeControl">
-                      <input class="range-slider__range" type="range" min="0" max="100" step="1" oninput="setVolume(this.value)" onchange="setVolume(this.value)">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="13.5" height="16" viewBox="0 0 13.5 16">
-                        <path id="ic_volume_down_24px" d="M18.5,12A4.5,4.5,0,0,0,16,7.97v8.05A4.474,4.474,0,0,0,18.5,12ZM5,9v6H9l5,5V4L9,9Z" transform="translate(-5 -4)" />
-                      </svg>
-                    </div>
-                    
-                  </div>
+                      <div class="row range-slider-attributes">
+                        <div class="volumeControl">
+                          <input class="range-slider__range" type="range" min="0" max="100" step="1" oninput="setVolume(this.value)" onchange="setVolume(this.value)">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="13.5" height="16" viewBox="0 0 13.5 16">
+                            <path id="ic_volume_down_24px" d="M18.5,12A4.5,4.5,0,0,0,16,7.97v8.05A4.474,4.474,0,0,0,18.5,12ZM5,9v6H9l5,5V4L9,9Z" transform="translate(-5 -4)" />
+                          </svg>
+                        </div>
+
+                      </div>
                       <span id="videoplayerTimeText" class="range-slider__value">0:00/0:00</span>
                     </div>
                   </div>
@@ -199,6 +199,7 @@
                     <button id="start" type="button" class="btn" onclick="playVideo()">Play</button>
                     <button id="pause" class="btn " onclick="pauseVideo()">Pause</button>
                     <button id="setFlag" class="btn " data-toggle="modal" data-target="#flagModal" onclick="loadFlagModal()">Flagge Setzen</button>
+                    <button id="setFlag2" class="btn " data-toggle="modal" data-target="#flagModal2" onclick="loadFlagModal()">Flagge Setzen2</button>
                     <button id="removeFlag" class="btn" data-toggle="modal" data-target="#removeFlagModal" onclick="loadRemoveFlagModal()">Flagge entfernen</button>
                     <button disabled id="addVideo" type="button" class="btn" data-toggle="modal" data-target="#listvideos">Video auswählen</button>
 
@@ -289,7 +290,17 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="flagModalLable"><img id="flagImg" src="../assets/illustrations/flag_black_24dp.svg" alt="A Flag.">Flagge setzen</h5>
+            <h5 class="modal-title" id="flagModalLable">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11.824" height="14.28" viewBox="0 0 11.824 14.28">
+                <g id="Icon_feather-flag" data-name="Icon feather-flag" transform="translate(-5 -2)">
+                  <path id="Pfad_1" data-name="Pfad 1" d="M6,10.982a3.589,3.589,0,0,1,2.456-.614c1.842,0,3.07,1.228,4.912,1.228a3.589,3.589,0,0,0,2.456-.614V3.614a3.589,3.589,0,0,1-2.456.614C11.526,4.228,10.3,3,8.456,3A3.589,3.589,0,0,0,6,3.614Z" fill="none" stroke="#212238" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                  <path id="Pfad_2" data-name="Pfad 2" d="M6,26.8V22.5" transform="translate(0 -11.518)" fill="none" stroke="#212238" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                </g>
+              </svg>
+
+
+              Flagge setzen
+            </h5>
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
             </button>
           </div>
@@ -301,7 +312,40 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addFlag()">Speichern</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addFlag(0)">Speichern</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+        <div class="modal right fade" id="flagModal2" tabindex="-1" role="dialog" aria-labelledby="flagModalLable" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="flagModalLable">
+              <svg xmlns="http://www.w3.org/2000/svg" width="11.824" height="14.28" viewBox="0 0 11.824 14.28">
+                <g id="Icon_feather-flag" data-name="Icon feather-flag" transform="translate(-5 -2)">
+                  <path id="Pfad_1" data-name="Pfad 1" d="M6,10.982a3.589,3.589,0,0,1,2.456-.614c1.842,0,3.07,1.228,4.912,1.228a3.589,3.589,0,0,0,2.456-.614V3.614a3.589,3.589,0,0,1-2.456.614C11.526,4.228,10.3,3,8.456,3A3.589,3.589,0,0,0,6,3.614Z" fill="none" stroke="#212238" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                  <path id="Pfad_2" data-name="Pfad 2" d="M6,26.8V22.5" transform="translate(0 -11.518)" fill="none" stroke="#212238" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" />
+                </g>
+              </svg>
+
+
+              Flagge setzen2
+            </h5>
+            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="videoPreview" style="display: inline-block; top: 4px; position: relative ;border: dotted 1px #ccc; padding: 2px;"></div>
+            <br>
+            <label>Bemerkung:</label>
+            <textarea name="flagAnnotationName" placeholder="Teile Deine Bemerkung mit anderen" class="form-control" id="flagAnnotation" rows="2"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Abbrechen</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addFlag(1)">Speichern</button>
           </div>
         </div>
       </div>
@@ -332,9 +376,12 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="feedbackModalLable">
-<!--            <img src="../assets/illustrations/afd4i-yydke.svg" alt="A Flag.">-->
-           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="24" height="24"><path fill-rule="evenodd" d="M8 16A8 8 0 108 0a8 8 0 000 16zM4 5a1 1 0 011-1h6a1 1 0 011 1v5a1 1 0 01-1 1H8.707l-1.853 1.854A.5.5 0 016 12.5V11H5a1 1 0 01-1-1V5z"></path></svg>
-            Du hast Anregungen oder ein Feedback?</h5>
+              <!--            <img src="../assets/illustrations/afd4i-yydke.svg" alt="A Flag.">-->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="24" height="24">
+                <path fill-rule="evenodd" d="M8 16A8 8 0 108 0a8 8 0 000 16zM4 5a1 1 0 011-1h6a1 1 0 011 1v5a1 1 0 01-1 1H8.707l-1.853 1.854A.5.5 0 016 12.5V11H5a1 1 0 01-1-1V5z"></path>
+              </svg>
+              Du hast Anregungen oder ein Feedback?
+            </h5>
             <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
