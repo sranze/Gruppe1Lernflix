@@ -19,6 +19,8 @@ rgb(33, 37, 41):root {
   flex-direction: column;
   max-width: 350px;
   padding: 20px;
+  margin: 0 auto;
+  margin-bottom: 10vh;
   overflow: hidden;
   border-radius: 5px;
   background-image: linear-gradient(#e1e8f8 0%, #dedbf9 62.9%, #d5adfb 100%);
@@ -240,6 +242,10 @@ rgb(33, 37, 41):root {
 
 .chat-form-container {
   padding: 20px 0px;
+  
+  & #chat-form textarea[type='text']{
+    overflow: hidden;
+  }
 
   #chat-form {
     .chat-grid-container {
@@ -281,6 +287,9 @@ rgb(33, 37, 41):root {
 
 
 @media (max-width: 700px) {
+  .chat-container {
+    margin-top: 5vh;
+  }
   .chat-main {
     display: block;
   }
