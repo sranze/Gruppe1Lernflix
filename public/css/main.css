@@ -284,11 +284,13 @@ rgb(33, 37, 41):root {
   background: rgba(0, 0, 0, 0);
 }
 .chat-container .chat-messages::-webkit-scrollbar-thumb {
-  background: #7655b3;
+  background: #d5adfb;
   border-radius: 50px;
+  transition: 1s ease;
 }
 .chat-container .chat-messages::-webkit-scrollbar-thumb:hover {
-  background: #d5adfb;
+  background: #7655b3;
+  transition: 1s ease;
 }
 .chat-container .chat-messages > div {
   margin-bottom: 15px;
