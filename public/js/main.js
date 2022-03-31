@@ -486,7 +486,7 @@ socket.on('createFlags', flags => {
 
 // Draws Flags on canvas and creates tooltip-instances
 function drawFlags(videoplayerInformation, flags) {
-  console.log("Flags"+ flags)
+  console.log(flags)
   console.log("FlagsID"+flags.flagID)
   var lastflag = flags.length;
   console.log("LastFlag: "+ lastflag)
