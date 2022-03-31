@@ -139,7 +139,7 @@ io.on('connection', (socket) => {
         (async() => {
             const roomInformation = await loadRooms(moodleRoom);
             //räume werden nicht geladen wenn korrigiert.
-            io.to(socket.id).emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWähle danach das Video aus.` + roomInformation));
+            io.to(socket.id).emit('welcome', welcomeMessage('System', `Willkommen zu Lernflix! Am oberen Bildschirmrand kannst Du Räume finden, denen Du beitreten kannst. Klicke einfach auf einen.\nWähle danach das Video aus.`));
             io.to(socket.id).emit('welcome', welcomeMessage('System', `Nutzer:innen gerade online: ` + socket.client.conn.server.clientsCount , roomInformation));
 
         })()
