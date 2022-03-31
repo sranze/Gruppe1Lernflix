@@ -13,8 +13,9 @@ let videoplayerTimeText = document.getElementById('videoplayerTimeText');
 
 let roomsShown = false;
 
-const flagImg = new Image();
+const flagImg0 = new Image();
 flagImg0.src = "../assets/illustrations/icon-exclamation.svg";
+const flagImg1 = new Image();
 flagImg1.src = "../assets/illustrations/icon-question.svg";
 
 // Canvas (flags) 
