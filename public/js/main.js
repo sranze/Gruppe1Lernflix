@@ -488,8 +488,9 @@ socket.on('createFlags', flags => {
 function drawFlags(videoplayerInformation, flags) {
   console.log(flags)
   console.log("FlagsID"+flags.flagID)
-  var lastflag = flags.length;
+  var lastflag = flags.length-1;
   console.log("LastFlag: "+ lastflag)
+  console.log(flags[lastflag].flagID)
   
 //  console.log(flags[0].flagID)
 
