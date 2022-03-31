@@ -116,7 +116,7 @@ socket.on('enableOnJoin', message => {
   document.getElementById("msg").disabled = false;
   document.getElementById("addVideo").disabled = false;
   document.getElementById("videoControls").style.display = "inherit";
-  document.getElementById("videoElements").stylwe.display = "inherit";
+  document.getElementById("videoElements").style.display = "inherit";
 
 });
 
@@ -489,6 +489,7 @@ function drawFlags(videoplayerInformation, flags) {
   fruits.forEach(function (item, index, flags) {
     console.log(item, index);
   });
+  
   let flagCanvas = document.getElementById('flagsCanvas');
   let flagCanvasctx = flagCanvas.getContext("2d")
   let videoplayerSeekslider = document.getElementById('seekslider');
