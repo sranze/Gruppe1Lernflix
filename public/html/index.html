@@ -180,11 +180,7 @@
                   <div class="row">
                     <div class="range-slider">
                       <input id="seekslider" class="range-slider__range" type="range" value="0" min="0" max="100">
-                      <span id="videoplayerTimeText" class="range-slider__value">0:00/0:00</span>
-                    </div>
-                  </div>
-
-                  <div class="row range-slider-attributes">
+                                        <div class="row range-slider-attributes">
                     <div class="volumeControl">
                       <input class="range-slider__range" type="range" min="0" max="100" step="1" oninput="setVolume(this.value)" onchange="setVolume(this.value)">
                       <svg xmlns="http://www.w3.org/2000/svg" width="13.5" height="16" viewBox="0 0 13.5 16">
@@ -193,6 +189,11 @@
                     </div>
                     
                   </div>
+                      <span id="videoplayerTimeText" class="range-slider__value">0:00/0:00</span>
+                    </div>
+                  </div>
+
+
                   <div class="playercontrol">
 
                     <button id="start" type="button" class="btn" onclick="playVideo()">Play</button>
