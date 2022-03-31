@@ -14,7 +14,8 @@ let videoplayerTimeText = document.getElementById('videoplayerTimeText');
 let roomsShown = false;
 
 const flagImg = new Image();
-flagImg.src = "../assets/illustrations/Icon feather-flag.svg";
+flagImg0.src = "../assets/illustrations/icon-exclamation.svg";
+flagImg1.src = "../assets/illustrations/icon-question.svg";
 
 // Canvas (flags) 
 let flagCanvas = document.getElementById('flagsCanvas');
@@ -507,8 +508,13 @@ function drawFlags(videoplayerInformation, flags) {
   for (var i = 0; i < flags.length; i++) {
 
     positionOnCanvas = flags[i].videoTime * oneSecondLength;
-
-    flagCanvasctx.drawImage(flagImg, positionOnCanvas, flagCanvas.height * (1 / 4));
+    
+    if(flags.flagID == 0){
+    flagCanvasctx.drawImage(flagImg0, positionOnCanvas, flagCanvas.height * (1 / 4));
+    }else if(flags.flagID == 1){
+      
+    flagCanvasctx.drawImage(flagImg1, positionOnCanvas, flagCanvas.height * (1 / 4));
+    }
     var flagObject = {
       xPos: positionOnCanvas,
       yPos: flagCanvas.height * (1 / 4),
