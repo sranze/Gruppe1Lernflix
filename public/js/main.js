@@ -488,9 +488,6 @@ socket.on('createFlags', flags => {
 function drawFlags(videoplayerInformation, flags) {
   console.log(flags.flagID)
   console.log(flags)
-  fruits.forEach(function (item, index, flags) {
-    console.log(item, index);
-  });
   
   let flagCanvas = document.getElementById('flagsCanvas');
   let flagCanvasctx = flagCanvas.getContext("2d")
