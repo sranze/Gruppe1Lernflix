@@ -268,7 +268,7 @@ rgb(33, 37, 41):root {
 .chat-container .chat-header #lernflixRoomName {
   font-size: 16px;
 }
-.chat-container .chat-header .chat-main {
+.chat-container .chat-main {
   overflow-y: scroll;
   height: 20rem;
 }
