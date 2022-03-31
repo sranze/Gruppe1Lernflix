@@ -488,7 +488,7 @@ socket.on('createFlags', flags => {
 function drawFlags(videoplayerInformation, flags) {
   console.log(flags.flagID)
   console.log(flags)
-  
+
   let flagCanvas = document.getElementById('flagsCanvas');
   let flagCanvasctx = flagCanvas.getContext("2d")
   let videoplayerSeekslider = document.getElementById('seekslider');
@@ -506,12 +506,12 @@ function drawFlags(videoplayerInformation, flags) {
   for (var i = 0; i < flags.length; i++) {
 
     positionOnCanvas = flags[i].videoTime * oneSecondLength;
-    
-    if(flags.flagID == 0){
-    flagCanvasctx.drawImage(flagImg0, positionOnCanvas, flagCanvas.height * (1 / 4));
-    }else if(flags.flagID == 1){
-      
-    flagCanvasctx.drawImage(flagImg1, positionOnCanvas, flagCanvas.height * (1 / 4));
+
+    if (flags.flagID == 0) {
+      flagCanvasctx.drawImage(flagImg0, positionOnCanvas, flagCanvas.height * (1 / 4));
+    } else if (flags.flagID == 1) {
+
+      flagCanvasctx.drawImage(flagImg1, positionOnCanvas, flagCanvas.height * (1 / 4));
     }
     var flagObject = {
       xPos: positionOnCanvas,
@@ -615,7 +615,14 @@ function deleteFlag(position) {
 function mouseWithinFlag(mouseX, mouseY) {
   if (flagsPositions.length !== 0) {
     for (var i = 0; i < flagsPositions.length; i++) {
-      if (mouseX >= (flagsPositions[i].xPos) && mouseX <= (flagsPositions[i].xPos + flagImg.width) && mouseY > flagsPositions[i].yPos && mouseY < (flagsPositions[i].yPos + flagImg.height)) {
+      //flag0
+      if (mouseX >= (flagsPositions[i].xPos) && mouseX <= (flagsPositions[i].xPos + flagImg0.width) && mouseY > flagsPositions[i].yPos && mouseY < (flagsPositions[i].yPos + flagImg0.height)) {
+        tippyFlagTooltips[i].show()
+      } else {
+        tippyFlagTooltips[i].hide()
+      }
+      //flag1
+      if (mouseX >= (flagsPositions[i].xPos) && mouseX <= (flagsPositions[i].xPos + flagImg1.width) && mouseY > flagsPositions[i].yPos && mouseY < (flagsPositions[i].yPos + flagImg1.height)) {
         tippyFlagTooltips[i].show()
       } else {
         tippyFlagTooltips[i].hide()
