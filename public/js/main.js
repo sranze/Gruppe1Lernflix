@@ -509,12 +509,13 @@ function drawFlags(videoplayerInformation, flags) {
   tippyFlagTooltips = []
   // Create flag objects for mouse tracking and tooltip-instances
   for (var i = 0; i < flags.length; i++) {
+    console.log(flags[i])
 
     positionOnCanvas = flags[i].videoTime * oneSecondLength;
 
-    if (flags.flagID == 0) {
+    if (flags[lastflag].flagID == 0) {
       flagCanvasctx.drawImage(flagImg0, positionOnCanvas, flagCanvas.height * (1 / 4));
-    } else if (flags.flagID == 1) {
+    } else if (flags[lastflag].flagID == 1) {
 
       flagCanvasctx.drawImage(flagImg1, positionOnCanvas, flagCanvas.height * (1 / 4));
     }
