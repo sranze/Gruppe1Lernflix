@@ -268,11 +268,11 @@ rgb(33, 37, 41):root {
 .chat-container .chat-header #lernflixRoomName {
   font-size: 16px;
 }
-.chat-container .chat-main {
-  overflow-y: scroll;
-  height: 20rem;
-}
 .chat-container .chat-messages {
+  padding-right: 5px;
+  max-height: 20rem;
+  max-width: 500px;
+  overflow-y: scroll;
   /* Track */
   /* Handle */
   /* Handle on hover */
@@ -281,14 +281,14 @@ rgb(33, 37, 41):root {
   width: 10px;
 }
 .chat-container .chat-messages::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: rgba(0, 0, 0, 0);
 }
 .chat-container .chat-messages::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #7655b3;
   border-radius: 50px;
 }
 .chat-container .chat-messages::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #d5adfb;
 }
 .chat-container .chat-messages > div {
   margin-bottom: 15px;
