@@ -516,9 +516,9 @@ function drawFlags(videoplayerInformation, flags) {
 
     positionOnCanvas = flags[i].videoTime * oneSecondLength;
 
-    if (flags[lastflag].flagID == 0) {
+    if (flags[i].flagID == 0) {
       flagCanvasctx.drawImage(flagImg0, positionOnCanvas, flagCanvas.height * (1 / 4));
-    } else if (flags[lastflag].flagID == 1) {
+    } else if (flags[i].flagID == 1) {
 
       flagCanvasctx.drawImage(flagImg1, positionOnCanvas, flagCanvas.height * (1 / 4));
     }
