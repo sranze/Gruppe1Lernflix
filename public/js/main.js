@@ -460,7 +460,7 @@ function addFlag(flagID) {
     videoURL: videoURL,
     annotation: annotation,
     creatorUsername: creatorUsername,
-    flagID: flagID;
+    flagID: flagID
   }
   if (flagInformation.roomID === 'undefined' || flagInformation.creatorID === 'undefined' || flagInformation.videoTime === 'undefined' || flagInformation.videoURL === 'undefined' || flagInformation.annotation === 'undefined' || flagInformation.creatorUsername === 'undefined') {
     createSystemNotification("Fehler beim Hinzufügen einer Flagge. Bitte später erneut versuchen.", false);
