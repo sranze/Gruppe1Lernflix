@@ -453,7 +453,6 @@ function addFlag(flagID) {
   let videoURL = videoplayer.src;
   let creatorID = params.userid;
   let creatorUsername = params.username;
-  let flagID = 1;
   let flagInformation = {
     roomID: roomID,
     creatorID: creatorID,
