@@ -451,7 +451,11 @@ function getVideoInfo() {
 function addFlag(flagID) {
   let roomID = lernflixRoomID;
   let videoTime = videoplayer.currentTime;
-  let annotation = document.getElementById('flagAnnotation').value;
+  if(flagID == 0){
+    let annotation = document.getElementById('flagAnnotation').value;
+  }else{
+    let annotation = document.getElementById('flagAnnotation2').value;
+  }
   let videoURL = videoplayer.src;
   let creatorID = params.userid;
   let creatorUsername = params.username;
