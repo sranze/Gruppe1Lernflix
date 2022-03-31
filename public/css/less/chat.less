@@ -29,17 +29,46 @@ rgb(33, 37, 41):root {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    h2,p{
-    color: #000;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 300;
+
+    h2,
+    p {
+      color: #000;
+      font-family: 'Roboto', sans-serif;
+      font-weight: 300;
     }
+
     #lernflixRoomName {
       font-size: 16px;
+    }
+
+    .chat-main {
+      overflow-y: scroll;
+      height: 20rem;
+
     }
   }
 
   .chat-messages {
+    
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: #f1f1f1;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: #888;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+
+    }
 
     & > div {
       margin-bottom: 15px;
@@ -240,7 +269,7 @@ rgb(33, 37, 41):root {
         #sendsvg {
           fill: #fff;
           transition: 0.4s ease-out;
-          
+
         }
       }
 
