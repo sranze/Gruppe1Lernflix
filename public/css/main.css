@@ -285,6 +285,7 @@ rgb(33, 37, 41):root {
 }
 .chat-container .chat-messages::-webkit-scrollbar-thumb {
   background: #888;
+  border-radius: 50px;
 }
 .chat-container .chat-messages::-webkit-scrollbar-thumb:hover {
   background: #555;
