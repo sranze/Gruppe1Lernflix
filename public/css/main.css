@@ -644,7 +644,7 @@ rgb(33, 37, 41):root {
 }
 /* Place the navbar at the bottom of the page, and make it stick */
 .navba {
-  background-color: #333;
+  background-color: #212238;
   overflow: hidden;
   position: fixed;
   bottom: 0;
@@ -669,4 +669,31 @@ rgb(33, 37, 41):root {
 .navba a.active {
   background-color: #4CAF50;
   color: white;
+}
+#feedbackModal input,
+#about input,
+#contact input {
+  color: #000;
+  font-size: 1rem;
+}
+#feedbackModal input:focus,
+#about input:focus,
+#contact input:focus {
+  background-color: #fff;
+  border-color: #fff;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(92, 66, 137, 0.25);
+}
+#feedbackModal .modal-dialog .modal-footer > button,
+#about .modal-dialog .modal-footer > button,
+#contact .modal-dialog .modal-footer > button {
+  background-color: #5C4289;
+  color: #fff;
+  font-size: 1rem;
+  transition: 0.3s;
+}
+#feedbackModal .modal-dialog .modal-footer > button:hover,
+#about .modal-dialog .modal-footer > button:hover,
+#contact .modal-dialog .modal-footer > button:hover {
+  background-color: #8660C7;
 }
