@@ -125,7 +125,7 @@ body {
 }
 .volumeControl svg {
   margin-left: 5px;
-  position: absolute;
+  vertical-align: baseline;
 }
 .volumeControl input {
   width: 100px;
