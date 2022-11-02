@@ -198,8 +198,8 @@
 
                     <button id="start" type="button" class="btn" onclick="playVideo()">Play</button>
                     <button id="pause" class="btn " onclick="pauseVideo()">Pause</button>
-                    <button id="setFlag" class="btn " data-toggle="modal" data-target="#flagModal" onclick="loadFlagModal()">Flagge Setzen</button>
-                    <button id="setFlag2" class="btn " data-toggle="modal" data-target="#flagModal2" onclick="loadFlagModal()">Flagge Setzen2</button>
+                    <button id="setFlag" class="btn " data-toggle="modal" data-target="#flagModal" onclick="loadFlagModal()">!</button>
+                    <button id="setFlag2" class="btn " data-toggle="modal" data-target="#flagModal2" onclick="loadFlagModal()">?</button>
                     <button id="removeFlag" class="btn" data-toggle="modal" data-target="#removeFlagModal" onclick="loadRemoveFlagModal()">Flagge entfernen</button>
                     <button disabled id="addVideo" type="button" class="btn" data-toggle="modal" data-target="#listvideos">Video auswählen</button>
 
@@ -275,8 +275,10 @@
           <div class="modal-body container">
             <div class="row">
               <div class="col-12 videolist">
-                <button type="button" data-dismiss="modal" class="btn btn-secondary" onclick="changeVideo(`https://opencast-engage.hs-rw.de/static/mh_default_org/engage-player/26316efa-efa8-4906-b9c4-2ef5d1a613a3/17fe9ed6-72f1-4024-848b-85af5104e30d/_.mp4`)">Video 1 - Hasen</button>
-                <button type="button" data-dismiss="modal" class="btn btn-secondary" onclick="changeVideo(`https://opencast-engage.hs-rw.de/static/mh_default_org/api/8531fc76-4876-4113-b36a-d47e822ceb70/03a1670b-d5ca-41f6-8a29-7ca5a387efac/_.mp4`)">Video 2 - Python</button>
+                <button type="button" data-dismiss="modal" class="btn btn-secondary" onclick="changeVideo(`https://hs-rw.sciebo.de/s/MA3xZ3VM2qjoFcb/download`)">W05V01 Komplexe Entscheidungsstrukturen</button>
+                <button type="button" data-dismiss="modal" class="btn btn-secondary" onclick="changeVideo(`https://hs-rw.sciebo.de/s/DIC4QUtdGJP0C0g/download`)">W05V02 De Morgansche Gesetze</button>
+                <button type="button" data-dismiss="modal" class="btn btn-secondary" onclick="changeVideo(`https://hs-rw.sciebo.de/s/yuC5rnEgWaxLTcD/download`)">W05V03 Boolsche Variablen</button>
+                <button type="button" data-dismiss="modal" class="btn btn-secondary" onclick="changeVideo(`https://hs-rw.sciebo.de/s/pV2qKpFVDIf3BTy/download`)">W05V04 Wiederholungsstrukturen while-Schleifen</button>
               </div>
             </div>
           </div>
