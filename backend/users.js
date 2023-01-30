@@ -34,13 +34,12 @@ function getMoodleRoomUsers(moodleRoom) {
     return users.filter(users => user.moodleRoom === moodleRoom);
 }
 
-// Returns all on heap available users
-function returnAllUsers() {
-    return users;
-}
+
 
 module.exports = {
     userJoin,
     getCurrentUser,
-    userLeave
+    userLeave,
+    getCurrentUser
+
 }
