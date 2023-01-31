@@ -44,6 +44,5 @@ module.exports = {
     getCurrentUser,
     userLeave,
     getCurrentUser,
-    returnAllUsers
 
 }
