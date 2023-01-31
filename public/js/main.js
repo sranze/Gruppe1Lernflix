@@ -1,5 +1,5 @@
 // Chat references
-const {returnAllUsers} = require("../../backend/users");
+
 const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
 

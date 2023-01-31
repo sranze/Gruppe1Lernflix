@@ -229,18 +229,6 @@ function saveFeedback(userid, username, feedbackText, moodleRoom, moodleRoomName
         client.end();
     }
 }
-function getAllUsers(){
-    const Client = newPool();
-    Client.query('SELECT * FROM moodledatauser;'),(err, res) => {
-        if (err){
-            console.log(err)
-
-        }else{
-            console.log(res)
-        }
-    }
-}
-
 
 
 
