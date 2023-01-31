@@ -162,10 +162,6 @@ function showMessage(message) {
   }
 
 }
-function getAllUsers(){
-  const user= returnAllUsers();
-  console.log(user);
-}
 
 
 
