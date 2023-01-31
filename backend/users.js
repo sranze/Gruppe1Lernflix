@@ -36,7 +36,8 @@ function getMoodleRoomUsers(moodleRoom) {
 
 // Returns all on heap available users
 function returnAllUsers() {
-    console.log(users);
+
+    return users;
 }
 
 module.exports = {
@@ -44,5 +45,6 @@ module.exports = {
     getCurrentUser,
     userLeave,
     getCurrentUser,
+    returnAllUsers
 
 }
