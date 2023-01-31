@@ -238,5 +238,5 @@ module.exports = {
     saveRooms,
     saveFeedback,
     loadFeedback,
-    getAllUsers
+
 }
