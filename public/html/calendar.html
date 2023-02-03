@@ -1,0 +1,106 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/calendar.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+
+
+<body>
+
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Meeting
+            </h5>
+
+        </div>
+        <div class="modal-body">
+            <div>
+                <label id="id">ID:</label>
+            </div>
+            <div>
+                <label id="vorlesung">Vorlesung:</label>
+            </div>
+            <div>
+                <label id="startzeit">Start:</label>
+            </div>
+            <div>
+                <label id="endzeit">Ende:</label>
+            </div>
+            <div>
+                <label id="customValue">Description:</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="close" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="sign">Sign In</button>
+            <button type="button" id="deleteButton" class="btn btn-danger">Delete</button>
+            <button type="button" id="roomButton" class="btn btn-link" >Room</button>
+        </div>
+    </div>
+</div>
+<main>
+
+    <div class="modal" id="eventModal">
+        <h2 id="modalTitle"> New Meeting
+        </h2>
+        <label for="Id" class="descriptor">Id</label>
+        <div>
+            <input type="text" id="Id" name="Id" class="shortInput"></input>
+        </div>
+        <label for="Room" class="descriptor">Room</label>
+        <div>
+            <input type="text" id="room" name="Room" class="shortInput"></input>
+        </div>
+        <label for="User" class="descriptor">Teilnehmer</label>
+        <div>
+            <input type="text" id="user" name="Room" class="shortInput"></input>
+        </div>
+        <label for="vorlesung">Vorlesung</label>
+        <div>
+            <div class="modal-body container">
+                <select id="title" multiple size="4">
+                    <option>W05V01 Komplexe Entscheidungsstrukturen</option>
+                    <option>W05V02 Programmierung 1</option>
+                    <option>W05V03 Programmierung 2</option>
+                    <option>W05V04 Ingenieurmathematik 3</option>
+                </select>
+            </div>
+        </div>
+
+        <label class="descriptor" for="date">Date</label>
+        <div>
+            <input type="date" id="date" name="date" data-date-format="YYYY-MM-DD" class="shortInput"></input>
+        </div>
+        <label class="descriptor" for="time">Time</label>
+        <div>
+            <input type="time" id="eventStart" name="time" class="shortInput">‒
+            <input type="time" id="eventEnd" name="time" class="shortInput">
+        </div>
+        <label for="description" class="descriptor">
+            Description
+        </label>
+        <div>
+            <textarea id="description" name="description" type="text" class="descriptor"></textarea>
+        </div>
+        <div class="modal-footer" id="eventControls">
+            <input type="submit" value="Submit" class="btn btn-success" id="submitButton">
+            <input type="button" value="Cancel" class="btn btn-secondary" id="cancelButton">
+        </div>
+    </div>
+</main>
+<div id='calendar'></div>
+
+<script src="../js/calendar.js" type="module">
+
+</script>
+
+</body>
+</html>
+
+
