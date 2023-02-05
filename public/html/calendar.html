@@ -3,13 +3,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/calendar.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link
+            rel="stylesheet" href="../assets/icons/icon-bar.css"/>
+    <!-- font-icons css-->
+    <link
+            rel="stylesheet" href="../assets/icons/font-icons.css"/>
+    <!-- main css-->
+    <link rel="stylesheet" href="../css/main.css"/>
 </head>
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="../assets/jquery/jquery.js"> </script>
+<script src="https://unpkg.com/bowser@2.7.0/es5.js"></script>
+<!-- Bootstrap core CSS / JS -->
+<link rel="stylesheet" href="../css/bootstrap.css"/>
+<script src="../assets/bootstrap/bootstrap.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js" integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf" crossorigin="anonymous"></script>
+<!-- icon bar css-->
+
+
+<header>
+    <div class="navbar navbar-expand-md navbar-dark shadow-sm">
+        <div
+                class="navcontainer">
+
+            <!--       LEFT-->
+            <div class="logo">
+                <img src="../assets/illustrations/logo.png"/>
+                <a class="navbar-brand d-flex align-items-center">
+                    <strong id="logoName">VLearn</strong>
+                </a>
+            </div>
+
+            <!--MIDDLE-->
+            <div class="room">
+                <button class="btn" type="button" id="start">Startseite</button>
+                <script>
+                    document.getElementById('start').onclick=function (){
+                        window.location.href='index.html';
+                    }
+                </script>
 
 
 
+            </div>
+
+            <!--RIGHT-->
+            <div class="profileInfo">
+
+                <img id="profileImg" src="../assets/illustrations/error404_2.png"/>
+                <div class="profileText">
+                    <p id="profileName">Raoul Nzefa&nbsp;</p>
+                    <!-- <a href="logout.html">
+                                                                                        <p>
+                                                                                            <strong>Logout</strong>
+                                                                                        </p>
+                                                                                    </a> -->
+                    <button type="button" class="btn btn-default" onclick="logOut()" style="color: #ffffff;">
+                        <p>
+                            <strong>Logout</strong>
+                        </p>
+                    </button>
+                </div>
+
+                <!-- <a href="html/own_room.html" style="color: #ffffff;">Eigener Raum</a> -->
+                <button type="button" class="btn btn-default" id="ownRoom" style="color: #ffffff;">
+                    Eigner Raum
+                </button>
+                <script>
+                    document.getElementById('ownRoom').onclick=function () {
+                        window.location.href='ownRoom.html';
+                    }
+                </script>
+
+            </div>
+        </div>
+    </div>
+</header>
 <body>
 
 <div class="modal" id="modal">
@@ -33,6 +104,12 @@
                 <label id="endzeit">Ende:</label>
             </div>
             <div>
+                <label id="kind">Art des Meetings:</label>
+            </div>
+            <div>
+                <label id="Group">User:</label>
+            </div>
+            <div>
                 <label id="customValue">Description:</label>
             </div>
         </div>
@@ -40,7 +117,7 @@
             <button type="button" id="close" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" id="sign">Sign In</button>
             <button type="button" id="deleteButton" class="btn btn-danger">Delete</button>
-            <button type="button" id="roomButton" class="btn btn-link" >Room</button>
+            <button type="button" id="roomButton" class="btn btn-link">Room</button>
         </div>
     </div>
 </div>
@@ -49,22 +126,23 @@
     <div class="modal" id="eventModal">
         <h2 id="modalTitle"> New Meeting
         </h2>
-        <label for="Id" class="descriptor">Id</label>
+        <label for="Id" class="descriptor">OwnerId</label>
         <div>
-            <input type="text" id="Id" name="Id" class="shortInput"></input>
+            <input type="number" id="Id" name="Id" class="shortInput" min="1"></input>
         </div>
-        <label for="Room" class="descriptor">Room</label>
+        <label for="Room" class="descriptor">Raum</label>
         <div>
             <input type="text" id="room" name="Room" class="shortInput"></input>
         </div>
         <label for="User" class="descriptor">Teilnehmer</label>
         <div>
-            <input type="text" id="user" name="Room" class="shortInput"></input>
+            <input type="text" id="user" class="shortInput">
+
         </div>
         <label for="vorlesung">Vorlesung</label>
         <div>
             <div class="modal-body container">
-                <select id="title" multiple size="4">
+                <select id="title" multiple multiselect-select-search="true">
                     <option>W05V01 Komplexe Entscheidungsstrukturen</option>
                     <option>W05V02 Programmierung 1</option>
                     <option>W05V03 Programmierung 2</option>
@@ -73,20 +151,39 @@
             </div>
         </div>
 
-        <label class="descriptor" for="date">Date</label>
+        <label class="descriptor" for="date">Datum</label>
         <div>
             <input type="date" id="date" name="date" data-date-format="YYYY-MM-DD" class="shortInput"></input>
         </div>
-        <label class="descriptor" for="time">Time</label>
+        <label class="descriptor" for="time">Uhrzeit</label>
         <div>
-            <input type="time" id="eventStart" name="time" class="shortInput">‒
+            <input type="time" id="eventStart" name="time" class="shortInput">-
             <input type="time" id="eventEnd" name="time" class="shortInput">
         </div>
+        <div>
+            <input type="checkbox" id="private" value="private">
+            <label for="private">Privat</label>
+            <input type="checkbox" id="public" value="public">
+            <label for="public">Public</label>
+        </div>
+        <div>
+            <input type="checkbox" id="attend">
+            <label for="attend">Unbegrenzt</label>
+            <input type="checkbox" id="limit">
+            <label for="limit">Begrenzt</label>
+            <input type="number" id='limited' class="shortInput" min="1"></input>
+        </div>
+
+
         <label for="description" class="descriptor">
-            Description
+            Beschreibung
         </label>
         <div>
             <textarea id="description" name="description" type="text" class="descriptor"></textarea>
+        </div>
+        <div id="colors">
+            <input type="button" name="color" value="" id="red" class="color color-red" data-color="red"></input>
+            <input type="button" name="color" value="" id="green" class="color color-green" data-color="green"></input>
         </div>
         <div class="modal-footer" id="eventControls">
             <input type="submit" value="Submit" class="btn btn-success" id="submitButton">
@@ -94,13 +191,50 @@
         </div>
     </div>
 </main>
+
 <div id='calendar'></div>
+<!-- Modal Contact-->
+<div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="contact" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="contact1">Kontakt</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bei generellen Rückfragen zu Lernflix:</p>
+                <a href="mailto: lernflix@hs-ruhrwest.de">Lernflix E-Mail
+                </a>(lernflix@hs-ruhrwest.de)
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Navbar Bottom-->
+<div class="navba" style="text-align: center">
+    <a href="#home" data-toggle="modal" data-target="#feedbackModal" style="text-align: center">Feedback</a>
+    <a href="#news" style="text-align: center" data-toggle="modal" data-target="#about">
+        Über Lernflix</a>
+    <a href="#contact" style="text-align: center" data-toggle="modal" data-target="#contact">Kontakt</a>
+    <a href="https://faq-lernflix.herokuapp.com/" target="_blank" style="text-align: center">FAQ</a>
+</div>
 
 <script src="../js/calendar.js" type="module">
+    <script src="https://unpkg.com/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+
+<script src="../js/main.js"></script>
 
 </script>
 
 </body>
 </html>
+
 
 
