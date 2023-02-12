@@ -1,6 +1,8 @@
 require('dotenv').config()
 
 const express = require('express'); // Express as webserverr
+const cors = require('cors');
+//const bodyParser = require('body-parser')
 //const Filter = require('bad-words');
 const PORT = process.env.PORT;
 const socketIO = require('socket.io');
@@ -32,7 +34,7 @@ const server = http.createServer(app); // Create new server object for io (socke
 app.enable('trust proxy'); // Propably not necessary. Heroku App most likely doesnt run behind proxy??
 
 var sessions = {}; // array contains info about different sessions
-
+app.use(cors())
 app.use(express.static(__dirname + '/public')); // serve the files out of ./public as our main files (css, js, html)
 
 app.post("*", require("body-parser").urlencoded({ extended: true }));
@@ -114,11 +116,19 @@ app.get('/logout.html', function(req, res) {
 app.get('*', function(req, res) {
     res.sendFile(path.join(__dirname + "/public/html/error_404.html"));
 });
+app.get('calendar.html',function (req, res, next) {
+    res.json({msg:'This cors is enabled for all orgins'})
+
+});
 
 // start server on the specified port and binding host
 server.listen(PORT, '0.0.0.0', function() {
     console.log("Server starting on " + PORT); // print a message when the server starts listening
 });
+app.listen(PORT, '0.0.0.0', function () {
+        console.log("Server starting on " + PORT);
+    }
+);
 
 const io = socketIO(server); // New socket-io object
 
