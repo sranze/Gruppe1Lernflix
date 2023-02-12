@@ -1,4 +1,4 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/calendar.css">
@@ -68,7 +68,7 @@
                 </div>
 
                 <!-- <a href="html/own_room.html" style="color: #ffffff;">Eigener Raum</a> -->
-                <button type="button" class="btn btn-default" id="ownRoom" style="color: #ffffff;">
+                <button type="button" class="btn btn-default" id="ownRoom" >
                     Eigner Raum
                 </button>
                 <script>
@@ -91,11 +91,17 @@
 
         </div>
         <div class="modal-body">
-            <div>
-                <label id="id">ID:</label>
+            <div id="id-form" style="display: none">
+
+
             </div>
             <div>
                 <label id="vorlesung">Vorlesung:</label>
+
+
+            </div>
+            <div>
+                <label id="owner">Start:</label>
             </div>
             <div>
                 <label id="startzeit">Start:</label>
@@ -113,12 +119,92 @@
                 <label id="customValue">Description:</label>
             </div>
         </div>
+
         <div class="modal-footer">
             <button type="button" id="close" class="btn btn-secondary" data-mdb-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" id="sign">Sign In</button>
             <button type="button" id="deleteButton" class="btn btn-danger">Delete</button>
-            <button type="button" id="roomButton" class="btn btn-link">Room</button>
+            <button type="button" id="roomButton" class="btn btn-secondary">Room</button>
+            <button type="button" id="editButton" class="btn btn-secondary">Edit</button>
         </div>
+        <script>
+            document.getElementById('roomButton').onclick=function () {
+                window.location.href='ownRoom.html';
+            }
+        </script>
+    </div>
+</div>
+
+<div class="modal" id="Modalevent">
+    <h2 id="titel"> New Meeting
+    </h2>
+    <label for="ID" class="descriptor">Id</label>
+    <div>
+        <input type="number" id="Id" name="ID" class="shortInput" min="1"></input>
+    </div>
+    <label for="Id" class="descriptor">OwnerId</label>
+    <div>
+        <input type="text" id="Admin" name="Id" class="shortInput" min="1"></input>
+    </div>
+    <label for="Room" class="descriptor">Raum</label>
+    <div>
+        <input type="text" id="raum" name="Room" class="shortInput"></input>
+    </div>
+    <label for="User" class="descriptor">Teilnehmer</label>
+    <div>
+        <input type="text" id="users" class="shortInput">
+
+    </div>
+    <label for="vorlesung">Vorlesung</label>
+    <div>
+        <div class="modal-body container">
+            <select id="lectures" multiple multiselect-select-search="true">
+                <option>W05V01 Komplexe Entscheidungsstrukturen</option>
+                <option>W05V02 Programmierung 1</option>
+                <option>W05V03 Programmierung 2</option>
+                <option>W05V04 Ingenieurmathematik 3</option>
+
+            </select>
+        </div>
+    </div>
+
+    <label class="descriptor" for="date">Datum</label>
+    <div>
+        <input type="date" id="dates" name="date" data-date-format="YYYY-MM-DD" class="shortInput"></input>
+    </div>
+    <label class="descriptor" for="times">Uhrzeit</label>
+    <div>
+        <input type="time" id="startEvent" name="time" class="shortInput">-
+        <input type="time" id="endEvent" name="time" class="shortInput">
+    </div>
+    <div>
+        <input type="checkbox" id="Private" value="private">
+        <label for="private">Privat</label>
+        <input type="checkbox" id="Public" value="public">
+        <label for="public">Public</label>
+    </div>
+    <div>
+        <input type="checkbox" id="attends" min="-1">
+        <label for="attend">Unbegrenzt</label>
+
+        <input type="number" id='limitless' class="shortInput" value="999" min="-1"></input>
+        <br>
+        <input type="checkbox" id="limits">
+        <label >Begrenzt</label>
+        <input type="number"  class="shortInput" min="1"></input>
+    </div>
+
+
+    <label for="description" class="descriptor">
+        Beschreibung
+    </label>
+    <div>
+        <textarea id="descriptions" name="description" type="text" class="descriptor"></textarea>
+    </div>
+
+    <div class="modal-footer" id="eventControls">
+        <input type="submit" value="Submit" class="btn btn-success" id="saveButton">
+        <input type="button" value="Cancel" class="btn btn-secondary" id="closeButton">
     </div>
 </div>
 <main>
@@ -126,9 +212,13 @@
     <div class="modal" id="eventModal">
         <h2 id="modalTitle"> New Meeting
         </h2>
+        <label for="ID" class="descriptor">Id</label>
+        <div>
+            <input type="number" id="ID" name="ID" class="shortInput" min="1"></input>
+        </div>
         <label for="Id" class="descriptor">OwnerId</label>
         <div>
-            <input type="number" id="Id" name="Id" class="shortInput" min="1"></input>
+            <input type="text" id="OwnerId" name="Id" class="shortInput" min="1"></input>
         </div>
         <label for="Room" class="descriptor">Raum</label>
         <div>
@@ -142,12 +232,7 @@
         <label for="vorlesung">Vorlesung</label>
         <div>
             <div class="modal-body container">
-                <select id="title" multiple multiselect-select-search="true">
-                    <option>W05V01 Komplexe Entscheidungsstrukturen</option>
-                    <option>W05V02 Programmierung 1</option>
-                    <option>W05V03 Programmierung 2</option>
-                    <option>W05V04 Ingenieurmathematik 3</option>
-                </select>
+                <input type="text" id="title" class="shortInput">
             </div>
         </div>
 
@@ -167,11 +252,14 @@
             <label for="public">Public</label>
         </div>
         <div>
-            <input type="checkbox" id="attend">
+            <input type="checkbox" id="attend" min="-1">
             <label for="attend">Unbegrenzt</label>
+
+            <input type="number" id='unlimited' class="shortInput" value="999"></input>
+            <br>
             <input type="checkbox" id="limit">
-            <label for="limit">Begrenzt</label>
-            <input type="number" id='limited' class="shortInput" min="1"></input>
+            <label for="limited">Begrenzt</label>
+            <input type="number" id='limited' class="shortInput" min="1" style="display: none"></input>
         </div>
 
 
@@ -181,10 +269,7 @@
         <div>
             <textarea id="description" name="description" type="text" class="descriptor"></textarea>
         </div>
-        <div id="colors">
-            <input type="button" name="color" value="" id="red" class="color color-red" data-color="red"></input>
-            <input type="button" name="color" value="" id="green" class="color color-green" data-color="green"></input>
-        </div>
+
         <div class="modal-footer" id="eventControls">
             <input type="submit" value="Submit" class="btn btn-success" id="submitButton">
             <input type="button" value="Cancel" class="btn btn-secondary" id="cancelButton">
