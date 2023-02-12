@@ -52,35 +52,73 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (this.checked) {
                             document.getElementById("attend").disabled = true;
                             document.getElementById('limit').checked = true;
+                            document.getElementById('public').checked = false;
                         }
                     });
+                    document.getElementById('public').addEventListener('click', function () {
+                        if(this.checked){
+                            document.getElementById('private').checked = false;
+                            document.getElementById("attend").disabled = false;
+                        }
+                    })
+                    var max =-1;
+                    document.getElementById('attend').addEventListener('click', function (info) {
+
+                        if(this.checked){
+                            document.getElementById('limit').checked=false;
+                            document.getElementById('limited').disabled= true;
+                            max=-1;
+                        }
+
+                    })
+                    document.getElementById('limit').addEventListener('click', function (info) {
+                        console.log(this.checked)
+                        if(this.checked){
+                            document.getElementById('attend').checked=false;
+                            document.getElementById('limited').disabled= false;
+                            max=document.getElementById('limited').value;
+                        }
+
+                    })
+                    document.getElementById('limited').addEventListener('change', function (info) {
+                        max=this.value;
+                    })
                     //speichern eines neuen Meetings
                     document.getElementById('submitButton').onclick = function (info) {
 
-                        var color;
-                        if (document.getElementById('private').checked === true && info.event.id === info.event.id) {
-                            info.event.remove();
-                            color = 'red';
+                        if (document.getElementById('private').checked === true) {
+                            calendar.addEvent({
+                                id: document.getElementById('ID').value,
+                                start: document.getElementById('date').value + 'T' + document.getElementById('eventStart').value,
+                                title: document.getElementById('title').value,
+                                ownerId: document.getElementById('OwnerId').value, //id: document.getElementById('room').value,
+                                userList: document.getElementById('user').value,
+                                description: document.getElementById('description').value,
+                                end: document.getElementById('date').value + 'T' + document.getElementById('eventEnd').value,
+                                maxEvents: max,
+                                isPrivate: document.getElementById('private').checked,
+                                color: 'red',
+                                minEvents: document.getElementById('attend').checked,
+                                unlimited: document.getElementById('unlimited').value
+                            })
+
 
                         } else if (document.getElementById('private').checked === false) {
-                            color = 'green';
-                        } else {
-                            color = 'black';
+                            calendar.addEvent({
+                                id: document.getElementById('ID').value,
+                                start: document.getElementById('date').value + 'T' + document.getElementById('eventStart').value,
+                                title: document.getElementById('title').value,
+                                ownerId: document.getElementById('OwnerId').value, //id: document.getElementById('room').value,
+                                userList: document.getElementById('user').value,
+                                description: document.getElementById('description').value,
+                                end: document.getElementById('date').value + 'T' + document.getElementById('eventEnd').value,
+                                maxEvents: max,
+                                isPrivate: document.getElementById('private').checked,
+                                color: 'green',
+                                minEvents: document.getElementById('attend').checked,
+                                unlimited: document.getElementById('unlimited').value
+                            })
                         }
-                        calendar.addEvent({
-                            id: document.getElementById('ID').value,
-                            start: document.getElementById('date').value + 'T' + document.getElementById('eventStart').value,
-                            title: document.getElementById('title').value,
-                            ownerId: document.getElementById('OwnerId').value, //id: document.getElementById('room').value,
-                            userList: document.getElementById('user').value,
-                            description: document.getElementById('description').value,
-                            end: document.getElementById('date').value + 'T' + document.getElementById('eventEnd').value,
-                            maxEvents: document.getElementById('limited').value,
-                            isPrivate: document.getElementById('private').checked,
-                            color: color,
-                            minEvents: document.getElementById('attend').checked,
-                            unlimited: document.getElementById('unlimited').value
-                        })
                     }
                 }
             }
@@ -155,18 +193,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
             document.getElementById('sign').onclick = function () {
                 var users = document.getElementById('Group').innerHTML.split(",");
-                console.log(users.length)
-                console.log(obj.extendedProps.maxEvents);
-                console.log(obj.extendedProps.unlimited);
+                var isUnlimited= -1 === obj.extendedProps.maxEvents;
+                var isMax= Number(users.length) >= obj.extendedProps.maxEvents;
+                console.log(isMax)
+                console.log(obj.extendedProps.maxEvents)
 
-                if (Number(users.length) >= obj.extendedProps.maxEvents || Number(users.length) >= obj.extendedProps.unlimited) {
-                    alert("Sorry we cannot log you in due to the maximum of users!");
-                }else{
-                    var userInput = prompt("Enter your Nickname:");
+
+// Jeder kann Joinen
+                if(isUnlimited){
+                    var userInput1 = prompt("Enter your Nickname:");
                     var isDuplicate = false;
 
                     users.forEach(function(user) {
-                        if (userInput === user) {
+                        if (userInput1 === user) {
+                            isDuplicate = true;
+                        }
+                    });
+                    if (isDuplicate){
+                        alert('Nickname already in Use');
+                    }else if(document.getElementById('Group').innerHTML===userInput1){
+                        alert('Nickname already in Use')
+                    }
+                    else {
+                        document.getElementById('Group').innerHTML += "," + userInput1;
+                        obj.extendedProps.userList+= "," + userInput1;
+                    }
+                }
+                //Nicht limitiert, prüfen ist noch Platz
+                else if(!isMax){
+                    console.log('limited')
+                    var userInput = prompt("Enter your Nickname:");
+                    var isDuplicate = false;
+                    users.forEach(function(user) {
+                        if (userInput=== user) {
                             isDuplicate = true;
                         }
                     });
@@ -179,6 +238,9 @@ document.addEventListener('DOMContentLoaded', function () {
                         document.getElementById('Group').innerHTML += "," + userInput;
                         obj.extendedProps.userList+= "," + userInput;
                     }
+                }
+                else{
+                    alert('Sorry, it is already full!')
                 }
             }
 
