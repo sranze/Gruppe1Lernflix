@@ -85,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     })
                     //speichern eines neuen Meetings
                     document.getElementById('submitButton').onclick = function (info) {
+                        modal.style.display='none';
 
                         if (document.getElementById('private').checked === true) {
                             calendar.addEvent({
@@ -145,11 +146,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
             var text = document.getElementById('vorlesung').innerHTML = obj.title;
-            var start = document.getElementById('startzeit').innerHTML = 'Start:' + obj.start;
-            var end = document.getElementById('endzeit').innerHTML = 'Ende:' + obj.end;
-            var owner = document.getElementById('owner').innerText = 'OwnerId:' + obj.extendedProps.ownerId;
+            var start = document.getElementById('startzeit').innerHTML =  obj.start;
+            var end = document.getElementById('endzeit').innerHTML =   obj.end;
+            var owner = document.getElementById('owner').innerText =  obj.extendedProps.ownerId;
             var group = document.getElementById('Group').innerText = obj.extendedProps.userList;
-            var user = document.getElementById('user').innerText = obj.groupId;
+            var description= document.getElementById('customValue').innerHTML= obj.extendedProps.description;
+            //var private = document.getElementById('kind').innerHTML=obj.extendedProps.isPrivate;
+            var limited = document.getElementById('max').innerHTML= obj.extendedProps.maxEvents;
 
             //var kind = document.getElementById('kind').innerText = 'Art des Meetings:' +obj.extendedProps.isPrivate;
             if (obj.extendedProps.isPrivate === true) {
@@ -164,12 +167,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById('deleteButton').style.display = 'none';
 
             }
-            var descriptor = document.getElementById('customValue').innerHTML = 'Beschreibung:' + obj.extendedProps.description;
-            /* document.getElementById('roomButton').onclick(function () {
-                 window.location.href = 'ownRoom.html';
-
-             })*/
-
             document.getElementById('close').onclick = function () {
                 var cancel = document.getElementById('modal').style.display = 'none';
             }
@@ -179,18 +176,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
             document.getElementById('editButton').onclick = function () {
-                // var text= document.getElementById('vorlesung').innerHTML =  obj.title;
-                var newValue = document.getElementById('tt').value = text;
                 var edit = document.getElementById('eventModal');
                 edit.style.display = 'block';
+                modal.style.display='none';
 
                 var newValue = document.getElementById('title').value = text;
                 document.getElementById('eventStart').value = start;
                 document.getElementById('eventEnd').value = end;
+                document.getElementById('OwnerId').value= owner;
+                document.getElementById('user').value= group;
+                //  document.getElementById('private').checked= private;
+                document.getElementById('limited').value= limited;
+                document.getElementById('description').value=description;
 
             }
-
-
             document.getElementById('sign').onclick = function () {
                 var users = document.getElementById('Group').innerHTML.split(",");
                 var isUnlimited= -1 === obj.extendedProps.maxEvents;
@@ -208,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         if (userInput1 === user) {
                             isDuplicate = true;
                         }
-                    });
+                    })
                     if (isDuplicate){
                         alert('Nickname already in Use');
                     }else if(document.getElementById('Group').innerHTML===userInput1){
